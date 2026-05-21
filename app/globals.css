@@ -1,0 +1,235 @@
+@import "tailwindcss";
+
+@theme {
+  /* Surface — warm-tinted near-black, never #000 */
+  --color-ink: oklch(0.14 0.012 70);
+  --color-ink-deep: oklch(0.10 0.010 70);
+  --color-ink-raised: oklch(0.18 0.014 70);
+
+  /* Bloom — gold radial halo */
+  --color-bloom: oklch(0.22 0.10 75);
+
+  /* Gold — punctuation, never wash */
+  --color-gold: oklch(0.78 0.165 78);
+  --color-gold-deep: oklch(0.62 0.14 70);
+  --color-gold-soft: oklch(0.85 0.12 85);
+
+  /* Ivory — warm whites */
+  --color-ivory: oklch(0.95 0.012 85);
+  --color-ivory-dim: oklch(0.78 0.010 80);
+  --color-ivory-faint: oklch(0.55 0.008 80);
+
+  /* Hairline — borders only, full not side-stripe */
+  --color-hairline: oklch(0.28 0.008 75);
+
+  /* Fonts */
+  --font-display: var(--font-outfit);
+  --font-display-accent: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+
+  /* Easings — exponential ease-out, no bounce */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Page-wide gold-black gradient — fixed, runs through the entire page.
+       Three layers stacked top-to-bottom:
+         1. Diagonal gold bloom from top-right
+         2. Wide gold bloom from bottom-left
+         3. Vertical gold→ink linear wash
+       Sections are transparent so this shows through everywhere. */
+    background:
+      radial-gradient(
+        ellipse 70% 50% at 90% 8%,
+        oklch(0.42 0.13 78 / 0.55),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 80% 55% at 8% 92%,
+        oklch(0.38 0.12 75 / 0.50),
+        transparent 60%
+      ),
+      linear-gradient(
+        180deg,
+        oklch(0.18 0.030 75) 0%,
+        oklch(0.13 0.018 72) 38%,
+        oklch(0.11 0.015 70) 62%,
+        oklch(0.14 0.025 72) 100%
+      );
+    background-attachment: fixed;
+    min-height: 100%;
+  }
+
+  body {
+    background: transparent;
+    color: var(--color-ivory);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+
+  /* Hide the native cursor when our custom one is active.
+     Falls back to default cursor on touch / reduced-motion. */
+  html.cursor-on,
+  html.cursor-on * {
+    cursor: none !important;
+  }
+
+  /* Hover state — ring expands, dot scales down so the ring becomes the focal point */
+  .cursor-ring[data-hover="1"] {
+    width: 60px !important;
+    height: 60px !important;
+    background: oklch(0.78 0.165 78 / 0.08);
+    border-color: var(--color-gold-soft);
+  }
+  .cursor-dot[data-hover="1"] {
+    width: 4px !important;
+    height: 4px !important;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  /* Editorial italic accent — restores the mystical/alchemical signature.
+     Used on gold accent words inside otherwise-bold sans headlines.
+     Tracking opens up slightly to balance the contrast. */
+  .accent {
+    font-family: var(--font-display-accent);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Section bloom classes — kept as transparent layers so the
+     fixed page-wide gold-black gradient (on <html>) shows through.
+     Each utility is a no-op for backwards compatibility; tweak
+     individual sections via this file rather than touching components. */
+
+  .bloom-bg,
+  .bloom-bg-bottom,
+  .bloom-left-mid,
+  .bloom-center-wide,
+  .bloom-right-top,
+  .bloom-left-low,
+  .bloom-strip {
+    background: transparent;
+  }
+
+  /* Logo halo pulse */
+  @keyframes halo-breathe {
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.02); opacity: 1; }
+  }
+
+  .halo-breathe {
+    animation: halo-breathe 4s var(--ease-in-out-quart) infinite;
+  }
+
+  /* Particle drift */
+  @keyframes drift-up {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: var(--p-opacity, 0.15); }
+    90% { opacity: var(--p-opacity, 0.15); }
+    100% { transform: translateY(-120vh) translateX(var(--p-sway, 20px)); opacity: 0; }
+  }
+
+  .particle {
+    animation: drift-up var(--p-duration, 14s) linear infinite;
+    animation-delay: var(--p-delay, 0s);
+  }
+
+  /* Veil parts vertically — load-in choreography */
+  @keyframes veil-top {
+    0%, 18% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+  }
+  @keyframes veil-bottom {
+    0%, 18% { transform: translateY(0); }
+    100% { transform: translateY(100%); }
+  }
+
+  .veil-top { animation: veil-top 1400ms var(--ease-out-expo) forwards; }
+  .veil-bottom { animation: veil-bottom 1400ms var(--ease-out-expo) forwards; }
+
+  /* Tiny gold dot pulse */
+  @keyframes dot-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; box-shadow: 0 0 0 0 oklch(0.78 0.165 78 / 0.5); }
+    50% { transform: scale(1.4); opacity: 1; box-shadow: 0 0 0 24px oklch(0.78 0.165 78 / 0); }
+  }
+
+  .dot-pulse {
+    animation: dot-pulse 1200ms var(--ease-in-out-quart) infinite;
+  }
+
+  /* Film-grain shimmer — sub-pixel background-position shifts at
+     ~12fps frequency to produce a cinematic flicker without repainting. */
+  @keyframes grain-shimmer {
+    0%   { background-position: 0px 0px; }
+    10%  { background-position: -23px 17px; }
+    20%  { background-position: 41px -29px; }
+    30%  { background-position: -57px -11px; }
+    40%  { background-position: 19px 43px; }
+    50%  { background-position: -33px 7px; }
+    60%  { background-position: 49px -37px; }
+    70%  { background-position: -13px 53px; }
+    80%  { background-position: 27px -19px; }
+    90%  { background-position: -47px 31px; }
+    100% { background-position: 0px 0px; }
+  }
+
+  .grain-shimmer {
+    animation: grain-shimmer 6s steps(10) infinite;
+  }
+
+  /* SVG draw-on */
+  .draw-path {
+    stroke-dasharray: var(--path-length, 1000);
+    stroke-dashoffset: var(--path-length, 1000);
+    animation: draw 1800ms var(--ease-out-quart) forwards;
+  }
+
+  @keyframes draw {
+    to { stroke-dashoffset: 0; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halo-breathe,
+  .particle,
+  .veil-top,
+  .veil-bottom,
+  .dot-pulse,
+  .draw-path,
+  .grain-shimmer {
+    animation: none !important;
+  }
+  .particle { opacity: 0 !important; }
+}
