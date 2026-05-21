@@ -31,8 +31,10 @@ export function TridentMark({
         backgroundColor: color,
         maskImage: "url(/logo-clean.png)",
         WebkitMaskImage: "url(/logo-clean.png)",
-        maskMode: "alpha",
-        WebkitMaskSourceType: "alpha",
+        // Mask source has alpha baked in (see scripts/clean-logo.mjs).
+        // mask-mode: alpha is the default for raster images with alpha,
+        // so no explicit mode declaration is needed — also avoids
+        // -webkit-mask-source-type which isn't in React's CSSProperties.
         maskSize: "contain",
         WebkitMaskSize: "contain",
         maskRepeat: "no-repeat",
