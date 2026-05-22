@@ -54,8 +54,8 @@ export function About() {
           transition={{ duration: 1.1, ease: easeOutExpo }}
           className="font-display font-extrabold text-balance text-center leading-[1.02] tracking-[-0.025em] text-[clamp(36px,5vw,72px)] text-[var(--color-ivory)]"
         >
-          <span className="accent text-[var(--color-gold)]">Identity,</span>{" "}
-          not strategy, runs the operator.
+          Strategy can&apos;t outwork{" "}
+          <span className="accent text-[var(--color-gold)]">identity.</span>
         </motion.h2>
 
         <Reveal delay={0.2}>
