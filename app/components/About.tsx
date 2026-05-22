@@ -3,17 +3,25 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
 import { SectionMarker } from "./SectionMarker";
+import { CountUp } from "./CountUp";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
-type Stat = { value: string; label: string };
+type Stat = {
+  to: number;
+  suffix: string;
+  label: string;
+  /** If true, the count integer is rendered with the suffix on a new line
+   *  so layouts stay symmetric regardless of suffix length. */
+  stack?: boolean;
+};
 type Principle = { title: string; body: string };
 
 const stats: Stat[] = [
-  { value: "8 figures", label: "Combined revenue scaled by clients" },
-  { value: "80+", label: "Operators worked with privately" },
-  { value: "6 years", label: "In closed-room practice" },
-  { value: "100%", label: "Application only" },
+  { to: 8, suffix: "figures", label: "Combined revenue scaled by clients", stack: true },
+  { to: 80, suffix: "+", label: "Operators worked with privately" },
+  { to: 6, suffix: "years", label: "In closed-room practice", stack: true },
+  { to: 100, suffix: "%", label: "Application only" },
 ];
 
 const principles: Principle[] = [
@@ -76,43 +84,91 @@ export function About() {
       {/* ─── Stat band ──────────────────────────────────────────────── */}
       <div className="relative mx-auto max-w-[1320px] px-6 lg:px-10 mt-24 lg:mt-32">
         <div
-          className="grid grid-cols-2 lg:grid-cols-4"
+          className="relative grid grid-cols-2 lg:grid-cols-4"
           style={{
             borderTop: "1px solid var(--color-hairline)",
             borderBottom: "1px solid var(--color-hairline)",
           }}
         >
-          {stats.map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: reduced ? 0 : 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-              transition={{
-                duration: 0.8,
-                delay: i * 0.08,
-                ease: easeOutExpo,
-              }}
-              className="relative py-10 lg:py-14 px-6 lg:px-10"
-              style={{
-                borderRight:
-                  i < stats.length - 1 ? "1px solid var(--color-hairline)" : "none",
-              }}
-            >
-              {/* Subtle gold tick at top of each stat for rhythm */}
-              <span
-                aria-hidden
-                className="absolute top-0 left-0 w-6 h-px"
-                style={{ background: "var(--color-gold)" }}
-              />
-              <p className="font-display font-extrabold leading-[1.0] tracking-[-0.025em] text-[clamp(40px,4.4vw,68px)] text-[var(--color-ivory)]">
-                {s.value}
-              </p>
-              <p className="mt-4 text-[14px] text-[var(--color-ivory-faint)] leading-[1.5] max-w-[26ch]">
-                {s.label}
-              </p>
-            </motion.div>
-          ))}
+          {stats.map((s, i) => {
+            const isNotLast = i < stats.length - 1;
+            return (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: reduced ? 0 : 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+                transition={{
+                  duration: 0.95,
+                  delay: i * 0.14,
+                  ease: easeOutExpo,
+                }}
+                className="group relative flex flex-col py-12 lg:py-16 px-6 lg:px-10 min-h-[260px] lg:min-h-[280px]"
+              >
+                {/* Animated vertical hairline divider — scales from top */}
+                {isNotLast && (
+                  <motion.span
+                    aria-hidden
+                    className="absolute top-0 right-0 w-px origin-top"
+                    style={{
+                      height: "100%",
+                      background: "var(--color-hairline)",
+                    }}
+                    initial={{ scaleY: 0 }}
+                    whileInView={{ scaleY: 1 }}
+                    viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+                    transition={{
+                      duration: 1.1,
+                      delay: i * 0.14 + 0.1,
+                      ease: easeOutExpo,
+                    }}
+                  />
+                )}
+
+                {/* Animated gold tick — grows from 0 width on cell entry,
+                    extends further on hover for a small interactive touch */}
+                <motion.span
+                  aria-hidden
+                  className="absolute top-0 left-0 h-px transition-all duration-500 group-hover:!w-16"
+                  style={{
+                    background: "var(--color-gold)",
+                    boxShadow: "0 0 8px oklch(0.78 0.165 78 / 0.45)",
+                    transitionTimingFunction: "var(--ease-out-expo)",
+                  }}
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "32px" }}
+                  viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+                  transition={{
+                    duration: 0.9,
+                    delay: i * 0.14 + 0.4,
+                    ease: easeOutExpo,
+                  }}
+                />
+
+                {/* Value — count-up integer with suffix */}
+                <p className="font-display font-extrabold leading-[0.95] tracking-[-0.025em] text-[clamp(44px,4.6vw,72px)] text-[var(--color-ivory)] transition-transform duration-500 group-hover:translate-x-1" style={{ transitionTimingFunction: "var(--ease-out-expo)" }}>
+                  {s.stack ? (
+                    <>
+                      <CountUp to={s.to} duration={1800} />
+                      <span className="block text-[0.5em] mt-2 font-extrabold text-[var(--color-ivory)] leading-none">
+                        {s.suffix}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <CountUp to={s.to} duration={1800} />
+                      {s.suffix}
+                    </>
+                  )}
+                </p>
+
+                {/* Label — anchored to bottom of cell so rows stay symmetric */}
+                <p className="mt-auto pt-8 text-[13px] text-[var(--color-ivory-faint)] leading-[1.55] max-w-[24ch] tracking-tight">
+                  {s.label}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 
