@@ -9,18 +9,16 @@ const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 type Stat = {
   to: number;
+  /** Rendered at 0.45× the integer size, on the same line, with tight tracking. */
   suffix: string;
   label: string;
-  /** If true, the count integer is rendered with the suffix on a new line
-   *  so layouts stay symmetric regardless of suffix length. */
-  stack?: boolean;
 };
 type Principle = { title: string; body: string };
 
 const stats: Stat[] = [
-  { to: 8, suffix: "figures", label: "Combined revenue scaled by clients", stack: true },
+  { to: 8, suffix: "figures", label: "Combined revenue scaled by clients" },
   { to: 80, suffix: "+", label: "Operators worked with privately" },
-  { to: 6, suffix: "years", label: "In closed-room practice", stack: true },
+  { to: 6, suffix: "years", label: "In closed-room practice" },
   { to: 100, suffix: "%", label: "Application only" },
 ];
 
@@ -145,21 +143,17 @@ export function About() {
                   }}
                 />
 
-                {/* Value — count-up integer with suffix */}
-                <p className="font-display font-extrabold leading-[0.95] tracking-[-0.025em] text-[clamp(44px,4.6vw,72px)] text-[var(--color-ivory)] transition-transform duration-500 group-hover:translate-x-1" style={{ transitionTimingFunction: "var(--ease-out-expo)" }}>
-                  {s.stack ? (
-                    <>
-                      <CountUp to={s.to} duration={1800} />
-                      <span className="block text-[0.5em] mt-2 font-extrabold text-[var(--color-ivory)] leading-none">
-                        {s.suffix}
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <CountUp to={s.to} duration={1800} />
-                      {s.suffix}
-                    </>
-                  )}
+                {/* Value — count-up integer with inline smaller suffix.
+                    Every cell uses the same single-line structure so the
+                    values sit at identical vertical positions across the row. */}
+                <p
+                  className="font-display font-extrabold leading-[1] tracking-[-0.025em] text-[clamp(44px,4.6vw,72px)] text-[var(--color-ivory)] whitespace-nowrap transition-transform duration-500 group-hover:translate-x-1 flex items-baseline gap-[0.18em]"
+                  style={{ transitionTimingFunction: "var(--ease-out-expo)" }}
+                >
+                  <CountUp to={s.to} duration={1800} />
+                  <span className="text-[0.45em] font-extrabold tracking-tight leading-none">
+                    {s.suffix}
+                  </span>
                 </p>
 
                 {/* Label — anchored to bottom of cell so rows stay symmetric */}
