@@ -59,29 +59,15 @@ export function About() {
         </motion.h2>
 
         <Reveal delay={0.2}>
-          <div className="mt-14 lg:mt-16 mx-auto max-w-[62ch] flex flex-col gap-7 text-center text-[var(--color-ivory-dim)] text-[17px] leading-[1.7]">
+          <div className="mt-14 lg:mt-16 mx-auto max-w-[58ch] flex flex-col gap-6 text-center text-[var(--color-ivory-dim)] text-[17px] leading-[1.7]">
             <p>
-              Six years ago I left a corporate role with nothing but a thesis: that
-              every outcome an operator produces is downstream of an identity they
-              never chose consciously. I tested it privately, with myself first,
-              then with a handful of founders who were willing to do uncomfortable
-              work. The results were not subtle.
+              Six years private. A small number of founders, day traders, and
+              creators each quarter. Every engagement individual.
             </p>
             <p>
-              I remember exactly what it feels like to know what to do and still
-              not do it. To set a goal and watch yourself walk it back. To
-              hire a coach, read the books, do the visualizations, and end the
-              year roughly where you started. That gap, between knowing and
-              becoming, is the only thing I work on now.
-            </p>
-            <p>
-              Today this is a private practice. Founders managing $4M to $80M+.
-              Day traders with eight-figure portfolios. Creators with audiences
-              in the millions. A small number of operators per quarter, each
-              engagement private and individual. The frequency you operate at
-              is the ceiling you&apos;ll hit, and I&apos;ve never seen anyone
-              break their ceiling without first dissolving the identity that
-              built it.
+              The frequency you operate at is the ceiling you&apos;ll hit.
+              I&apos;ve never seen anyone break theirs without first dissolving
+              the identity that built it.
             </p>
           </div>
         </Reveal>
