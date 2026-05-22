@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
 import { SectionMarker } from "./SectionMarker";
@@ -234,31 +235,44 @@ export function About() {
               transition={{ duration: 1.0, ease: easeOutExpo }}
               className="relative"
             >
-              {/* Hairline-framed portrait area, vertical 3:4 */}
+              {/* Hairline-framed portrait, vertical 3:4 */}
               <div
                 className="relative aspect-[3/4] overflow-hidden"
                 style={{ border: "1px solid var(--color-hairline)" }}
               >
-                {/* Placeholder: replace this gradient with <Image src="/portrait.jpg" /> */}
-                <div
-                  aria-hidden
-                  className="absolute inset-0"
+                <Image
+                  src="/founder.png"
+                  alt="Hamza, The Alchemist"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 40vw"
                   style={{
-                    background:
-                      "radial-gradient(circle at 50% 35%, oklch(0.30 0.04 75) 0%, oklch(0.12 0.012 70) 70%)",
-                  }}
-                />
-                <div
-                  aria-hidden
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, transparent 50%, oklch(0.08 0.010 70 / 0.85) 100%)",
+                    objectFit: "cover",
+                    objectPosition: "center top",
                   }}
                 />
 
+                {/* Subtle warm overlay — pulls the natural color slightly toward
+                    the gold-ink palette without crushing skin tones. */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, oklch(0.12 0.012 70 / 0.05) 0%, transparent 25%, transparent 55%, oklch(0.08 0.012 70 / 0.85) 100%)",
+                    mixBlendMode: "multiply",
+                  }}
+                />
+
+                {/* Inner hairline frame inset, soft gold */}
+                <div
+                  aria-hidden
+                  className="absolute inset-3 pointer-events-none"
+                  style={{ border: "1px solid oklch(0.78 0.165 78 / 0.14)" }}
+                />
+
                 {/* Lower-left annotation block over the photo */}
-                <div className="absolute bottom-0 inset-x-0 p-7">
+                <div className="absolute bottom-0 inset-x-0 p-7 z-10">
                   <div className="flex items-baseline gap-3 mb-3">
                     <span
                       className="block w-8 h-px"
@@ -285,13 +299,13 @@ export function About() {
                 style={{ border: "1px solid var(--color-hairline)" }}
               />
 
-              {/* Caption under the photo — specific, human */}
+              {/* Caption under the photo */}
               <div className="mt-7 flex items-baseline gap-4 flex-wrap">
                 <span className="accent text-[var(--color-gold)] text-[16px]">
-                  Mid-session, summer 2026.
+                  Between sessions.
                 </span>
                 <span className="eyebrow text-[var(--color-ivory-faint)]">
-                  Replace with a real photo
+                  Summer 2026
                 </span>
               </div>
             </motion.div>
