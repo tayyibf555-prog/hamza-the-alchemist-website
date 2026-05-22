@@ -291,14 +291,6 @@ export function About() {
                 </div>
               </div>
 
-              {/* Offset hairline rectangle — gives the frame a deliberate
-                  asymmetric weight; no decoration for its own sake. */}
-              <div
-                aria-hidden
-                className="absolute -bottom-3 -right-3 w-2/3 h-2/3 pointer-events-none -z-10"
-                style={{ border: "1px solid var(--color-hairline)" }}
-              />
-
               {/* Caption under the photo */}
               <div className="mt-7 flex items-baseline gap-4 flex-wrap">
                 <span className="accent text-[var(--color-gold)] text-[16px]">
