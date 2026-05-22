@@ -54,11 +54,8 @@ export function About() {
           transition={{ duration: 1.1, ease: easeOutExpo }}
           className="font-display font-extrabold text-balance text-center leading-[1.02] tracking-[-0.025em] text-[clamp(36px,5vw,72px)] text-[var(--color-ivory)]"
         >
-          I figured out what every framework misses.{" "}
-          <span className="accent text-[var(--color-gold)]">
-            Identity, not strategy,
-          </span>{" "}
-          runs the operator.
+          <span className="accent text-[var(--color-gold)]">Identity,</span>{" "}
+          not strategy, runs the operator.
         </motion.h2>
 
         <Reveal delay={0.2}>
