@@ -59,7 +59,7 @@ export function About() {
         </motion.h2>
 
         <Reveal delay={0.2}>
-          <div className="mt-14 lg:mt-16 flex flex-col gap-7 text-[var(--color-ivory-dim)] text-[17px] leading-[1.7]">
+          <div className="mt-14 lg:mt-16 mx-auto max-w-[62ch] flex flex-col gap-7 text-center text-[var(--color-ivory-dim)] text-[17px] leading-[1.7]">
             <p>
               Six years ago I left a corporate role with nothing but a thesis: that
               every outcome an operator produces is downstream of an identity they
