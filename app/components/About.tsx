@@ -16,8 +16,8 @@ type Stat = {
 type Principle = { title: string; body: string };
 
 const stats: Stat[] = [
-  { to: 8, suffix: "figures", label: "Combined revenue scaled by clients" },
-  { to: 80, suffix: "+", label: "Operators worked with privately" },
+  { to: 8, suffix: "figures", label: "Combined client revenue" },
+  { to: 80, suffix: "+", label: "Operators worked with" },
   { to: 6, suffix: "years", label: "In closed-room practice" },
   { to: 100, suffix: "%", label: "Application only" },
 ];
@@ -156,8 +156,10 @@ export function About() {
                   </span>
                 </p>
 
-                {/* Label — anchored to bottom of cell so rows stay symmetric */}
-                <p className="mt-auto pt-8 text-[13px] text-[var(--color-ivory-faint)] leading-[1.55] max-w-[24ch] tracking-tight">
+                {/* Label — anchored to bottom of cell so rows stay symmetric.
+                    whitespace-nowrap on desktop guarantees single-line labels;
+                    on mobile we allow wrap because cells are much narrower. */}
+                <p className="mt-auto pt-8 text-[13px] text-[var(--color-ivory-faint)] leading-[1.55] tracking-tight lg:whitespace-nowrap">
                   {s.label}
                 </p>
               </motion.div>
