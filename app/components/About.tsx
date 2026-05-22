@@ -235,11 +235,8 @@ export function About() {
               transition={{ duration: 1.0, ease: easeOutExpo }}
               className="relative"
             >
-              {/* Hairline-framed portrait, vertical 3:4 */}
-              <div
-                className="relative aspect-[3/4] overflow-hidden"
-                style={{ border: "1px solid var(--color-hairline)" }}
-              >
+              {/* Frameless portrait, vertical 3:4 */}
+              <div className="relative aspect-[3/4] overflow-hidden">
                 <Image
                   src="/founder.png"
                   alt="Hamza, The Alchemist"
@@ -251,44 +248,6 @@ export function About() {
                     objectPosition: "center top",
                   }}
                 />
-
-                {/* Subtle warm overlay — pulls the natural color slightly toward
-                    the gold-ink palette without crushing skin tones. */}
-                <div
-                  aria-hidden
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, oklch(0.12 0.012 70 / 0.05) 0%, transparent 25%, transparent 55%, oklch(0.08 0.012 70 / 0.85) 100%)",
-                    mixBlendMode: "multiply",
-                  }}
-                />
-
-                {/* Inner hairline frame inset, soft gold */}
-                <div
-                  aria-hidden
-                  className="absolute inset-3 pointer-events-none"
-                  style={{ border: "1px solid oklch(0.78 0.165 78 / 0.14)" }}
-                />
-
-                {/* Lower-left annotation block over the photo */}
-                <div className="absolute bottom-0 inset-x-0 p-7 z-10">
-                  <div className="flex items-baseline gap-3 mb-3">
-                    <span
-                      className="block w-8 h-px"
-                      style={{ background: "var(--color-gold)" }}
-                    />
-                    <span className="eyebrow text-[var(--color-ivory-faint)]">
-                      Portrait · 2026
-                    </span>
-                  </div>
-                  <p className="font-display font-extrabold text-[22px] text-[var(--color-ivory)] leading-tight">
-                    Hamza
-                  </p>
-                  <p className="accent text-[var(--color-gold)] text-[15px] leading-tight mt-1">
-                    The Alchemist
-                  </p>
-                </div>
               </div>
 
               {/* Caption under the photo */}
