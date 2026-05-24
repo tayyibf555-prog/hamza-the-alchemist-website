@@ -69,14 +69,26 @@ export function VSLHero() {
             </span>
           </motion.h1>
 
-          {/* The video frame */}
+          {/* The video frame, on a gold bloom backdrop */}
           <motion.div
             initial={{ opacity: 0, y: reduced ? 0 : 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.4, delay: 1.6, ease: easeOutExpo }}
             className="relative"
           >
-            <VideoFrame runtime="08:42" showCaption />
+            {/* Gold radial bloom behind the VSL — only here, not site-wide */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-[-30%]"
+              style={{
+                background:
+                  "radial-gradient(ellipse 60% 70% at 50% 50%, oklch(0.42 0.16 78 / 0.42) 0%, oklch(0.30 0.10 75 / 0.20) 35%, transparent 70%)",
+                filter: "blur(40px)",
+              }}
+            />
+            <div className="relative">
+              <VideoFrame runtime="08:42" showCaption />
+            </div>
           </motion.div>
 
           {/* Below-video caption + CTA */}

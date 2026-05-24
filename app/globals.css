@@ -38,29 +38,17 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    /* Page-wide gold-black gradient — fixed, runs through the entire page.
-       Three layers stacked top-to-bottom:
-         1. Diagonal gold bloom from top-right
-         2. Wide gold bloom from bottom-left
-         3. Vertical gold→ink linear wash
-       Sections are transparent so this shows through everywhere. */
+    /* Page-wide background — two-tone black, fixed.
+       A wide radial puts a slightly lifted shade of black at the
+       centre against a darker frame, giving the canvas just enough
+       depth to register as a surface (not a flat fill). No gold here:
+       the gold work lives on top via the film-grain dots and the
+       hero's VSL bloom. */
     background:
       radial-gradient(
-        ellipse 70% 50% at 90% 8%,
-        oklch(0.42 0.13 78 / 0.55),
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse 80% 55% at 8% 92%,
-        oklch(0.38 0.12 75 / 0.50),
-        transparent 60%
-      ),
-      linear-gradient(
-        180deg,
-        oklch(0.18 0.030 75) 0%,
-        oklch(0.13 0.018 72) 38%,
-        oklch(0.11 0.015 70) 62%,
-        oklch(0.14 0.025 72) 100%
+        ellipse 90% 75% at 50% 50%,
+        oklch(0.12 0.008 70) 0%,
+        oklch(0.06 0.004 70) 90%
       );
     background-attachment: fixed;
     min-height: 100%;
