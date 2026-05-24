@@ -3,18 +3,14 @@
 import { useLayoutEffect } from "react";
 
 /**
- * Belt-and-suspenders scroll-position reset on refresh.
+ * React-side scroll-position reset, synchronised with the inline
+ * scroll-guard in /public/scroll-guard.js.
  *
- * Multiple safety nets, because Chrome's scroll restoration can fire
- * after the React effect runs and even after the page's first paint,
- * once late-loaded content (fonts, images, motion reveals) settles
- * the document's total height.
- *
- *   1. Disable native scrollRestoration.
- *   2. Synchronously scroll to top in useLayoutEffect.
- *   3. Re-assert scroll-top on every animation frame for ~1.5s.
- *   4. Re-assert scroll-top on the window 'load' event.
- *   5. One final setTimeout after 2s as a catch-all.
+ *   1. Disables native scrollRestoration (idempotent with the inline guard).
+ *   2. Synchronously snaps to top in useLayoutEffect.
+ *   3. Brief re-assert window (~1.5s) to absorb late layout shift —
+ *      bails out the instant the user shows scroll intent so we never
+ *      fight wheel/touch/keyboard input.
  *
  * URL hash anchors are honored.
  */
@@ -39,35 +35,54 @@ export function ScrollManager() {
       if (window.scrollY !== 0) window.scrollTo(0, 0);
     };
 
-    // 1: snap now
+    let userScrolling = false;
+    const bail = () => {
+      userScrolling = true;
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (
+        e.key === "ArrowUp" ||
+        e.key === "ArrowDown" ||
+        e.key === "PageUp" ||
+        e.key === "PageDown" ||
+        e.key === " " ||
+        e.key === "Home" ||
+        e.key === "End"
+      ) {
+        bail();
+      }
+    };
+
+    window.addEventListener("wheel", bail, { passive: true, once: true });
+    window.addEventListener("touchstart", bail, { passive: true, once: true });
+    window.addEventListener("keydown", onKey);
+
+    // Initial snap
     snap();
 
-    // 2: rAF chain for ~4.5s (about 270 frames at 60fps) — covers the
-    //    full intro duration (3.4s) plus a buffer for any late layout
-    //    shift after the intro dismisses and body scroll unlocks.
-    let frames = 270;
-    let rafId = 0;
-    const tick = () => {
+    // Short re-assert window: 15 frames at ~100ms each (~1.5s total).
+    // Bails on user input so the page never jitters under wheel.
+    let hits = 0;
+    const tickId = window.setInterval(() => {
+      if (userScrolling) {
+        window.clearInterval(tickId);
+        return;
+      }
       snap();
-      if (--frames > 0) rafId = requestAnimationFrame(tick);
-    };
-    rafId = requestAnimationFrame(tick);
+      if (++hits >= 15) window.clearInterval(tickId);
+    }, 100);
 
-    // 3: window 'load' fires after all sub-resources (fonts, images, etc.)
-    const onLoad = () => snap();
+    const onLoad = () => {
+      if (!userScrolling) snap();
+    };
     window.addEventListener("load", onLoad);
 
-    // 4: catch-all timeouts at 2s, 4s, and 5s
-    const t1 = window.setTimeout(snap, 2000);
-    const t2 = window.setTimeout(snap, 4000);
-    const t3 = window.setTimeout(snap, 5000);
-
     return () => {
-      cancelAnimationFrame(rafId);
+      window.clearInterval(tickId);
+      window.removeEventListener("wheel", bail);
+      window.removeEventListener("touchstart", bail);
+      window.removeEventListener("keydown", onKey);
       window.removeEventListener("load", onLoad);
-      window.clearTimeout(t1);
-      window.clearTimeout(t2);
-      window.clearTimeout(t3);
     };
   }, []);
 

@@ -77,31 +77,49 @@ export function EntrySequence({ children }: Props) {
     };
   }, [active, dismissed]);
 
-  // Once dismissed: aggressively pin scroll to top for a short window
-  // after the body is unlocked. The browser may try to restore the
-  // previous scroll position the moment the page becomes scrollable
-  // again — these scroll-to-top assertions defeat that.
+  // Once dismissed: pin scroll to top for a short window after body
+  // is unlocked, since the browser may try to restore the previous
+  // scroll position the moment the page becomes scrollable. Bails on
+  // user input so the safety net never fights wheel/touch.
   useEffect(() => {
     if (!dismissed || !active) return;
 
-    const snap = () => {
-      if (window.scrollY !== 0) window.scrollTo(0, 0);
+    let userScrolling = false;
+    const bail = () => {
+      userScrolling = true;
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (
+        e.key === "ArrowUp" ||
+        e.key === "ArrowDown" ||
+        e.key === "PageUp" ||
+        e.key === "PageDown" ||
+        e.key === " " ||
+        e.key === "Home" ||
+        e.key === "End"
+      )
+        bail();
     };
 
-    // Snap synchronously now and on a rAF chain for ~800ms
+    window.addEventListener("wheel", bail, { passive: true, once: true });
+    window.addEventListener("touchstart", bail, { passive: true, once: true });
+    window.addEventListener("keydown", onKey);
+
+    const snap = () => {
+      if (!userScrolling && window.scrollY !== 0) window.scrollTo(0, 0);
+    };
+
+    // Snap synchronously, then a single follow-up at 300ms to catch
+    // any late browser scroll-restore after body unlocks. Both bail on
+    // user input via the userScrolling flag.
     snap();
-    let frames = 50;
-    let rafId = requestAnimationFrame(function tick() {
-      snap();
-      if (--frames > 0) rafId = requestAnimationFrame(tick);
-    });
-    const t1 = window.setTimeout(snap, 500);
-    const t2 = window.setTimeout(snap, 1200);
+    const t1 = window.setTimeout(snap, 300);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      window.removeEventListener("wheel", bail);
+      window.removeEventListener("touchstart", bail);
+      window.removeEventListener("keydown", onKey);
       window.clearTimeout(t1);
-      window.clearTimeout(t2);
     };
   }, [dismissed, active]);
 
