@@ -132,7 +132,7 @@ export function TermsOfEntry() {
       className="relative py-32 lg:py-44 overflow-hidden"
       style={{ borderBottom: "1px solid var(--color-hairline)" }}
     >
-      <SectionMarker index="VI" label="Terms of Entry" />
+      <SectionMarker index="V" label="Terms of Entry" />
 
       <div className="mx-auto max-w-[1320px] px-6 lg:px-10">
         {/* Section header */}

@@ -3,7 +3,6 @@ import { Nav } from "./components/Nav";
 import { VSLHero } from "./components/VSLHero";
 import { Practice } from "./components/Practice";
 import { About } from "./components/About";
-import { Method } from "./components/Method";
 import { Proof } from "./components/Proof";
 import { Testimonial } from "./components/Testimonial";
 import { TermsOfEntry } from "./components/TermsOfEntry";
@@ -20,7 +19,6 @@ export default function HomePage() {
         <VSLHero />
         <Practice />
         <About />
-        <Method />
         <Proof />
         <Testimonial
           quote="I came in chasing a five-million-dollar year. Six months later I wasn't chasing anything; the year happened on its own."

@@ -181,7 +181,7 @@ function EngagementRing({
 export function Proof() {
   return (
     <section id="results" className="relative bloom-right-top">
-      <SectionMarker index="V" label="Evidence" />
+      <SectionMarker index="IV" label="Evidence" />
       {/* ─── Header ─────────────────────────────────────── */}
       <div className="mx-auto max-w-[1320px] px-6 lg:px-10 pt-32 lg:pt-44 pb-16 lg:pb-24">
         <div className="grid grid-cols-12 gap-8 items-end">

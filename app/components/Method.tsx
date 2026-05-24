@@ -1,8 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Reveal } from "./Reveal";
-import { SectionMarker } from "./SectionMarker";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
@@ -101,38 +99,8 @@ export function Method() {
   return (
     <section
       id="method"
-      className="relative py-32 lg:py-48 overflow-hidden"
-      style={{
-        borderTop: "1px solid var(--color-hairline)",
-        borderBottom: "1px solid var(--color-hairline)",
-      }}
+      className="relative py-20 lg:py-28 overflow-hidden"
     >
-      <SectionMarker index="IV" label="The Method" />
-
-      {/* Section header */}
-      <div className="mx-auto max-w-[1320px] px-6 lg:px-10 mb-24 lg:mb-32">
-        <div className="grid grid-cols-12 gap-8 items-end">
-          <Reveal as="div" className="col-span-12 md:col-span-7">
-            <p className="eyebrow text-[var(--color-gold)] mb-6">The Method</p>
-            <h2 className="font-display font-extrabold leading-[0.96] tracking-[-0.025em] text-[clamp(48px,7vw,112px)] text-[var(--color-ivory)]">
-              The{" "}
-              <span className="accent text-[var(--color-gold)]">
-                Transmutation
-              </span>
-            </h2>
-          </Reveal>
-
-          <Reveal
-            delay={0.15}
-            as="p"
-            className="hidden md:block col-span-12 md:col-span-4 md:col-start-9 text-[var(--color-ivory-dim)] text-[16px] leading-[1.65] max-w-[42ch]"
-          >
-            A three-phase protocol developed over a decade of private work. The
-            same sequence runs every engagement; what changes is the operator.
-          </Reveal>
-        </div>
-      </div>
-
       {/* Phases */}
       <div className="mx-auto max-w-[1100px] px-6 lg:px-10">
         {phases.map((p, i) => (
