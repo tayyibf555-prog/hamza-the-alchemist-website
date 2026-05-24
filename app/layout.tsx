@@ -1,19 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Inter, Outfit, Fraunces } from "next/font/google";
 import "./globals.css";
 import { MotionRoot } from "./components/MotionRoot";
 import { Cursor } from "./components/Cursor";
 import { Grain } from "./components/Grain";
 import { ScrollManager } from "./components/ScrollManager";
-
-/**
- * Inline script that runs BEFORE React hydrates. Disables the
- * browser's automatic scroll-restoration and forces scroll-to-top on
- * refresh (unless the URL carries a hash anchor). Hardcoded literal,
- * no user input, no XSS surface.
- */
-const SCROLL_GUARD = `(function(){try{if('scrollRestoration' in history){history.scrollRestoration='manual';}var hasHash=window.location.hash && window.location.hash.length>1;if(!hasHash){window.scrollTo(0,0);window.addEventListener('load',function(){window.scrollTo(0,0);});}}catch(e){}})();`;
 
 const inter = Inter({
   subsets: ["latin"],
@@ -51,10 +42,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable} ${fraunces.variable}`}>
+      <head>
+        {/* Brute-force scroll-restoration guard. Runs synchronously
+            in <head> before anything else, then hammers scrollY=0
+            every 50ms for 5s. See /public/scroll-guard.js. */}
+        <script src="/scroll-guard.js" />
+      </head>
       <body>
-        <Script id="scroll-guard" strategy="beforeInteractive">
-          {SCROLL_GUARD}
-        </Script>
         <ScrollManager />
         <MotionRoot>{children}</MotionRoot>
         <Grain />
