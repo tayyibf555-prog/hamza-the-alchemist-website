@@ -66,9 +66,10 @@ export function EntrySequence({ children }: Props) {
   useEffect(() => {
     if (!active || dismissed) return;
 
-    // Lock body scroll
+    // Lock body scroll and pin scroll to top while the intro plays
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    window.scrollTo(0, 0);
 
     const dismiss = () => setDismissed(true);
 
@@ -86,13 +87,38 @@ export function EntrySequence({ children }: Props) {
     };
   }, [active, dismissed]);
 
-  // Once dismissed, set the session flag so subsequent reloads skip
+  // Once dismissed: set session flag, and aggressively pin scroll to top
+  // for a short window after the body is unlocked. The browser may try to
+  // restore the previous scroll position the moment the page becomes
+  // scrollable again — these scroll-to-top assertions defeat that.
   useEffect(() => {
-    if (dismissed && active) {
-      try {
-        window.sessionStorage.setItem(STORAGE_KEY, "1");
-      } catch {}
-    }
+    if (!dismissed || !active) return;
+
+    try {
+      window.sessionStorage.setItem(STORAGE_KEY, "1");
+    } catch {}
+
+    if (window.location.hash && window.location.hash.length > 1) return;
+
+    const snap = () => {
+      if (window.scrollY !== 0) window.scrollTo(0, 0);
+    };
+
+    // Snap synchronously now and on a rAF chain for ~800ms
+    snap();
+    let frames = 50;
+    let rafId = requestAnimationFrame(function tick() {
+      snap();
+      if (--frames > 0) rafId = requestAnimationFrame(tick);
+    });
+    const t1 = window.setTimeout(snap, 500);
+    const t2 = window.setTimeout(snap, 1200);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+    };
   }, [dismissed, active]);
 
   // Skip path — render children straight away (no overlay)

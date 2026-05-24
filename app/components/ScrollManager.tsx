@@ -42,8 +42,10 @@ export function ScrollManager() {
     // 1: snap now
     snap();
 
-    // 2: rAF chain for ~1.5s (about 90 frames at 60fps)
-    let frames = 90;
+    // 2: rAF chain for ~4.5s (about 270 frames at 60fps) — covers the
+    //    full intro duration (3.4s) plus a buffer for any late layout
+    //    shift after the intro dismisses and body scroll unlocks.
+    let frames = 270;
     let rafId = 0;
     const tick = () => {
       snap();
@@ -55,13 +57,17 @@ export function ScrollManager() {
     const onLoad = () => snap();
     window.addEventListener("load", onLoad);
 
-    // 4: final catch-all at 2s
-    const final = window.setTimeout(snap, 2000);
+    // 4: catch-all timeouts at 2s, 4s, and 5s
+    const t1 = window.setTimeout(snap, 2000);
+    const t2 = window.setTimeout(snap, 4000);
+    const t3 = window.setTimeout(snap, 5000);
 
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("load", onLoad);
-      window.clearTimeout(final);
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+      window.clearTimeout(t3);
     };
   }, []);
 
