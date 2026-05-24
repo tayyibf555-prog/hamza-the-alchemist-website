@@ -7,10 +7,6 @@ import {
   type ReactNode,
 } from "react";
 
-const STORAGE_KEY = "hta_entered_v3";
-
-/** Bumped to v3 to bypass any stale flags from earlier scroll-driven version. */
-
 const TOTAL_DURATION_MS = 3400;
 
 // useLayoutEffect on the client, no-op on the server (avoids React's warning)
@@ -33,30 +29,24 @@ type Props = {
  *   5. "Click or press Esc to skip" cue appears.
  *   6. At 3.4s the overlay fades out and the site is revealed.
  *
- *   • Plays once per session (sessionStorage flag, set after dismissal).
+ *   • Plays on every page load (no session skip — the door is always
+ *     the door).
  *   • prefers-reduced-motion bypasses the sequence entirely.
  *   • Click anywhere on the overlay or press Esc to skip ahead.
  */
 export function EntrySequence({ children }: Props) {
   // Default to playing so the loader renders in the SSR HTML and shows on
-  // first paint. A synchronous layout effect decides whether to skip.
+  // first paint. A synchronous layout effect skips only for reduced motion.
   const [active, setActive] = useState(true);
   const [dismissed, setDismissed] = useState(false);
 
-  // Decide skip path synchronously before paint
+  // Decide skip path synchronously before paint (reduced motion only)
   useIsoLayoutEffect(() => {
     if (typeof window === "undefined") return;
-
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-
-    let seen = false;
-    try {
-      seen = window.sessionStorage.getItem(STORAGE_KEY) === "1";
-    } catch {}
-
-    if (reduced || seen) {
+    if (reduced) {
       setActive(false);
       setDismissed(true);
     }
@@ -87,18 +77,12 @@ export function EntrySequence({ children }: Props) {
     };
   }, [active, dismissed]);
 
-  // Once dismissed: set session flag, and aggressively pin scroll to top
-  // for a short window after the body is unlocked. The browser may try to
-  // restore the previous scroll position the moment the page becomes
-  // scrollable again — these scroll-to-top assertions defeat that.
+  // Once dismissed: aggressively pin scroll to top for a short window
+  // after the body is unlocked. The browser may try to restore the
+  // previous scroll position the moment the page becomes scrollable
+  // again — these scroll-to-top assertions defeat that.
   useEffect(() => {
     if (!dismissed || !active) return;
-
-    try {
-      window.sessionStorage.setItem(STORAGE_KEY, "1");
-    } catch {}
-
-    if (window.location.hash && window.location.hash.length > 1) return;
 
     const snap = () => {
       if (window.scrollY !== 0) window.scrollTo(0, 0);
