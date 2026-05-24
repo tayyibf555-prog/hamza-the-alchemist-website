@@ -2,14 +2,16 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
+import { VideoFrame } from "./VideoFrame";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 /**
- * Dedicated hero for the /method route. Sits above the existing
- * <Method /> component (which renders the three Transmutation phases)
- * and gives the page its own anchor identity instead of reading like
- * an excerpted section from the homepage.
+ * Hero for the /method route.
+ *
+ * Eyebrow → "The Transmutation." headline → VSL placeholder → three-phase
+ * Roman-numeral row that doubles as a table of contents for the phases
+ * rendered by <Method /> below.
  */
 export function MethodHero() {
   const reduced = useReducedMotion();
@@ -36,16 +38,20 @@ export function MethodHero() {
           </span>
         </motion.h1>
 
-        <Reveal delay={0.2} as="p" className="mt-10 max-w-[58ch] mx-auto text-center text-[var(--color-ivory-dim)] text-[18px] leading-[1.65]">
-          A three-phase protocol developed over a decade of private work. The
-          sequence is non-negotiable. The same protocol runs every engagement;
-          what changes is the operator.
-        </Reveal>
+        {/* VSL placeholder right under the headline */}
+        <motion.div
+          initial={{ opacity: 0, y: reduced ? 0 : 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.4, delay: 0.3, ease: easeOutExpo }}
+          className="relative mt-14 lg:mt-20"
+        >
+          <VideoFrame runtime="12:08" progress={0.06} />
+        </motion.div>
 
-        {/* Three quick markers for the phases — read like a table of contents */}
-        <Reveal delay={0.35}>
+        {/* Three Roman-numeral markers — table of contents for the phases below */}
+        <Reveal delay={0.45}>
           <div
-            className="mt-16 lg:mt-20 pt-10 grid grid-cols-3 gap-4 md:gap-10"
+            className="mt-20 lg:mt-24 pt-10 grid grid-cols-3 gap-4 md:gap-10"
             style={{ borderTop: "1px solid var(--color-hairline)" }}
           >
             {["I · Dissolution", "II · Reconstruction", "III · Coagulation"].map(
