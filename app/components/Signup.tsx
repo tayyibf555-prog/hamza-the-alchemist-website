@@ -27,9 +27,6 @@ export function Signup() {
   return (
     <section
       className="relative py-28 lg:py-36"
-      style={{
-        borderTop: "1px solid var(--color-hairline)",
-      }}
     >
       <div className="mx-auto max-w-[1320px] px-6 lg:px-10 grid grid-cols-12 gap-10 lg:gap-16 items-start">
         {/* Left rail — credential */}

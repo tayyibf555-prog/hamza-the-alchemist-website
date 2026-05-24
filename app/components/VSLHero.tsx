@@ -127,13 +127,12 @@ export function VSLHero() {
         </div>
       </div>
 
-      {/* Bottom hairline — quiet closer, no decoration */}
+      {/* Scroll cue at the bottom of the hero — no separating line, just the cue */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.0, delay: 2.4, ease: easeOutExpo }}
         className="relative"
-        style={{ borderTop: "1px solid var(--color-hairline)" }}
       >
         <div className="mx-auto max-w-[1320px] px-6 lg:px-10 h-[56px] flex items-center justify-end">
           <div className="hidden md:flex items-center gap-3 text-[var(--color-ivory-faint)]">

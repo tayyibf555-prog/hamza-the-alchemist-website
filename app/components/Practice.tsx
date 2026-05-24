@@ -19,7 +19,6 @@ export function Practice() {
     <section
       id="practice"
       className="relative py-32 lg:py-44 overflow-hidden"
-      style={{ borderBottom: "1px solid var(--color-hairline)" }}
     >
       <SectionMarker index="II" label="The Practice" />
 

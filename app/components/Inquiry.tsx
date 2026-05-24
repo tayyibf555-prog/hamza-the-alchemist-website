@@ -106,10 +106,6 @@ export function Inquiry() {
     <section
       id="inquiry"
       className="relative py-32 lg:py-48 overflow-hidden"
-      style={{
-        borderTop: "1px solid var(--color-hairline)",
-        borderBottom: "1px solid var(--color-hairline)",
-      }}
     >
       <SectionMarker index="VI" label="Inquiry" />
 
