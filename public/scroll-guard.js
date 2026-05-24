@@ -1,11 +1,18 @@
 /* Brute-force scroll-restoration guard.
    Runs synchronously from <head> before any React code, before the
    browser's scroll-restoration logic has a chance to apply the
-   previously-remembered scroll position.
+   previously-remembered scroll position or scroll-to-hash behavior.
 
-   For the first 5 seconds of page load, this hammers scrollY back to 0
-   every 50ms unless the URL carries a hash anchor (in which case we
-   honor the anchor and let the browser scroll there). */
+   Behavior on every page load (refresh OR fresh visit):
+     1. Disables native scroll restoration.
+     2. Strips any hash from the URL (so /#inquiry doesn't auto-scroll
+        to that section on refresh).
+     3. Hammers scrollY back to 0 every 50ms for 5 seconds.
+     4. Listens for DOMContentLoaded, load, and pageshow events.
+
+   In-page anchor scrolling (clicking a CTA that points at #inquiry)
+   continues to work because that happens AFTER the page is loaded
+   and this guard has stopped running. */
 
 (function () {
   try {
@@ -13,10 +20,12 @@
       window.history.scrollRestoration = "manual";
     }
 
-    var hash = window.location.hash;
-    if (hash && hash.length > 1) {
-      // User came to a deep anchor: let the browser scroll to it.
-      return;
+    // Strip any hash from the URL on load. Without this, a refresh on
+    // a page with #inquiry in the URL would scroll to that section.
+    if (window.location.hash && window.history.replaceState) {
+      var clean =
+        window.location.pathname + window.location.search;
+      window.history.replaceState(null, "", clean);
     }
 
     var snap = function () {
