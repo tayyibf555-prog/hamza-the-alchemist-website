@@ -143,6 +143,119 @@
     background: transparent;
   }
 
+  /* ─── Startup intro · liquid-metal logo reveal ─────────────────
+     Animations for the EntrySequence overlay. Renders once per
+     session, dismissed by timeout, click, or Esc. */
+
+  .intro-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background:
+      radial-gradient(ellipse at 50% 50%, oklch(0.78 0.165 78 / 0.08) 0%, transparent 60%),
+      linear-gradient(135deg, oklch(0.06 0.005 70) 0%, oklch(0.08 0.008 72) 50%, var(--color-ink) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    cursor: pointer;
+    animation: intro-overlay-out 700ms cubic-bezier(0.4, 0, 0.6, 1) 2600ms forwards;
+  }
+
+  .intro-overlay--done {
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    animation: none;
+    transition: opacity 700ms cubic-bezier(0.4, 0, 0.6, 1), visibility 0ms 700ms;
+  }
+
+  .intro-logo {
+    width: clamp(180px, 28vw, 360px);
+    height: clamp(180px, 28vw, 360px);
+    opacity: 0;
+    transform: scale(0.6);
+    animation: intro-logo-in 1100ms cubic-bezier(0.2, 0.85, 0.25, 1) 200ms forwards;
+  }
+
+  @keyframes intro-logo-in {
+    0%   { opacity: 0; transform: scale(0.55); }
+    60%  { opacity: 1; transform: scale(1.06); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes intro-overlay-out {
+    to { opacity: 0; visibility: hidden; }
+  }
+
+  .intro-sheen {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 30%,
+      oklch(0.95 0.04 85 / 0.18) 48%,
+      oklch(0.78 0.165 78 / 0.35) 52%,
+      transparent 70%
+    );
+    mix-blend-mode: screen;
+    opacity: 0;
+    animation: intro-sheen 1600ms cubic-bezier(0.4, 0, 0.4, 1) 400ms forwards;
+  }
+
+  @keyframes intro-sheen {
+    0%   { opacity: 0; transform: translateX(-30%); }
+    40%  { opacity: 1; }
+    100% { opacity: 0; transform: translateX(30%); }
+  }
+
+  .intro-wordmark {
+    position: absolute;
+    bottom: 18%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.0625rem, 1.6vw, 1.375rem);
+    letter-spacing: 0.04em;
+    color: var(--color-ivory);
+    opacity: 0;
+    transform: translateY(8px);
+    animation: intro-wordmark-in 700ms cubic-bezier(0.2, 0.85, 0.25, 1) 1400ms forwards;
+  }
+
+  .intro-wordmark-accent {
+    font-family: var(--font-display-accent);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-gold);
+  }
+
+  @keyframes intro-wordmark-in {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .intro-skip {
+    position: absolute;
+    bottom: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ivory-faint);
+    opacity: 0;
+    pointer-events: none;
+    animation: intro-skip-in 600ms ease-out 1800ms forwards;
+  }
+
+  @keyframes intro-skip-in {
+    to { opacity: 1; }
+  }
+
   /* Logo halo pulse */
   @keyframes halo-breathe {
     0%, 100% { transform: scale(1); opacity: 0.85; }
@@ -228,8 +341,14 @@
   .veil-bottom,
   .dot-pulse,
   .draw-path,
-  .grain-shimmer {
+  .grain-shimmer,
+  .intro-overlay,
+  .intro-logo,
+  .intro-sheen,
+  .intro-wordmark,
+  .intro-skip {
     animation: none !important;
   }
   .particle { opacity: 0 !important; }
+  .intro-overlay { opacity: 0 !important; visibility: hidden !important; }
 }
