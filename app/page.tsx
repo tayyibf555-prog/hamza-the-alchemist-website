@@ -4,7 +4,6 @@ import { VSLHero } from "./components/VSLHero";
 import { Practice } from "./components/Practice";
 import { About } from "./components/About";
 import { Proof } from "./components/Proof";
-import { TermsOfEntry } from "./components/TermsOfEntry";
 import { HoldingBack } from "./components/HoldingBack";
 import { Inquiry } from "./components/Inquiry";
 import { Signup } from "./components/Signup";
@@ -19,7 +18,6 @@ export default function HomePage() {
         <Practice />
         <About />
         <Proof />
-        <TermsOfEntry />
         <HoldingBack />
         <Inquiry />
         <Signup />

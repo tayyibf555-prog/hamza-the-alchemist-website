@@ -111,7 +111,7 @@ export function Inquiry() {
         borderBottom: "1px solid var(--color-hairline)",
       }}
     >
-      <SectionMarker index="VII" label="Inquiry" />
+      <SectionMarker index="VI" label="Inquiry" />
 
       {/* Decorative faint trident behind the form */}
       <motion.div

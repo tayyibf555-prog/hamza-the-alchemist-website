@@ -23,7 +23,7 @@ export function HoldingBack() {
         borderBottom: "1px solid var(--color-hairline)",
       }}
     >
-      <SectionMarker index="VI" label="The Reckoning" />
+      <SectionMarker index="V" label="The Reckoning" />
 
       {/* Decorative oversized ampersand drifting behind the headline */}
       <span
