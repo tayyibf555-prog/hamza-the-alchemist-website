@@ -4,6 +4,8 @@ import { Reveal } from "./Reveal";
 
 type Client = {
   name: string;
+  /** Short role label, e.g. "Day Trader", "Founder". Shown beneath the name. */
+  role?: string;
   /** Replace these with real /public photo paths when available. */
   photo?: string;
   /** Placeholder background gradient until a photo is provided. */
@@ -14,7 +16,7 @@ type Client = {
 };
 
 const clients: Client[] = [
-  { name: "JORDY MICHELS",  tint: "oklch(0.28 0.04 70)",  photo: "/clients/jordy-michels.png" },
+  { name: "JORDY MICHELS",  role: "Day Trader",  tint: "oklch(0.28 0.04 70)",  photo: "/clients/jordy-michels.png" },
   { name: "KINOBODY",       tint: "oklch(0.30 0.05 70)",  instagram: "1.7M", youtube: "771K", tiktok: "1.4M" },
   { name: "MORIBYAN",       tint: "oklch(0.36 0.04 60)",  instagram: "2.7M", youtube: "1.33M", tiktok: "5.3M" },
   { name: "GRACE BEVERLEY", tint: "oklch(0.32 0.05 50)",  instagram: "1.2M", youtube: "705K", tiktok: "436K" },
@@ -54,31 +56,40 @@ function Card({ client }: { client: Client }) {
         }}
       />
 
-      {/* Name + platform row */}
-      <div className="absolute inset-x-0 bottom-0 p-5 flex flex-col gap-3">
+      {/* Name + role / platform row */}
+      <div className="absolute inset-x-0 bottom-0 p-5 flex flex-col gap-2">
         <p className="font-display font-extrabold leading-none tracking-tight text-[18px] text-[var(--color-ivory)] uppercase">
           {client.name}
         </p>
-        <div className="flex items-center gap-4 text-[11px] text-[var(--color-ivory-dim)]">
-          {client.instagram && (
-            <span className="inline-flex items-center gap-1.5">
-              <PlatformIcon kind="instagram" />
-              <span className="tabular-nums">{client.instagram}</span>
-            </span>
-          )}
-          {client.youtube && (
-            <span className="inline-flex items-center gap-1.5">
-              <PlatformIcon kind="youtube" />
-              <span className="tabular-nums">{client.youtube}</span>
-            </span>
-          )}
-          {client.tiktok && (
-            <span className="inline-flex items-center gap-1.5">
-              <PlatformIcon kind="tiktok" />
-              <span className="tabular-nums">{client.tiktok}</span>
-            </span>
-          )}
-        </div>
+
+        {client.role && (
+          <p className="eyebrow text-[11px] text-[var(--color-gold)]">
+            {client.role}
+          </p>
+        )}
+
+        {(client.instagram || client.youtube || client.tiktok) && (
+          <div className="flex items-center gap-4 text-[11px] text-[var(--color-ivory-dim)] mt-1">
+            {client.instagram && (
+              <span className="inline-flex items-center gap-1.5">
+                <PlatformIcon kind="instagram" />
+                <span className="tabular-nums">{client.instagram}</span>
+              </span>
+            )}
+            {client.youtube && (
+              <span className="inline-flex items-center gap-1.5">
+                <PlatformIcon kind="youtube" />
+                <span className="tabular-nums">{client.youtube}</span>
+              </span>
+            )}
+            {client.tiktok && (
+              <span className="inline-flex items-center gap-1.5">
+                <PlatformIcon kind="tiktok" />
+                <span className="tabular-nums">{client.tiktok}</span>
+              </span>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
