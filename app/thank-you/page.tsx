@@ -353,23 +353,45 @@ export default async function ThankYouPage({ searchParams }: Props) {
                       {s.copy}
                     </p>
 
-                    {/* Image slot — drop a screenshot path into the step's `image` field */}
-                    <div
-                      className="relative mt-10 aspect-[16/10] overflow-hidden rounded-[6px]"
-                      style={{
-                        background: "oklch(0.10 0.010 70)",
-                      }}
-                    >
-                      {s.image ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={s.image}
-                          alt={s.imageAlt}
-                          className="absolute inset-0 w-full h-full object-cover"
-                        />
-                      ) : (
-                        <PlaceholderArt kind="image" />
-                      )}
+                    {/* Image slot — drop a screenshot path into the step's `image` field.
+                        Wrapped with the same gold bloom + halo as the homepage VSL. */}
+                    <div className="relative mt-10">
+                      {/* Soft gold radial bloom sitting behind the image */}
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-[-15%]"
+                        style={{
+                          background:
+                            "radial-gradient(ellipse 60% 70% at 50% 50%, oklch(0.42 0.16 78 / 0.42) 0%, oklch(0.30 0.10 75 / 0.20) 35%, transparent 70%)",
+                          filter: "blur(40px)",
+                        }}
+                      />
+
+                      {/* Hairline-gold framed image container with gold halo */}
+                      <div
+                        className="relative aspect-[16/10] overflow-hidden rounded-[6px]"
+                        style={{
+                          border: "1px solid var(--color-hairline)",
+                          padding: "1px",
+                          background:
+                            "linear-gradient(135deg, oklch(0.62 0.14 70 / 0.5) 0%, oklch(0.20 0.014 70) 35%, oklch(0.20 0.014 70) 65%, oklch(0.62 0.14 70 / 0.5) 100%)",
+                          boxShadow:
+                            "0 0 0 1px oklch(0.28 0.008 75), 0 30px 60px -20px oklch(0.10 0.010 70 / 0.8), 0 0 60px -10px oklch(0.78 0.165 78 / 0.4)",
+                        }}
+                      >
+                        <div className="relative w-full h-full rounded-[5px] overflow-hidden">
+                          {s.image ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={s.image}
+                              alt={s.imageAlt}
+                              className="absolute inset-0 w-full h-full object-cover"
+                            />
+                          ) : (
+                            <PlaceholderArt kind="image" />
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </Reveal>
