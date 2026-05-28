@@ -6,8 +6,9 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { TridentMark } from "./TridentMark";
 
-const TOTAL_DURATION_MS = 3400;
+const TOTAL_DURATION_MS = 2800;
 
 // useLayoutEffect on the client, no-op on the server (avoids React's warning)
 const useIsoLayoutEffect =
@@ -19,28 +20,26 @@ type Props = {
 };
 
 /**
- * Startup intro — liquid-metal logo reveal.
+ * Startup intro — logo split-open reveal.
  *
- *   1. Full-screen ink/gold overlay fades in.
- *   2. Logo materialises through an SVG turbulence + displacement filter
- *      (chaotic ripple resolving into the clean mark over ~2.4s).
- *   3. A diagonal gold sheen sweeps across the logo.
- *   4. Wordmark fades up beneath the logo.
- *   5. "Click or press Esc to skip" cue appears.
- *   6. At 3.4s the overlay fades out and the site is revealed.
+ * Timeline (~2.8s):
+ *   0–200ms     overlay holds dark
+ *   200–1300ms  trident fades + scales in (overshoot to 1.06, settle to 1)
+ *   1300–1700ms brief hold at full size
+ *   1700–2500ms logo splits down the middle: left half slides off-screen
+ *               to the left, right half slides off-screen to the right
+ *   2200–2800ms veil fades out while halves continue sliding
+ *   2800ms      overlay completely gone, site revealed
  *
- *   • Plays on every page load (no session skip — the door is always
- *     the door).
- *   • prefers-reduced-motion bypasses the sequence entirely.
+ *   • Plays on every page load.
+ *   • prefers-reduced-motion bypasses entirely.
  *   • Click anywhere on the overlay or press Esc to skip ahead.
  */
 export function EntrySequence({ children }: Props) {
-  // Default to playing so the loader renders in the SSR HTML and shows on
-  // first paint. A synchronous layout effect skips only for reduced motion.
   const [active, setActive] = useState(true);
   const [dismissed, setDismissed] = useState(false);
 
-  // Decide skip path synchronously before paint (reduced motion only)
+  // Skip path: reduced motion
   useIsoLayoutEffect(() => {
     if (typeof window === "undefined") return;
     const reduced = window.matchMedia(
@@ -52,17 +51,15 @@ export function EntrySequence({ children }: Props) {
     }
   }, []);
 
-  // Run the timed auto-dismiss + key/click listeners while the loader is active
+  // Auto-dismiss + key/click listeners
   useEffect(() => {
     if (!active || dismissed) return;
 
-    // Lock body scroll and pin scroll to top while the intro plays
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     window.scrollTo(0, 0);
 
     const dismiss = () => setDismissed(true);
-
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") dismiss();
     };
@@ -77,10 +74,7 @@ export function EntrySequence({ children }: Props) {
     };
   }, [active, dismissed]);
 
-  // Once dismissed: pin scroll to top for a short window after body
-  // is unlocked, since the browser may try to restore the previous
-  // scroll position the moment the page becomes scrollable. Bails on
-  // user input so the safety net never fights wheel/touch.
+  // Once dismissed: pin scroll to top briefly (bails on user input)
   useEffect(() => {
     if (!dismissed || !active) return;
 
@@ -108,10 +102,6 @@ export function EntrySequence({ children }: Props) {
     const snap = () => {
       if (!userScrolling && window.scrollY !== 0) window.scrollTo(0, 0);
     };
-
-    // Snap synchronously, then a single follow-up at 300ms to catch
-    // any late browser scroll-restore after body unlocks. Both bail on
-    // user input via the userScrolling flag.
     snap();
     const t1 = window.setTimeout(snap, 300);
 
@@ -123,78 +113,35 @@ export function EntrySequence({ children }: Props) {
     };
   }, [dismissed, active]);
 
-  // Skip path — render children straight away (no overlay)
+  // Skip path — render children straight away
   if (!active) {
     return <>{children}</>;
   }
 
   return (
     <>
-      <div
+      <section
         role="presentation"
         aria-hidden="true"
         onClick={() => setDismissed(true)}
         className={`intro-overlay${dismissed ? " intro-overlay--done" : ""}`}
       >
-        {/* SVG with liquid-metal filter applied to the logo image */}
-        <svg className="intro-logo" viewBox="0 0 200 200">
-          <defs>
-            <filter
-              id="liquidMetal"
-              x="-30%"
-              y="-30%"
-              width="160%"
-              height="160%"
-            >
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.04"
-                numOctaves={3}
-                seed={3}
-                result="turb"
-              >
-                <animate
-                  attributeName="baseFrequency"
-                  dur="2.4s"
-                  values="0.08;0.04;0.015;0.01"
-                  keyTimes="0;0.4;0.8;1"
-                  fill="freeze"
-                />
-              </feTurbulence>
-              <feDisplacementMap in="SourceGraphic" in2="turb" scale="80">
-                <animate
-                  attributeName="scale"
-                  dur="2.4s"
-                  values="100;55;15;0"
-                  keyTimes="0;0.4;0.8;1"
-                  fill="freeze"
-                />
-              </feDisplacementMap>
-            </filter>
-          </defs>
-          <g filter="url(#liquidMetal)">
-            <image
-              href="/logo-clean.png"
-              x="20"
-              y="20"
-              width="160"
-              height="160"
-              preserveAspectRatio="xMidYMid meet"
-            />
-          </g>
-        </svg>
+        {/* Dark veil — fades out near the end of the split */}
+        <div aria-hidden="true" className="intro-veil" />
 
-        {/* Sheen — diagonal gold sweep across the logo */}
-        <div aria-hidden="true" className="intro-sheen" />
-
-        {/* Wordmark beneath the logo */}
-        <div className="intro-wordmark">
-          Hamza <span className="intro-wordmark-accent">The Alchemist</span>
+        {/* Left half of the logo — clipped to show only the left side */}
+        <div className="intro-logo intro-logo--left">
+          <TridentMark className="w-full h-full" glow />
         </div>
 
-        {/* Skip hint */}
+        {/* Right half of the logo — clipped to show only the right side */}
+        <div className="intro-logo intro-logo--right">
+          <TridentMark className="w-full h-full" glow />
+        </div>
+
+        {/* Skip cue */}
         <div className="intro-skip">Click or press Esc to skip</div>
-      </div>
+      </section>
 
       {children}
     </>
