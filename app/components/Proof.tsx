@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { Reveal } from "./Reveal";
 import { CountUp } from "./CountUp";
 import { SectionMarker } from "./SectionMarker";
+import { ClientPortfolio } from "./ClientPortfolio";
 
 function GrowthChart() {
   const ref = useRef<SVGSVGElement>(null);
@@ -318,6 +319,9 @@ export function Proof() {
             </div>
           </Reveal>
         </div>
+
+        {/* Creator clients marquee */}
+        <ClientPortfolio />
       </div>
     </section>
   );

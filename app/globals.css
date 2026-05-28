@@ -342,6 +342,21 @@
     }
   }
 
+  /* Client portfolio marquee — infinite horizontal scroll.
+     Track holds two copies of the list side-by-side, animated from
+     0 to -50% so the loop is seamless. Pauses on hover. */
+  .client-marquee-track {
+    width: max-content;
+    animation: client-marquee 48s linear infinite;
+  }
+  .client-marquee:hover .client-marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes client-marquee {
+    0%   { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+  }
+
   /* Veil parts vertically — load-in choreography */
   @keyframes veil-top {
     0%, 18% { transform: translateY(0); }
@@ -384,6 +399,7 @@
   .dot-pulse,
   .draw-path,
   .gold-dot,
+  .client-marquee-track,
   .intro-overlay,
   .intro-veil,
   .intro-logo,
