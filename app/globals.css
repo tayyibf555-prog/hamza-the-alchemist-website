@@ -335,26 +335,6 @@
     animation: dot-pulse 1200ms var(--ease-in-out-quart) infinite;
   }
 
-  /* Film-grain shimmer — sub-pixel background-position shifts at
-     ~12fps frequency to produce a cinematic flicker without repainting. */
-  @keyframes grain-shimmer {
-    0%   { background-position: 0px 0px; }
-    10%  { background-position: -23px 17px; }
-    20%  { background-position: 41px -29px; }
-    30%  { background-position: -57px -11px; }
-    40%  { background-position: 19px 43px; }
-    50%  { background-position: -33px 7px; }
-    60%  { background-position: 49px -37px; }
-    70%  { background-position: -13px 53px; }
-    80%  { background-position: 27px -19px; }
-    90%  { background-position: -47px 31px; }
-    100% { background-position: 0px 0px; }
-  }
-
-  .grain-shimmer {
-    animation: grain-shimmer 6s steps(10) infinite;
-  }
-
   /* SVG draw-on */
   .draw-path {
     stroke-dasharray: var(--path-length, 1000);
@@ -374,7 +354,6 @@
   .veil-bottom,
   .dot-pulse,
   .draw-path,
-  .grain-shimmer,
   .intro-overlay,
   .intro-veil,
   .intro-logo,

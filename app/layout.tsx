@@ -3,7 +3,6 @@ import { Inter, Outfit, Fraunces } from "next/font/google";
 import "./globals.css";
 import { MotionRoot } from "./components/MotionRoot";
 import { Cursor } from "./components/Cursor";
-import { Grain } from "./components/Grain";
 import { ScrollManager } from "./components/ScrollManager";
 import { AuraBackground } from "./components/AuraBackground";
 
@@ -53,7 +52,6 @@ export default function RootLayout({
         <AuraBackground />
         <ScrollManager />
         <MotionRoot>{children}</MotionRoot>
-        <Grain />
         <Cursor />
       </body>
     </html>
