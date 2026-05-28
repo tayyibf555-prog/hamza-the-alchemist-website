@@ -10,6 +10,8 @@ type Props = {
   progress?: number;
   /** Show the caption row below the frame with the runtime. */
   showCaption?: boolean;
+  /** YouTube video id, e.g. "X2ObLdwGbZI". When set, clicking play loads the real embed. */
+  youtubeId?: string;
 };
 
 /**
@@ -25,6 +27,7 @@ export function VideoFrame({
   runtime = "08:42",
   progress = 0.08,
   showCaption = false,
+  youtubeId,
 }: Props) {
   const [playing, setPlaying] = useState(false);
 
@@ -50,7 +53,8 @@ export function VideoFrame({
               "radial-gradient(ellipse at 50% 45%, oklch(0.22 0.06 75) 0%, oklch(0.12 0.014 70) 70%)",
           }}
         >
-          {/* Chapter ticks along the bottom edge */}
+          {/* Chapter ticks along the bottom edge — hide once the video is playing */}
+          {!playing && (
           <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center gap-3 pointer-events-none">
             <span className="eyebrow text-[10px] text-[var(--color-ivory-faint)]">
               00:00
@@ -78,8 +82,10 @@ export function VideoFrame({
               {runtime}
             </span>
           </div>
+          )}
 
-          {/* Faint trident watermark */}
+          {/* Faint trident watermark — also hidden while playing */}
+          {!playing && (
           <div
             aria-hidden
             className="absolute inset-0 flex items-center justify-center opacity-[0.08] text-[var(--color-ivory)] pointer-events-none"
@@ -89,6 +95,7 @@ export function VideoFrame({
               <TridentMark className="w-full h-full" />
             </div>
           </div>
+          )}
 
           {/* Play button — trident inside a gold ring */}
           {!playing && (
@@ -129,13 +136,24 @@ export function VideoFrame({
             </button>
           )}
 
-          {playing && (
+          {playing && youtubeId && (
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+              title="Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+              style={{ border: 0 }}
+            />
+          )}
+
+          {playing && !youtubeId && (
             <div className="absolute inset-0 flex items-center justify-center text-center px-8">
               <p className="text-[var(--color-ivory-dim)] text-[14px] max-w-[40ch]">
-                Embed your VSL here. Replace the{" "}
-                <code className="text-[var(--color-gold)]">playing</code> branch
-                with an <code className="text-[var(--color-gold)]">&lt;iframe&gt;</code> or{" "}
-                <code className="text-[var(--color-gold)]">&lt;video&gt;</code> source.
+                Embed your VSL here. Pass a{" "}
+                <code className="text-[var(--color-gold)]">youtubeId</code> prop
+                to <code className="text-[var(--color-gold)]">&lt;VideoFrame /&gt;</code>{" "}
+                to load the real video.
               </p>
             </div>
           )}

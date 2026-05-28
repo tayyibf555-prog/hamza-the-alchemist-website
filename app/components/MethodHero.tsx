@@ -45,7 +45,7 @@ export function MethodHero() {
           transition={{ duration: 1.4, delay: 0.3, ease: easeOutExpo }}
           className="relative mt-14 lg:mt-20"
         >
-          <VideoFrame runtime="12:08" progress={0.06} />
+          <VideoFrame runtime="12:08" progress={0.06} youtubeId="X2ObLdwGbZI" />
         </motion.div>
 
         {/* Three Roman-numeral markers — table of contents for the phases below */}
