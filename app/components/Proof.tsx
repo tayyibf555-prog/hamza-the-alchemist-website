@@ -319,10 +319,10 @@ export function Proof() {
             </div>
           </Reveal>
         </div>
-
-        {/* Creator clients marquee */}
-        <ClientPortfolio />
       </div>
+
+      {/* Creator clients marquee — full-width, breaks out of the inner container */}
+      <ClientPortfolio />
     </section>
   );
 }

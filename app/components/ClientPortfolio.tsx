@@ -128,7 +128,7 @@ function PlatformIcon({ kind }: { kind: "instagram" | "youtube" | "tiktok" }) {
  */
 export function ClientPortfolio() {
   return (
-    <div className="mt-16 lg:mt-20">
+    <div className="w-full pt-16 lg:pt-20 pb-20 lg:pb-28">
       <Reveal>
         <p className="eyebrow text-[var(--color-ivory-faint)] mb-8 px-6 lg:px-10">
           Creator clients we work with
@@ -139,9 +139,9 @@ export function ClientPortfolio() {
         className="client-marquee relative w-full overflow-hidden"
         style={{
           maskImage:
-            "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%)",
           WebkitMaskImage:
-            "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%)",
         }}
       >
         <div className="client-marquee-track flex gap-5 lg:gap-7 py-2">
