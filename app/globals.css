@@ -74,15 +74,20 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    /* On-brand tint without crushing the shader. Sepia + slight
-       hue-rotate keep it in the gold range; brightness left high so
-       the shader's motion reads cleanly as the canvas itself. */
+    /* On-brand: mostly black surface with subtle gold peaks where the
+       shader pulses brightest. Heavy sepia + hue-rotate locks the
+       output into the gold-yellow range; low brightness crushes the
+       dim parts toward black; high saturation + contrast pop the
+       highlights so they read as proper gold accents.
+
+       Net: the bulk of the canvas reads as black with a brand-colour
+       glow appearing only where the shader genuinely brightens. */
     filter:
-      sepia(0.85)
-      saturate(1.05)
-      hue-rotate(8deg)
-      brightness(0.7)
-      contrast(1.1);
+      sepia(1)
+      saturate(1.4)
+      hue-rotate(10deg)
+      brightness(0.38)
+      contrast(1.35);
   }
   @media (prefers-reduced-motion: reduce) {
     .aura-background-component {
