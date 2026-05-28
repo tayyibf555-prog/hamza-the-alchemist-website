@@ -8,7 +8,7 @@ import {
 } from "react";
 import { TridentMark } from "./TridentMark";
 
-const TOTAL_DURATION_MS = 2000;
+const TOTAL_DURATION_MS = 2700;
 
 // useLayoutEffect on the client, no-op on the server (avoids React's warning)
 const useIsoLayoutEffect =
@@ -22,15 +22,15 @@ type Props = {
 /**
  * Startup intro — logo split-open reveal.
  *
- * Timeline (~2s):
+ * Timeline (~2.7s):
  *   0–50ms       overlay holds dark
  *   50–450ms     trident fades + scales in (overshoot to 1.06, settle to 1)
  *   450–550ms    brief hold at full size
- *   550–1700ms   logo splits down the middle slowly — left half slides
- *                off-screen to the left, right half slides off-screen
- *                to the right, smooth ease-out glide (~1.15s)
- *   1300–2000ms  veil fades out while halves continue sliding
- *   2000ms       overlay completely gone, site revealed
+ *   550–2550ms   logo splits down the middle very slowly — left half
+ *                drifts off-screen to the left, right half drifts to
+ *                the right, 2s glide with gentle ease-out
+ *   1850–2550ms  veil fades out while halves continue drifting
+ *   2700ms       overlay completely gone, site revealed
  *
  *   • Plays on every page load.
  *   • prefers-reduced-motion bypasses entirely.
