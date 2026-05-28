@@ -8,7 +8,7 @@ import {
 } from "react";
 import { TridentMark } from "./TridentMark";
 
-const TOTAL_DURATION_MS = 5000;
+const TOTAL_DURATION_MS = 1300;
 
 // useLayoutEffect on the client, no-op on the server (avoids React's warning)
 const useIsoLayoutEffect =
@@ -22,14 +22,14 @@ type Props = {
 /**
  * Startup intro — logo split-open reveal.
  *
- * Timeline (~5s):
- *   0–300ms     overlay holds dark
- *   300–1800ms  trident fades + scales in (overshoot to 1.06, settle to 1)
- *   1800–2800ms hold at full size (long, deliberate beat)
- *   2800–4400ms logo splits down the middle: left half slides off-screen
+ * Timeline (~1.3s):
+ *   0–50ms      overlay holds dark
+ *   50–450ms    trident fades + scales in (overshoot to 1.06, settle to 1)
+ *   450–600ms   brief hold at full size
+ *   600–1100ms  logo splits down the middle: left half slides off-screen
  *               to the left, right half slides off-screen to the right
- *   4000–5000ms veil fades out while halves continue sliding
- *   5000ms      overlay completely gone, site revealed
+ *   800–1300ms  veil fades out while halves continue sliding
+ *   1300ms      overlay completely gone, site revealed
  *
  *   • Plays on every page load.
  *   • prefers-reduced-motion bypasses entirely.
@@ -138,9 +138,6 @@ export function EntrySequence({ children }: Props) {
         <div className="intro-logo intro-logo--right">
           <TridentMark className="w-full h-full" glow />
         </div>
-
-        {/* Skip cue */}
-        <div className="intro-skip">Click or press Esc to skip</div>
       </section>
 
       {children}
