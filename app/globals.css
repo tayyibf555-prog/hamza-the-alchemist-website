@@ -194,8 +194,8 @@
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 300ms cubic-bezier(0.4, 0, 0.6, 1),
-                visibility 0ms 300ms;
+    transition: opacity 500ms cubic-bezier(0.4, 0, 0.6, 1),
+                visibility 0ms 500ms;
   }
 
   /* Dark veil — fades out near the end of the split. */
@@ -205,7 +205,7 @@
     background:
       radial-gradient(ellipse at 50% 50%, oklch(0.78 0.165 78 / 0.06) 0%, transparent 60%),
       linear-gradient(135deg, oklch(0.04 0.003 70) 0%, oklch(0.06 0.005 70) 50%, oklch(0.04 0.003 70) 100%);
-    animation: intro-veil-out 500ms cubic-bezier(0.5, 0, 0.4, 1) 800ms forwards;
+    animation: intro-veil-out 700ms cubic-bezier(0.5, 0, 0.4, 1) 1300ms forwards;
   }
 
   @keyframes intro-veil-out {
@@ -230,7 +230,7 @@
     -webkit-clip-path: inset(0 50% 0 0);
     animation:
       intro-logo-in 400ms cubic-bezier(0.2, 0.85, 0.25, 1) 50ms forwards,
-      intro-split-left 500ms cubic-bezier(0.55, 0, 0.25, 1) 600ms forwards;
+      intro-split-left 1150ms cubic-bezier(0.4, 0, 0.2, 1) 550ms forwards;
   }
 
   .intro-logo--right {
@@ -238,7 +238,7 @@
     -webkit-clip-path: inset(0 0 0 50%);
     animation:
       intro-logo-in 400ms cubic-bezier(0.2, 0.85, 0.25, 1) 50ms forwards,
-      intro-split-right 500ms cubic-bezier(0.55, 0, 0.25, 1) 600ms forwards;
+      intro-split-right 1150ms cubic-bezier(0.4, 0, 0.2, 1) 550ms forwards;
   }
 
   @keyframes intro-logo-in {
