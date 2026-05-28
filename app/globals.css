@@ -299,19 +299,6 @@
     animation: halo-breathe 4s var(--ease-in-out-quart) infinite;
   }
 
-  /* Particle drift */
-  @keyframes drift-up {
-    0% { transform: translateY(0) translateX(0); opacity: 0; }
-    10% { opacity: var(--p-opacity, 0.15); }
-    90% { opacity: var(--p-opacity, 0.15); }
-    100% { transform: translateY(-120vh) translateX(var(--p-sway, 20px)); opacity: 0; }
-  }
-
-  .particle {
-    animation: drift-up var(--p-duration, 14s) linear infinite;
-    animation-delay: var(--p-delay, 0s);
-  }
-
   /* Veil parts vertically — load-in choreography */
   @keyframes veil-top {
     0%, 18% { transform: translateY(0); }
@@ -349,7 +336,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .halo-breathe,
-  .particle,
   .veil-top,
   .veil-bottom,
   .dot-pulse,
@@ -362,6 +348,5 @@
   .intro-wordmark {
     animation: none !important;
   }
-  .particle { opacity: 0 !important; }
   .intro-overlay { opacity: 0 !important; visibility: hidden !important; }
 }

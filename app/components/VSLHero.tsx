@@ -2,7 +2,6 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { SectionMarker } from "./SectionMarker";
-import { Particles } from "./Particles";
 import { VideoFrame } from "./VideoFrame";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
@@ -35,8 +34,6 @@ export function VSLHero() {
       id="home"
       className="relative min-h-[100svh] flex flex-col overflow-hidden pt-[76px]"
     >
-      <Particles count={32} />
-
       <SectionMarker index="I" label="Orientation" />
 
 
