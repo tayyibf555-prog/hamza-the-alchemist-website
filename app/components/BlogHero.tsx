@@ -73,22 +73,25 @@ export function BlogHero() {
           initial={{ opacity: 0, y: reduced ? 0 : 36 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.2, ease: easeOutExpo }}
-          className="font-display font-extrabold text-balance text-center leading-[0.98] tracking-[-0.025em] text-[clamp(48px,8vw,140px)] text-[var(--color-ivory)]"
+          className="font-display font-extrabold text-center leading-[1.0] tracking-[-0.025em] text-[clamp(40px,6.5vw,110px)] text-[var(--color-ivory)]"
         >
-          Control your{" "}
-          <span
-            className="accent text-[var(--color-gold)]"
-            style={{ textShadow: "0 0 60px oklch(0.78 0.165 78 / 0.4)" }}
-          >
-            identity.
+          <span className="block whitespace-nowrap">
+            Control your{" "}
+            <span
+              className="accent text-[var(--color-gold)]"
+              style={{ textShadow: "0 0 60px oklch(0.78 0.165 78 / 0.4)" }}
+            >
+              identity.
+            </span>
           </span>
-          <br />
-          Control your{" "}
-          <span
-            className="accent text-[var(--color-gold)]"
-            style={{ textShadow: "0 0 60px oklch(0.78 0.165 78 / 0.4)" }}
-          >
-            reality.
+          <span className="block whitespace-nowrap">
+            Control your{" "}
+            <span
+              className="accent text-[var(--color-gold)]"
+              style={{ textShadow: "0 0 60px oklch(0.78 0.165 78 / 0.4)" }}
+            >
+              reality.
+            </span>
           </span>
         </motion.h1>
 
