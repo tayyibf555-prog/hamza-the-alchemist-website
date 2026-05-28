@@ -1,13 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { Reveal } from "./Reveal";
+import { ClientProfileModal, type ClientProfile } from "./ClientProfileModal";
 
-type Client = {
-  name: string;
-  /** Short role label, e.g. "Day Trader", "Founder". Shown beneath the name. */
-  role?: string;
-  /** Replace these with real /public photo paths when available. */
-  photo?: string;
+type Client = ClientProfile & {
   /** Placeholder background gradient until a photo is provided. */
   tint: string;
   instagram?: string;
@@ -27,13 +24,27 @@ const clients: Client[] = [
   { name: "DAN KOE",        tint: "oklch(0.33 0.05 50)",  instagram: "650K", youtube: "480K", tiktok: "320K" },
 ];
 
-function Card({ client }: { client: Client }) {
+function Card({
+  client,
+  onOpen,
+  ariaHidden,
+}: {
+  client: Client;
+  onOpen: () => void;
+  ariaHidden?: boolean;
+}) {
   return (
-    <div
-      className="relative shrink-0 w-[260px] md:w-[300px] aspect-[3/4] overflow-hidden rounded-[14px]"
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-hidden={ariaHidden ? true : undefined}
+      tabIndex={ariaHidden ? -1 : 0}
+      aria-label={`Open ${client.name} profile`}
+      className="group relative shrink-0 w-[260px] md:w-[300px] aspect-[3/4] overflow-hidden rounded-[14px] text-left cursor-pointer transition-transform duration-500"
       style={{
         border: "1px solid var(--color-hairline)",
         background: `linear-gradient(180deg, ${client.tint} 0%, oklch(0.10 0.012 70) 100%)`,
+        transitionTimingFunction: "var(--ease-out-expo)",
       }}
     >
       {/* If a real photo is provided, render it. Otherwise the gradient placeholder shows. */}
@@ -91,7 +102,7 @@ function Card({ client }: { client: Client }) {
           </div>
         )}
       </div>
-    </div>
+    </button>
   );
 }
 
@@ -139,6 +150,8 @@ function PlatformIcon({ kind }: { kind: "instagram" | "youtube" | "tiktok" }) {
  * viewer can read a card properly.
  */
 export function ClientPortfolio() {
+  const [openClient, setOpenClient] = useState<Client | null>(null);
+
   return (
     <div
       className="relative pt-16 lg:pt-20 pb-20 lg:pb-28"
@@ -164,14 +177,30 @@ export function ClientPortfolio() {
       >
         <div className="client-marquee-track flex gap-5 lg:gap-7 py-2">
           {clients.map((c, i) => (
-            <Card key={`a-${i}`} client={c} />
+            <Card
+              key={`a-${i}`}
+              client={c}
+              onOpen={() => setOpenClient(c)}
+            />
           ))}
-          {/* Duplicate for seamless loop */}
+          {/* Duplicate for seamless loop — aria-hidden so screen readers don't
+              double-announce. Still clickable for users whose mouse lands on
+              the duplicate copy as it scrolls. */}
           {clients.map((c, i) => (
-            <Card key={`b-${i}`} client={c} />
+            <Card
+              key={`b-${i}`}
+              client={c}
+              onOpen={() => setOpenClient(c)}
+              ariaHidden
+            />
           ))}
         </div>
       </div>
+
+      <ClientProfileModal
+        client={openClient}
+        onClose={() => setOpenClient(null)}
+      />
     </div>
   );
 }
