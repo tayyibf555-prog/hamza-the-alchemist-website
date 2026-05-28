@@ -55,10 +55,9 @@
     position: relative;
   }
 
-  /* Scrim above the shader for content legibility — deep near-black
-     with a faint top-edge gold breath, sits between shader (-2) and
-     content (default). Subtle enough to keep the shader visible
-     beneath but heavy enough that body copy never has to fight it. */
+  /* Very light scrim above the shader. Just enough to keep body copy
+     legible on the brightest parts of the moving aura; doesn't bury
+     the shader's motion. */
   body::before {
     content: "";
     position: fixed;
@@ -68,13 +67,13 @@
     background:
       radial-gradient(
         ellipse at 50% -10%,
-        oklch(0.78 0.165 78 / 0.05) 0%,
-        transparent 55%
+        oklch(0.78 0.165 78 / 0.04) 0%,
+        transparent 60%
       ),
       linear-gradient(
         180deg,
-        oklch(0.05 0.003 70 / 0.55) 0%,
-        oklch(0.05 0.003 70 / 0.7) 100%
+        oklch(0.05 0.003 70 / 0.15) 0%,
+        oklch(0.05 0.003 70 / 0.28) 100%
       );
   }
 
@@ -93,12 +92,12 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    /* Push the shader to near-black grayscale. Five knobs:
-         grayscale()  strips colour
-         brightness() drops luminance
-         contrast()   keeps the shape detail readable
-       Result: subtle moving black-on-black texture. */
-    filter: grayscale(1) brightness(0.32) contrast(1.45);
+    /* Strip warm colour but keep shader motion clearly visible:
+         grayscale(1)   — black-and-white only
+         brightness(0.7) — softens the highlights, keeps shapes alive
+         contrast(1.15)  — sustains depth between lights/darks
+       Result: visible monochrome aura, no gold tint. */
+    filter: grayscale(1) brightness(0.7) contrast(1.15);
   }
   @media (prefers-reduced-motion: reduce) {
     .aura-background-component {
