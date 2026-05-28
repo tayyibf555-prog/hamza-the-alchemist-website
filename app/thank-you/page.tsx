@@ -59,19 +59,21 @@ type Testimonial = {
   /** Grid column span on desktop. */
   span: 1 | 2;
   /** Tile aspect ratio. */
-  aspect: "video" | "portrait" | "square";
+  aspect: "video" | "portrait" | "square" | "vertical";
+  /** When true, the tile gets the VSL-style gold bloom + hairline-gold frame. */
+  glow?: boolean;
 };
 
 const testimonials: Testimonial[] = [
   {
     kind: "video",
-    src: "",
-    poster: "",
-    alt: "Founder testimonial — full interview",
-    name: "Operator",
-    outcome: "Replace with real name + outcome",
-    span: 2,
-    aspect: "video",
+    src: "/clients/jordy-michels-testimonial.mp4",
+    alt: "Jordy Michels testimonial",
+    name: "JORDY MICHELS",
+    outcome: "Day Trader",
+    span: 1,
+    aspect: "vertical",
+    glow: true,
   },
   {
     kind: "image",
@@ -135,11 +137,41 @@ const aspectClass = (a: Testimonial["aspect"]) =>
     ? "aspect-video"
     : a === "portrait"
     ? "aspect-[3/4]"
+    : a === "vertical"
+    ? "aspect-[9/16]"
     : "aspect-square";
 
 function TestimonialTile({ t, i }: { t: Testimonial; i: number }) {
   const hasMedia = t.src && t.src.trim().length > 0;
   const spanClass = t.span === 2 ? "md:col-span-2" : "md:col-span-1";
+
+  const Media = () => (
+    <>
+      {hasMedia && t.kind === "video" && (
+        <video
+          src={t.src}
+          poster={t.poster || undefined}
+          controls
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover bg-black"
+        >
+          <track kind="captions" />
+        </video>
+      )}
+
+      {hasMedia && t.kind === "image" && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={t.src}
+          alt={t.alt || ""}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      )}
+
+      {!hasMedia && <PlaceholderArt kind={t.kind} />}
+    </>
+  );
 
   return (
     <Reveal delay={0.05 * i}>
@@ -147,36 +179,50 @@ function TestimonialTile({ t, i }: { t: Testimonial; i: number }) {
         className={`relative ${spanClass} flex flex-col gap-4`}
         aria-label={t.alt}
       >
-        <div
-          className={`relative ${aspectClass(
-            t.aspect
-          )} overflow-hidden rounded-[6px] bg-[var(--color-ink-raised)]`}
-          style={{ border: "1px solid var(--color-hairline)" }}
-        >
-          {hasMedia && t.kind === "video" && (
-            <video
-              src={t.src}
-              poster={t.poster || undefined}
-              controls
-              playsInline
-              preload="metadata"
-              className="absolute inset-0 w-full h-full object-cover bg-black"
-            >
-              <track kind="captions" />
-            </video>
-          )}
-
-          {hasMedia && t.kind === "image" && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={t.src}
-              alt={t.alt || ""}
-              className="absolute inset-0 w-full h-full object-cover"
+        {t.glow ? (
+          // Gold-glow variant — bloom behind + hairline-gold gradient frame
+          <div className="relative">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-[-12%]"
+              style={{
+                background:
+                  "radial-gradient(ellipse 60% 70% at 50% 50%, oklch(0.42 0.16 78 / 0.45) 0%, oklch(0.30 0.10 75 / 0.20) 35%, transparent 70%)",
+                filter: "blur(40px)",
+              }}
             />
-          )}
-
-          {!hasMedia && <PlaceholderArt kind={t.kind} />}
-        </div>
+            <div
+              className={`relative ${aspectClass(
+                t.aspect
+              )} overflow-hidden rounded-[6px]`}
+              style={{
+                border: "1px solid var(--color-hairline)",
+                padding: "1px",
+                background:
+                  "linear-gradient(135deg, oklch(0.62 0.14 70 / 0.5) 0%, oklch(0.20 0.014 70) 35%, oklch(0.20 0.014 70) 65%, oklch(0.62 0.14 70 / 0.5) 100%)",
+                boxShadow:
+                  "0 0 0 1px oklch(0.28 0.008 75), 0 30px 60px -20px oklch(0.10 0.010 70 / 0.8), 0 0 60px -10px oklch(0.78 0.165 78 / 0.4)",
+              }}
+            >
+              <div
+                className="relative w-full h-full rounded-[5px] overflow-hidden"
+                style={{ background: "oklch(0.05 0.005 70)" }}
+              >
+                <Media />
+              </div>
+            </div>
+          </div>
+        ) : (
+          // Plain variant — single hairline border
+          <div
+            className={`relative ${aspectClass(
+              t.aspect
+            )} overflow-hidden rounded-[6px] bg-[var(--color-ink-raised)]`}
+            style={{ border: "1px solid var(--color-hairline)" }}
+          >
+            <Media />
+          </div>
+        )}
 
         {(t.name || t.outcome) && (
           <figcaption className="flex items-baseline justify-between gap-4 px-1">
