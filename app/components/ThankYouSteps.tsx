@@ -127,13 +127,16 @@ export function ThankYouSteps({ steps }: { steps: Step[] }) {
                         "0 0 0 1px oklch(0.28 0.008 75), 0 30px 60px -20px oklch(0.10 0.010 70 / 0.8), 0 0 60px -10px oklch(0.78 0.165 78 / 0.4)",
                     }}
                   >
-                    <div className="relative w-full h-full rounded-[5px] overflow-hidden">
+                    <div
+                      className="relative w-full h-full rounded-[5px] overflow-hidden"
+                      style={{ background: "oklch(0.07 0.008 70)" }}
+                    >
                       {s.image ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={s.image}
                           alt={s.imageAlt}
-                          className="absolute inset-0 w-full h-full object-cover"
+                          className="absolute inset-0 w-full h-full object-contain"
                         />
                       ) : (
                         <PlaceholderArt kind="image" />

@@ -25,7 +25,7 @@ const steps: Step[] = [
     meta: "Within the hour",
     title: "Save the invite.",
     copy: "The Calendly invite hits your inbox. Accept it, add it to your calendar, and pin the time. If it doesn't land within the hour, check Updates and Promotions before reaching out.",
-    image: "",
+    image: "/steps/01.png",
     imageAlt: "Screenshot showing how to accept the calendar invite",
     confirmLabel: "I have accepted the calendar invite.",
   },
