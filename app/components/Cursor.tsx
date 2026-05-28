@@ -30,9 +30,19 @@ export function Cursor() {
     let ry = my;
     let raf = 0;
 
+    const reveal = () => {
+      // Idempotent — make the cursor visible on first interaction. Safari
+      // does NOT fire mouseenter on initial page load when the cursor is
+      // already inside the viewport, so relying on mouseenter alone leaves
+      // the custom cursor invisible (and native cursor is hidden via CSS).
+      if (dot.style.opacity !== "1") dot.style.opacity = "1";
+      if (ring.style.opacity !== "1") ring.style.opacity = "1";
+    };
+
     const onMove = (e: MouseEvent) => {
       mx = e.clientX;
       my = e.clientY;
+      reveal();
       // Move the dot instantly
       dot.style.transform = `translate3d(${mx - 4}px, ${my - 4}px, 0)`;
     };
@@ -59,22 +69,20 @@ export function Cursor() {
       ring.style.opacity = "0";
       dot.style.opacity = "0";
     };
-    const onEnter = () => {
-      ring.style.opacity = "1";
-      dot.style.opacity = "1";
-    };
 
     window.addEventListener("mousemove", onMove, { passive: true });
     document.addEventListener("mouseover", onOver, { passive: true });
+    // mouseleave fires reliably on document boundary exit across browsers.
+    // mouseenter is unreliable on Safari initial load — we reveal via onMove instead.
     document.addEventListener("mouseleave", onLeave);
-    document.addEventListener("mouseenter", onEnter);
+    document.addEventListener("mouseenter", reveal);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseover", onOver);
       document.removeEventListener("mouseleave", onLeave);
-      document.removeEventListener("mouseenter", onEnter);
+      document.removeEventListener("mouseenter", reveal);
       document.documentElement.classList.remove("cursor-on");
     };
   }, []);
