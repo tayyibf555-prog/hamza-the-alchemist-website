@@ -15,6 +15,8 @@ export type Step = {
   /** Path inside /public, e.g. "/steps/01.png". Empty string renders the placeholder. */
   image: string;
   imageAlt: string;
+  /** CSS aspect-ratio for the image box, e.g. "1496 / 1051", "3 / 2", "16 / 9". */
+  imageAspect?: string;
   /** Label next to the confirmation checkbox below the image. */
   confirmLabel: string;
 };
@@ -115,10 +117,11 @@ export function ThankYouSteps({ steps }: { steps: Step[] }) {
                     }}
                   />
 
-                  {/* Hairline-gold gradient frame */}
+                  {/* Hairline-gold gradient frame — aspect adapts to the image */}
                   <div
-                    className="relative aspect-[16/9] overflow-hidden rounded-[6px]"
+                    className="relative overflow-hidden rounded-[6px]"
                     style={{
+                      aspectRatio: s.imageAspect || "16 / 9",
                       border: "1px solid var(--color-hairline)",
                       padding: "1px",
                       background:
@@ -136,7 +139,7 @@ export function ThankYouSteps({ steps }: { steps: Step[] }) {
                         <img
                           src={s.image}
                           alt={s.imageAlt}
-                          className="absolute inset-0 w-full h-full object-contain"
+                          className="absolute inset-0 w-full h-full object-cover"
                         />
                       ) : (
                         <PlaceholderArt kind="image" />
