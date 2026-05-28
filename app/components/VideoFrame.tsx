@@ -69,15 +69,14 @@ export function VideoFrame({
                     t.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
                   }
                 }}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover z-0"
               />
-              {/* Soft dark vignette so the gold play button stays legible over any frame */}
+              {/* Featherlight tint so the play button reads clearly on bright frames */}
               <div
                 aria-hidden
-                className="absolute inset-0 pointer-events-none"
+                className="absolute inset-0 pointer-events-none z-0"
                 style={{
-                  background:
-                    "radial-gradient(circle at 50% 50%, oklch(0.05 0.005 70 / 0.2) 0%, oklch(0.05 0.005 70 / 0.55) 80%)",
+                  background: "oklch(0.05 0.005 70 / 0.18)",
                 }}
               />
             </>
