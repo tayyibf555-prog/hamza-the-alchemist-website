@@ -259,6 +259,40 @@
     100% { opacity: 1; transform: translate(calc(-50% + 90vw), -50%) scale(1); }
   }
 
+  /* Wordmark — revealed between the splitting halves.
+     Fades in slightly after the split begins, so the halves have
+     cleared enough center space for the text to read. */
+  .intro-wordmark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    white-space: nowrap;
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-size: clamp(28px, 4.8vw, 72px);
+    color: var(--color-ivory);
+    opacity: 0;
+    pointer-events: none;
+    animation: intro-wordmark-in 700ms cubic-bezier(0.2, 0.85, 0.25, 1) 800ms forwards;
+  }
+
+  .intro-wordmark-accent {
+    font-family: var(--font-display-accent);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-gold);
+    text-shadow: 0 0 40px oklch(0.78 0.165 78 / 0.45);
+  }
+
+  @keyframes intro-wordmark-in {
+    0%   { opacity: 0; transform: translate(-50%, -50%) translateY(8px); }
+    100% { opacity: 1; transform: translate(-50%, -50%) translateY(0); }
+  }
+
 
   /* Logo halo pulse */
   @keyframes halo-breathe {
@@ -350,7 +384,8 @@
   .intro-veil,
   .intro-logo,
   .intro-logo--left,
-  .intro-logo--right {
+  .intro-logo--right,
+  .intro-wordmark {
     animation: none !important;
   }
   .particle { opacity: 0 !important; }

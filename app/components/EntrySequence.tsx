@@ -139,6 +139,12 @@ export function EntrySequence({ children }: Props) {
         <div className="intro-logo intro-logo--right">
           <TridentMark className="w-full h-full" glow />
         </div>
+
+        {/* Wordmark revealed between the splitting halves */}
+        <div className="intro-wordmark">
+          The 21st Century{" "}
+          <span className="intro-wordmark-accent">Alchemist</span>
+        </div>
       </section>
 
       {children}
