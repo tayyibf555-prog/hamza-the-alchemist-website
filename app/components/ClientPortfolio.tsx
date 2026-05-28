@@ -128,7 +128,16 @@ function PlatformIcon({ kind }: { kind: "instagram" | "youtube" | "tiktok" }) {
  */
 export function ClientPortfolio() {
   return (
-    <div className="w-full pt-16 lg:pt-20 pb-20 lg:pb-28">
+    <div
+      className="relative pt-16 lg:pt-20 pb-20 lg:pb-28"
+      style={{
+        /* Force the block to be exactly the viewport width and break
+           out of any centered max-width ancestor. */
+        width: "100vw",
+        marginLeft: "calc(50% - 50vw)",
+        marginRight: "calc(50% - 50vw)",
+      }}
+    >
       <Reveal>
         <p className="eyebrow text-[var(--color-ivory-faint)] mb-8 px-6 lg:px-10">
           Creator clients we work with
@@ -136,12 +145,9 @@ export function ClientPortfolio() {
       </Reveal>
 
       <div
-        className="client-marquee relative w-full overflow-hidden"
+        className="client-marquee relative overflow-hidden"
         style={{
-          maskImage:
-            "linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%)",
+          width: "100vw",
         }}
       >
         <div className="client-marquee-track flex gap-5 lg:gap-7 py-2">
