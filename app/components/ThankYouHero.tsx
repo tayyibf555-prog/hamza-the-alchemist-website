@@ -62,43 +62,6 @@ export function ThankYouHero(_props: Props) {
       </span>
 
       <div className="relative mx-auto max-w-[920px] px-6 lg:px-10 text-center">
-        {/* Wax-seal mark — same family as Inquiry's confirmation seal */}
-        <motion.div
-          aria-hidden
-          initial={{ opacity: 0, scale: 0.6, rotate: -8 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 1.2, delay: 0.15, ease: easeOutExpo }}
-          className="mx-auto mb-12 w-24 h-24 rounded-full flex items-center justify-center"
-          style={{
-            background:
-              "radial-gradient(circle, oklch(0.62 0.14 70) 0%, oklch(0.42 0.10 72) 100%)",
-            boxShadow:
-              "0 0 0 1px oklch(0.78 0.165 78 / 0.5), 0 0 40px -4px oklch(0.78 0.165 78 / 0.55)",
-          }}
-        >
-          <svg
-            viewBox="0 0 32 32"
-            className="w-11 h-11 text-[var(--color-ink-deep)]"
-            fill="none"
-            aria-hidden
-          >
-            <path
-              d="M7 17 L13 22 L25 10"
-              stroke="currentColor"
-              strokeWidth="2.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </motion.div>
-
-        <Reveal
-          as="p"
-          className="eyebrow text-[var(--color-gold)] mb-8"
-        >
-          Admission Confirmed
-        </Reveal>
-
         <motion.h1
           initial={{ opacity: 0, y: reduced ? 0 : 32 }}
           animate={{ opacity: 1, y: 0 }}
