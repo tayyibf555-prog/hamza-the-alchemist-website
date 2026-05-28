@@ -300,15 +300,17 @@
   }
 
   /* Gold dots drifting across the background.
-     Sits above the shader (z-index -1, the shader is at -2), below
-     all content. Each dot drifts from below the viewport up past the
-     top with a slight horizontal sway. */
+     Sits ABOVE the shader (which is at z-index -2) but BELOW all
+     positioned content. Using z-index 1 with pointer-events: none
+     guarantees the dots render in front of the shader. Positioned
+     content (z-index 10+) and the cursor (z-index 200+) still appear
+     above them. */
   .gold-dots {
     position: fixed;
     inset: 0;
     pointer-events: none;
     overflow: hidden;
-    z-index: -1;
+    z-index: 1;
   }
 
   .gold-dot {
@@ -316,7 +318,9 @@
     bottom: -10px;
     border-radius: 50%;
     background: var(--color-gold);
-    box-shadow: 0 0 6px oklch(0.85 0.12 85 / 0.5);
+    box-shadow:
+      0 0 8px oklch(0.85 0.12 85 / 0.7),
+      0 0 16px oklch(0.78 0.165 78 / 0.35);
     animation: gold-dot-drift linear infinite;
     will-change: transform, opacity;
   }

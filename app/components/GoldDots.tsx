@@ -20,11 +20,11 @@ function rand(seed: number) {
 function makeDots(count: number): Dot[] {
   return Array.from({ length: count }).map((_, i) => ({
     left: `${(rand(i + 1) * 100).toFixed(2)}%`,
-    delay: `${(rand(i + 7) * 22).toFixed(2)}s`,
-    duration: `${(20 + rand(i + 13) * 18).toFixed(2)}s`,
-    size: `${(1.5 + rand(i + 19) * 1.8).toFixed(2)}px`,
-    opacity: 0.35 + rand(i + 23) * 0.4,
-    sway: `${((rand(i + 31) - 0.5) * 80).toFixed(2)}px`,
+    delay: `${(rand(i + 7) * 18).toFixed(2)}s`,
+    duration: `${(18 + rand(i + 13) * 16).toFixed(2)}s`,
+    size: `${(2.2 + rand(i + 19) * 2.4).toFixed(2)}px`,
+    opacity: 0.55 + rand(i + 23) * 0.35,
+    sway: `${((rand(i + 31) - 0.5) * 100).toFixed(2)}px`,
   }));
 }
 
@@ -36,7 +36,7 @@ function makeDots(count: number): Dot[] {
  * deterministically positioned so SSR and client match (no hydration
  * mismatch). prefers-reduced-motion hides them entirely.
  */
-export function GoldDots({ count = 32 }: { count?: number }) {
+export function GoldDots({ count = 45 }: { count?: number }) {
   // Mount-gated so the very first paint doesn't render the dots — avoids
   // any FOUC where motion starts mid-frame.
   const [mounted, setMounted] = useState(false);
