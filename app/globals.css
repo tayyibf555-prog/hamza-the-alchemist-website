@@ -191,7 +191,7 @@
     background:
       radial-gradient(ellipse at 50% 50%, oklch(0.78 0.165 78 / 0.06) 0%, transparent 60%),
       linear-gradient(135deg, oklch(0.04 0.003 70) 0%, oklch(0.06 0.005 70) 50%, oklch(0.04 0.003 70) 100%);
-    animation: intro-veil-out 700ms cubic-bezier(0.5, 0, 0.4, 1) 1850ms forwards;
+    animation: intro-veil-out 500ms cubic-bezier(0.5, 0, 0.4, 1) 1200ms forwards;
   }
 
   @keyframes intro-veil-out {
@@ -215,16 +215,16 @@
     clip-path: inset(0 50% 0 0);
     -webkit-clip-path: inset(0 50% 0 0);
     animation:
-      intro-logo-in 400ms cubic-bezier(0.2, 0.85, 0.25, 1) 50ms forwards,
-      intro-split-left 2000ms cubic-bezier(0.4, 0, 0.2, 1) 550ms forwards;
+      intro-logo-in 350ms cubic-bezier(0.2, 0.85, 0.25, 1) 50ms forwards,
+      intro-split-left 1100ms cubic-bezier(0.4, 0, 0.2, 1) 500ms forwards;
   }
 
   .intro-logo--right {
     clip-path: inset(0 0 0 50%);
     -webkit-clip-path: inset(0 0 0 50%);
     animation:
-      intro-logo-in 400ms cubic-bezier(0.2, 0.85, 0.25, 1) 50ms forwards,
-      intro-split-right 2000ms cubic-bezier(0.4, 0, 0.2, 1) 550ms forwards;
+      intro-logo-in 350ms cubic-bezier(0.2, 0.85, 0.25, 1) 50ms forwards,
+      intro-split-right 1100ms cubic-bezier(0.4, 0, 0.2, 1) 500ms forwards;
   }
 
   @keyframes intro-logo-in {
@@ -267,8 +267,8 @@
        the overlay dismisses so the wordmark feels like its own beat
        rather than being carried out by the overlay. */
     animation:
-      intro-wordmark-in 700ms cubic-bezier(0.2, 0.85, 0.25, 1) 800ms forwards,
-      intro-wordmark-out 350ms cubic-bezier(0.4, 0, 0.6, 1) 2000ms forwards;
+      intro-wordmark-in 450ms cubic-bezier(0.2, 0.85, 0.25, 1) 650ms forwards,
+      intro-wordmark-out 300ms cubic-bezier(0.4, 0, 0.6, 1) 1250ms forwards;
   }
 
   .intro-wordmark-accent {
