@@ -65,10 +65,6 @@ export function BlogHero() {
       </motion.div>
 
       <div className="relative mx-auto max-w-[1200px] px-6 lg:px-10">
-        <Reveal as="p" className="eyebrow text-[var(--color-gold)] text-center mb-10">
-          Reality Architecture Training
-        </Reveal>
-
         <motion.h1
           initial={{ opacity: 0, y: reduced ? 0 : 36 }}
           animate={{ opacity: 1, y: 0 }}
