@@ -22,6 +22,9 @@ type Step = {
   meta: string;
   title: string;
   copy: string;
+  /** Path inside /public, e.g. "/steps/01.png". Empty string = placeholder. */
+  image: string;
+  imageAlt: string;
 };
 
 const steps: Step[] = [
@@ -30,12 +33,16 @@ const steps: Step[] = [
     meta: "Within the hour",
     title: "Save the invite.",
     copy: "The Calendly invite hits your inbox. Accept it, add it to your calendar, and pin the time. If it doesn't land within the hour, check Updates and Promotions before reaching out.",
+    image: "",
+    imageAlt: "Screenshot showing how to accept the calendar invite",
   },
   {
     index: "II",
     meta: "At the call",
     title: "Bring one thing.",
     copy: "Write down, for yourself, the version of you that exists on the other side of this work. Specific. The salary, the body, the day. Bring that page with you. We start there.",
+    image: "",
+    imageAlt: "Screenshot or example showing what to bring to the call",
   },
 ];
 
@@ -345,6 +352,25 @@ export default async function ThankYouPage({ searchParams }: Props) {
                     <p className="mt-5 max-w-[44ch] text-[var(--color-ivory-dim)] text-[16px] leading-[1.65]">
                       {s.copy}
                     </p>
+
+                    {/* Image slot — drop a screenshot path into the step's `image` field */}
+                    <div
+                      className="relative mt-10 aspect-[16/10] overflow-hidden rounded-[6px]"
+                      style={{
+                        background: "oklch(0.10 0.010 70)",
+                      }}
+                    >
+                      {s.image ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={s.image}
+                          alt={s.imageAlt}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                      ) : (
+                        <PlaceholderArt kind="image" />
+                      )}
+                    </div>
                   </div>
                 </Reveal>
               ))}
