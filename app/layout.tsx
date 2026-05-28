@@ -5,6 +5,7 @@ import { MotionRoot } from "./components/MotionRoot";
 import { Cursor } from "./components/Cursor";
 import { Grain } from "./components/Grain";
 import { ScrollManager } from "./components/ScrollManager";
+import { AuraBackground } from "./components/AuraBackground";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -49,6 +50,7 @@ export default function RootLayout({
         <script src="/scroll-guard.js" />
       </head>
       <body>
+        <AuraBackground />
         <ScrollManager />
         <MotionRoot>{children}</MotionRoot>
         <Grain />
