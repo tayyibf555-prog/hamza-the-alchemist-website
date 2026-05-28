@@ -4,6 +4,8 @@ import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { ThankYouHero } from "../components/ThankYouHero";
 import { Reveal } from "../components/Reveal";
+import { PlaceholderArt } from "../components/PlaceholderArt";
+import { ThankYouSteps, type Step } from "../components/ThankYouSteps";
 
 export const metadata: Metadata = {
   title: "Confirmed · The call is yours | Hamza The Alchemist",
@@ -14,18 +16,8 @@ export const metadata: Metadata = {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Steps — two of them, side by side on desktop, hairline between    */
+/*  Steps — two stacked full-width blocks with screenshot + checkbox  */
 /* ------------------------------------------------------------------ */
-
-type Step = {
-  index: string;
-  meta: string;
-  title: string;
-  copy: string;
-  /** Path inside /public, e.g. "/steps/01.png". Empty string = placeholder. */
-  image: string;
-  imageAlt: string;
-};
 
 const steps: Step[] = [
   {
@@ -35,6 +27,7 @@ const steps: Step[] = [
     copy: "The Calendly invite hits your inbox. Accept it, add it to your calendar, and pin the time. If it doesn't land within the hour, check Updates and Promotions before reaching out.",
     image: "",
     imageAlt: "Screenshot showing how to accept the calendar invite",
+    confirmLabel: "I have accepted the calendar invite.",
   },
   {
     index: "II",
@@ -43,6 +36,7 @@ const steps: Step[] = [
     copy: "Write down, for yourself, the version of you that exists on the other side of this work. Specific. The salary, the body, the day. Bring that page with you. We start there.",
     image: "",
     imageAlt: "Screenshot or example showing what to bring to the call",
+    confirmLabel: "I have written down my outcome.",
   },
 ];
 
@@ -198,76 +192,6 @@ function TestimonialTile({ t, i }: { t: Testimonial; i: number }) {
   );
 }
 
-function PlaceholderArt({ kind }: { kind: "video" | "image" }) {
-  return (
-    <div
-      className="absolute inset-0 flex items-center justify-center"
-      style={{
-        background:
-          "radial-gradient(120% 90% at 50% 0%, oklch(0.18 0.012 70) 0%, oklch(0.10 0.010 70) 70%)",
-      }}
-    >
-      {/* Faint center mark */}
-      <div className="flex flex-col items-center gap-3 opacity-50">
-        {kind === "video" ? (
-          <svg
-            width="44"
-            height="44"
-            viewBox="0 0 44 44"
-            aria-hidden
-            fill="none"
-          >
-            <circle
-              cx="22"
-              cy="22"
-              r="21"
-              stroke="var(--color-gold)"
-              strokeWidth="1"
-              opacity="0.6"
-            />
-            <path
-              d="M18 14 L31 22 L18 30 Z"
-              fill="var(--color-gold)"
-              opacity="0.85"
-            />
-          </svg>
-        ) : (
-          <svg
-            width="44"
-            height="44"
-            viewBox="0 0 44 44"
-            aria-hidden
-            fill="none"
-          >
-            <rect
-              x="3"
-              y="6"
-              width="38"
-              height="32"
-              rx="2"
-              stroke="var(--color-gold)"
-              strokeWidth="1"
-              opacity="0.65"
-            />
-            <circle cx="14" cy="17" r="3" fill="var(--color-gold)" opacity="0.85" />
-            <path
-              d="M4 32 L17 22 L25 28 L31 22 L40 32"
-              stroke="var(--color-gold)"
-              strokeWidth="1.4"
-              fill="none"
-              opacity="0.7"
-              strokeLinejoin="round"
-            />
-          </svg>
-        )}
-        <span className="eyebrow text-[var(--color-ivory-faint)] text-[10px]">
-          {kind === "video" ? "Video slot" : "Screenshot slot"}
-        </span>
-      </div>
-    </div>
-  );
-}
-
 /* ------------------------------------------------------------------ */
 /*  Page                                                              */
 /* ------------------------------------------------------------------ */
@@ -285,120 +209,8 @@ export default async function ThankYouPage({ searchParams }: Props) {
       <main>
         <ThankYouHero name={name} />
 
-        {/* Steps — two of them, side by side */}
-        <section className="relative py-24 lg:py-32">
-          <div className="mx-auto max-w-[1180px] px-6 lg:px-10">
-            <Reveal
-              as="p"
-              className="eyebrow text-[var(--color-ivory-faint)] mb-4"
-            >
-              Two Steps
-            </Reveal>
-            <Reveal>
-              <h2 className="font-display font-extrabold text-balance leading-[1.02] tracking-[-0.025em] text-[clamp(32px,4.6vw,62px)] text-[var(--color-ivory)] max-w-[14ch]">
-                Before we{" "}
-                <span className="accent text-[var(--color-gold)]">speak.</span>
-              </h2>
-            </Reveal>
-
-            <div
-              className="mt-16 lg:mt-20 grid grid-cols-1 md:grid-cols-2"
-              style={{
-                border: "1px solid var(--color-hairline)",
-                borderRadius: "6px",
-                overflow: "hidden",
-                background: "oklch(0.07 0.008 70)",
-              }}
-            >
-              {steps.map((s, i) => (
-                <Reveal key={s.index} delay={0.1 + i * 0.1}>
-                  <div
-                    className="relative h-full p-10 lg:p-14"
-                    style={{
-                      borderLeft:
-                        i === 1 ? "1px solid var(--color-hairline)" : undefined,
-                      borderTop:
-                        // mobile-only top divider on the second step
-                        undefined,
-                    }}
-                  >
-                    {/* Mobile-only top divider for the 2nd step */}
-                    {i === 1 && (
-                      <div
-                        aria-hidden
-                        className="absolute left-6 right-6 -top-px h-px md:hidden"
-                        style={{ background: "var(--color-hairline)" }}
-                      />
-                    )}
-
-                    <div className="flex items-baseline justify-between gap-6 mb-8">
-                      <span
-                        className="accent text-[var(--color-gold)] font-display font-bold leading-none"
-                        style={{
-                          fontSize: "clamp(56px, 7vw, 96px)",
-                          letterSpacing: "-0.02em",
-                        }}
-                      >
-                        {s.index}
-                      </span>
-                      <span className="eyebrow text-[11px] text-[var(--color-ivory-faint)] tabular-nums text-right">
-                        {s.meta}
-                      </span>
-                    </div>
-
-                    <h3 className="font-display font-bold leading-[1.1] tracking-[-0.015em] text-[clamp(24px,2.6vw,34px)] text-[var(--color-ivory)]">
-                      {s.title}
-                    </h3>
-                    <p className="mt-5 max-w-[44ch] text-[var(--color-ivory-dim)] text-[16px] leading-[1.65]">
-                      {s.copy}
-                    </p>
-
-                    {/* Image slot — drop a screenshot path into the step's `image` field.
-                        Wrapped with the same gold bloom + halo as the homepage VSL. */}
-                    <div className="relative mt-10">
-                      {/* Soft gold radial bloom sitting behind the image */}
-                      <div
-                        aria-hidden
-                        className="pointer-events-none absolute inset-[-15%]"
-                        style={{
-                          background:
-                            "radial-gradient(ellipse 60% 70% at 50% 50%, oklch(0.42 0.16 78 / 0.42) 0%, oklch(0.30 0.10 75 / 0.20) 35%, transparent 70%)",
-                          filter: "blur(40px)",
-                        }}
-                      />
-
-                      {/* Hairline-gold framed image container with gold halo */}
-                      <div
-                        className="relative aspect-[16/10] overflow-hidden rounded-[6px]"
-                        style={{
-                          border: "1px solid var(--color-hairline)",
-                          padding: "1px",
-                          background:
-                            "linear-gradient(135deg, oklch(0.62 0.14 70 / 0.5) 0%, oklch(0.20 0.014 70) 35%, oklch(0.20 0.014 70) 65%, oklch(0.62 0.14 70 / 0.5) 100%)",
-                          boxShadow:
-                            "0 0 0 1px oklch(0.28 0.008 75), 0 30px 60px -20px oklch(0.10 0.010 70 / 0.8), 0 0 60px -10px oklch(0.78 0.165 78 / 0.4)",
-                        }}
-                      >
-                        <div className="relative w-full h-full rounded-[5px] overflow-hidden">
-                          {s.image ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              src={s.image}
-                              alt={s.imageAlt}
-                              className="absolute inset-0 w-full h-full object-cover"
-                            />
-                          ) : (
-                            <PlaceholderArt kind="image" />
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Two stacked steps with screenshot + interactive checkbox each */}
+        <ThankYouSteps steps={steps} />
 
         {/* Testimonials — bento grid of videos + screenshots */}
         <section className="relative py-24 lg:py-32">
