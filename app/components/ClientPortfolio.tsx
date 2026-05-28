@@ -170,11 +170,17 @@ export function ClientPortfolio() {
         marginRight: "calc(50% - 50vw)",
       }}
     >
-      <Reveal>
-        <p className="eyebrow text-[var(--color-ivory-faint)] mb-8 px-6 lg:px-10 text-center">
-          Operators we&apos;ve worked with
-        </p>
-      </Reveal>
+      <div className="mx-auto max-w-[1320px] px-6 lg:px-10 mb-14 lg:mb-20 text-center">
+        <Reveal as="p" className="eyebrow text-[var(--color-gold)] mb-6">
+          The Roster
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="font-display font-extrabold leading-[1.0] tracking-[-0.02em] text-[clamp(32px,3.6vw,52px)] text-[var(--color-ivory)]">
+            Identity-driven{" "}
+            <span className="accent text-[var(--color-gold)]">operators.</span>
+          </h2>
+        </Reveal>
+      </div>
 
       <div
         className="client-marquee relative overflow-hidden"
