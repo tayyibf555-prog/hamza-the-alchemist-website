@@ -49,12 +49,42 @@ export function VideoFrame({
         <div
           className="relative aspect-video w-full rounded-[5px] overflow-hidden flex items-center justify-center"
           style={{
-            background:
-              "radial-gradient(ellipse at 50% 45%, oklch(0.22 0.06 75) 0%, oklch(0.12 0.014 70) 70%)",
+            background: youtubeId
+              ? "oklch(0.05 0.005 70)"
+              : "radial-gradient(ellipse at 50% 45%, oklch(0.22 0.06 75) 0%, oklch(0.12 0.014 70) 70%)",
           }}
         >
-          {/* Chapter ticks along the bottom edge — hide once the video is playing */}
-          {!playing && (
+          {/* YouTube thumbnail as the real preview when an id is set and not yet playing */}
+          {youtubeId && !playing && (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`}
+                alt=""
+                aria-hidden
+                onError={(e) => {
+                  // Fall back to hqdefault if maxres isn't available
+                  const t = e.currentTarget;
+                  if (!t.src.includes("hqdefault")) {
+                    t.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+                  }
+                }}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              {/* Soft dark vignette so the gold play button stays legible over any frame */}
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 50%, oklch(0.05 0.005 70 / 0.2) 0%, oklch(0.05 0.005 70 / 0.55) 80%)",
+                }}
+              />
+            </>
+          )}
+
+          {/* Chapter ticks — only on the abstract placeholder (no youtubeId yet) */}
+          {!playing && !youtubeId && (
           <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center gap-3 pointer-events-none">
             <span className="eyebrow text-[10px] text-[var(--color-ivory-faint)]">
               00:00
@@ -84,8 +114,8 @@ export function VideoFrame({
           </div>
           )}
 
-          {/* Faint trident watermark — also hidden while playing */}
-          {!playing && (
+          {/* Faint trident watermark — only on the abstract placeholder (no youtubeId yet) */}
+          {!playing && !youtubeId && (
           <div
             aria-hidden
             className="absolute inset-0 flex items-center justify-center opacity-[0.08] text-[var(--color-ivory)] pointer-events-none"
