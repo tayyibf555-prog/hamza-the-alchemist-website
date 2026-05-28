@@ -56,12 +56,12 @@ export function Practice() {
             </Reveal>
 
             <Reveal delay={0.15} as="p" className="text-[var(--color-ivory-dim)] text-[17px] leading-[1.7] max-w-[58ch]">
-              The work is not motivational, theatrical, or mystical. It is a
-              private, structured engagement that reconstructs the subconscious
-              architecture beneath a person&apos;s decisions, defaults, and
-              outcomes. The premise is plain: strategy lives at the conscious
-              level; identity runs underneath. Until the architecture changes,
-              the outcomes never do.
+              I work privately with CEOs, entrepreneurs, day traders,
+              influencers, and music artists. The work is not motivational,
+              theatrical, or mystical. It is a structured engagement that
+              shifts identity at the subconscious level. Strategy lives at
+              the conscious level. Identity runs underneath. Until the
+              architecture changes, the outcomes never do.
             </Reveal>
 
             {/* Quiet credential line — no card grid */}
