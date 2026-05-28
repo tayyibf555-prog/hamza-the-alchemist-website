@@ -5,6 +5,7 @@ import { MotionRoot } from "./components/MotionRoot";
 import { Cursor } from "./components/Cursor";
 import { ScrollManager } from "./components/ScrollManager";
 import { AuraBackground } from "./components/AuraBackground";
+import { GoldDots } from "./components/GoldDots";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -50,6 +51,7 @@ export default function RootLayout({
       </head>
       <body>
         <AuraBackground />
+        <GoldDots />
         <ScrollManager />
         <MotionRoot>{children}</MotionRoot>
         <Cursor />

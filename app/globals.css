@@ -299,6 +299,45 @@
     animation: halo-breathe 4s var(--ease-in-out-quart) infinite;
   }
 
+  /* Gold dots drifting across the background.
+     Sits above the shader (z-index -1, the shader is at -2), below
+     all content. Each dot drifts from below the viewport up past the
+     top with a slight horizontal sway. */
+  .gold-dots {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .gold-dot {
+    position: absolute;
+    bottom: -10px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    box-shadow: 0 0 6px oklch(0.85 0.12 85 / 0.5);
+    animation: gold-dot-drift linear infinite;
+    will-change: transform, opacity;
+  }
+
+  @keyframes gold-dot-drift {
+    0% {
+      transform: translate(0, 0);
+      opacity: 0;
+    }
+    8% {
+      opacity: var(--dot-opacity, 0.5);
+    }
+    92% {
+      opacity: var(--dot-opacity, 0.5);
+    }
+    100% {
+      transform: translate(var(--dot-sway, 20px), -110vh);
+      opacity: 0;
+    }
+  }
+
   /* Veil parts vertically — load-in choreography */
   @keyframes veil-top {
     0%, 18% { transform: translateY(0); }
@@ -340,6 +379,7 @@
   .veil-bottom,
   .dot-pulse,
   .draw-path,
+  .gold-dot,
   .intro-overlay,
   .intro-veil,
   .intro-logo,
@@ -349,4 +389,5 @@
     animation: none !important;
   }
   .intro-overlay { opacity: 0 !important; visibility: hidden !important; }
+  .gold-dots { display: none; }
 }
