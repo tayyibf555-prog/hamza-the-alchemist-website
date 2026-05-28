@@ -42,7 +42,7 @@ export function AuraBackground() {
 
   return (
     <div className="aura-background-component" aria-hidden="true">
-      <div data-us-project="TIWE0oFfvUmetsFoxL6u" />
+      <div data-us-project="qPVvnWEWLLiJgYtSkKyB" />
     </div>
   );
 }
