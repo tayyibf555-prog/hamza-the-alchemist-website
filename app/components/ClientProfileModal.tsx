@@ -12,11 +12,26 @@ export type ClientProfile = {
   photo?: string;
   /** YouTube id for the testimonial video, e.g. "X2ObLdwGbZI". */
   videoYoutubeId?: string;
+  /** Self-hosted video src (under /public), e.g. "/clients/jordy-testimonial.mp4". */
+  videoSrc?: string;
+  /** Optional poster image for the self-hosted video. */
+  videoPoster?: string;
+  /** CSS aspect-ratio for the testimonial frame, e.g. "16 / 9", "9 / 16". */
+  videoAspect?: string;
   /** Short display-font pull quote shown under the name. */
   pullQuote?: string;
   /** A 2–4 sentence paragraph about the operator and the work. */
   bio?: string;
 };
+
+/** True when the testimonial frame is taller than wide (vertical clip). */
+function isVerticalAspect(aspect?: string) {
+  if (!aspect) return false;
+  const parts = aspect.split("/").map((s) => parseFloat(s.trim()));
+  if (parts.length !== 2 || parts.some((n) => !Number.isFinite(n) || n <= 0))
+    return false;
+  return parts[1] > parts[0];
+}
 
 type Props = {
   client: ClientProfile | null;
@@ -178,14 +193,21 @@ export function ClientProfileModal({ client, onClose }: Props) {
                   </blockquote>
                 )}
 
-                {/* Video testimonial slot */}
+                {/* Video testimonial slot — vertical videos sit inside a
+                    narrower centered well so they don't blow out the column */}
                 <div className="relative mt-12">
                   <p className="eyebrow text-[var(--color-ivory-faint)] mb-4">
                     I · Testimonial
                   </p>
 
-                  {/* Soft gold bloom behind the video frame */}
-                  <div className="relative">
+                  <div
+                    className={
+                      isVerticalAspect(client.videoAspect)
+                        ? "relative mx-auto w-full max-w-[360px]"
+                        : "relative"
+                    }
+                  >
+                    {/* Soft gold bloom behind the video frame */}
                     <div
                       aria-hidden
                       className="pointer-events-none absolute inset-[-10%]"
@@ -198,6 +220,9 @@ export function ClientProfileModal({ client, onClose }: Props) {
                     <div className="relative">
                       <VideoFrame
                         youtubeId={client.videoYoutubeId}
+                        videoSrc={client.videoSrc}
+                        videoPoster={client.videoPoster}
+                        aspect={client.videoAspect}
                         runtime="00:00"
                         progress={0.02}
                       />

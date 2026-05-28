@@ -12,6 +12,12 @@ type Props = {
   showCaption?: boolean;
   /** YouTube video id, e.g. "X2ObLdwGbZI". When set, clicking play loads the real embed. */
   youtubeId?: string;
+  /** Self-hosted video src, e.g. "/clients/jordy-testimonial.mp4". Mutually exclusive with youtubeId. */
+  videoSrc?: string;
+  /** Optional poster image path for the self-hosted video. */
+  videoPoster?: string;
+  /** CSS aspect-ratio for the frame, e.g. "16 / 9" (default), "9 / 16" for vertical. */
+  aspect?: string;
 };
 
 /**
@@ -28,8 +34,12 @@ export function VideoFrame({
   progress = 0.08,
   showCaption = false,
   youtubeId,
+  videoSrc,
+  videoPoster,
+  aspect,
 }: Props) {
   const [playing, setPlaying] = useState(false);
+  const hasMedia = !!youtubeId || !!videoSrc;
 
   return (
     <div className="relative">
@@ -45,11 +55,14 @@ export function VideoFrame({
             "0 0 0 1px oklch(0.28 0.008 75), 0 40px 80px -24px oklch(0.10 0.010 70 / 0.8), 0 0 80px -20px oklch(0.78 0.165 78 / 0.4)",
         }}
       >
-        {/* Inner 16:9 placeholder */}
+        {/* Inner frame — aspect-video by default, configurable via prop */}
         <div
-          className="relative aspect-video w-full rounded-[5px] overflow-hidden flex items-center justify-center"
+          className={`relative w-full rounded-[5px] overflow-hidden flex items-center justify-center ${
+            aspect ? "" : "aspect-video"
+          }`}
           style={{
-            background: youtubeId
+            ...(aspect ? { aspectRatio: aspect } : {}),
+            background: hasMedia
               ? "oklch(0.05 0.005 70)"
               : "radial-gradient(ellipse at 50% 45%, oklch(0.22 0.06 75) 0%, oklch(0.12 0.014 70) 70%)",
           }}
@@ -82,8 +95,28 @@ export function VideoFrame({
             </>
           )}
 
-          {/* Chapter ticks — only on the abstract placeholder (no youtubeId yet) */}
-          {!playing && !youtubeId && (
+          {/* Self-hosted video preview before play (first frame as thumbnail) */}
+          {videoSrc && !playing && (
+            <>
+              <video
+                src={videoSrc}
+                poster={videoPoster}
+                preload="metadata"
+                muted
+                playsInline
+                aria-hidden
+                className="absolute inset-0 w-full h-full object-cover z-0"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none z-0"
+                style={{ background: "oklch(0.05 0.005 70 / 0.18)" }}
+              />
+            </>
+          )}
+
+          {/* Chapter ticks — only on the abstract placeholder (no media) */}
+          {!playing && !hasMedia && (
           <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center gap-3 pointer-events-none">
             <span className="eyebrow text-[10px] text-[var(--color-ivory-faint)]">
               00:00
@@ -113,8 +146,8 @@ export function VideoFrame({
           </div>
           )}
 
-          {/* Faint trident watermark — only on the abstract placeholder (no youtubeId yet) */}
-          {!playing && !youtubeId && (
+          {/* Faint trident watermark — only on the abstract placeholder (no media) */}
+          {!playing && !hasMedia && (
           <div
             aria-hidden
             className="absolute inset-0 flex items-center justify-center opacity-[0.08] text-[var(--color-ivory)] pointer-events-none"
@@ -171,18 +204,31 @@ export function VideoFrame({
               title="Video"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
-              className="absolute inset-0 w-full h-full"
+              className="absolute inset-0 w-full h-full z-30"
               style={{ border: 0 }}
             />
           )}
 
-          {playing && !youtubeId && (
+          {playing && videoSrc && !youtubeId && (
+            <video
+              src={videoSrc}
+              poster={videoPoster}
+              autoPlay
+              controls
+              playsInline
+              className="absolute inset-0 w-full h-full object-contain bg-black z-30"
+            >
+              <track kind="captions" />
+            </video>
+          )}
+
+          {playing && !hasMedia && (
             <div className="absolute inset-0 flex items-center justify-center text-center px-8">
               <p className="text-[var(--color-ivory-dim)] text-[14px] max-w-[40ch]">
                 Embed your VSL here. Pass a{" "}
-                <code className="text-[var(--color-gold)]">youtubeId</code> prop
-                to <code className="text-[var(--color-gold)]">&lt;VideoFrame /&gt;</code>{" "}
-                to load the real video.
+                <code className="text-[var(--color-gold)]">youtubeId</code> or{" "}
+                <code className="text-[var(--color-gold)]">videoSrc</code> prop
+                to <code className="text-[var(--color-gold)]">&lt;VideoFrame /&gt;</code>.
               </p>
             </div>
           )}

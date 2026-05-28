@@ -13,7 +13,14 @@ type Client = ClientProfile & {
 };
 
 const clients: Client[] = [
-  { name: "JORDY MICHELS",  role: "Day Trader",  tint: "oklch(0.28 0.04 70)",  photo: "/clients/jordy-michels.png" },
+  {
+    name: "JORDY MICHELS",
+    role: "Day Trader",
+    tint: "oklch(0.28 0.04 70)",
+    photo: "/clients/jordy-michels.png",
+    videoSrc: "/clients/jordy-michels-testimonial.mp4",
+    videoAspect: "9 / 16",
+  },
   { name: "KINOBODY",       tint: "oklch(0.30 0.05 70)",  instagram: "1.7M", youtube: "771K", tiktok: "1.4M" },
   { name: "MORIBYAN",       tint: "oklch(0.36 0.04 60)",  instagram: "2.7M", youtube: "1.33M", tiktok: "5.3M" },
   { name: "GRACE BEVERLEY", tint: "oklch(0.32 0.05 50)",  instagram: "1.2M", youtube: "705K", tiktok: "436K" },
