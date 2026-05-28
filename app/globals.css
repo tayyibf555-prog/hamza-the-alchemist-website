@@ -277,7 +277,12 @@
     color: var(--color-ivory);
     opacity: 0;
     pointer-events: none;
-    animation: intro-wordmark-in 700ms cubic-bezier(0.2, 0.85, 0.25, 1) 800ms forwards;
+    /* Two-stage choreography: fade in mid-split, then fade out before
+       the overlay dismisses so the wordmark feels like its own beat
+       rather than being carried out by the overlay. */
+    animation:
+      intro-wordmark-in 700ms cubic-bezier(0.2, 0.85, 0.25, 1) 800ms forwards,
+      intro-wordmark-out 350ms cubic-bezier(0.4, 0, 0.6, 1) 2000ms forwards;
   }
 
   .intro-wordmark-accent {
@@ -291,6 +296,10 @@
   @keyframes intro-wordmark-in {
     0%   { opacity: 0; transform: translate(-50%, -50%) translateY(8px); }
     100% { opacity: 1; transform: translate(-50%, -50%) translateY(0); }
+  }
+
+  @keyframes intro-wordmark-out {
+    to { opacity: 0; }
   }
 
 
