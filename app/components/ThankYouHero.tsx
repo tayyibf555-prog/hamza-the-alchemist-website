@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
 import { SectionMarker } from "./SectionMarker";
@@ -8,7 +7,7 @@ import { SectionMarker } from "./SectionMarker";
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 type Props = {
-  /** Optional first name passed by Calendly via `?name={invitee_first_name}`. */
+  /** Reserved for Calendly's `?name={invitee_first_name}` token (unused in copy for now). */
   name?: string;
 };
 
@@ -16,14 +15,11 @@ type Props = {
  * Confirmation hero shown after a meeting is booked via Calendly.
  *
  * Mirrors the wax-seal moment from the Inquiry component so the visual
- * language stays consistent — the seal is the user's signal that
- * something private has been received. Layout intentionally quiet:
- * single centered statement, three-step timeline of what happens next,
- * one optional next step and a return link.
+ * language stays consistent. Headline reads "You're almost there..." to
+ * keep the energy forward-facing rather than past-tense.
  */
-export function ThankYouHero({ name }: Props) {
+export function ThankYouHero(_props: Props) {
   const reduced = useReducedMotion();
-  const operator = (name?.trim() || "operator").replace(/[<>]/g, "");
 
   return (
     <section className="relative pt-[160px] lg:pt-[220px] pb-24 lg:pb-32 overflow-hidden bloom-bg">
@@ -109,17 +105,7 @@ export function ThankYouHero({ name }: Props) {
           transition={{ duration: 1.1, delay: 0.3, ease: easeOutExpo }}
           className="font-display font-extrabold leading-[1.0] tracking-[-0.025em] text-[clamp(40px,6.5vw,108px)] text-[var(--color-ivory)]"
         >
-          <span className="block whitespace-nowrap">
-            The call is{" "}
-            <span
-              className="accent text-[var(--color-gold)]"
-              style={{
-                textShadow: "0 0 60px oklch(0.78 0.165 78 / 0.4)",
-              }}
-            >
-              yours,
-            </span>
-          </span>
+          <span className="block whitespace-nowrap">You&apos;re</span>
           <span className="block whitespace-nowrap">
             <span
               className="accent text-[var(--color-gold)]"
@@ -127,7 +113,7 @@ export function ThankYouHero({ name }: Props) {
                 textShadow: "0 0 60px oklch(0.78 0.165 78 / 0.4)",
               }}
             >
-              {operator}.
+              almost there...
             </span>
           </span>
         </motion.h1>
