@@ -19,10 +19,6 @@ export function MethodHero() {
   return (
     <section className="relative pt-[160px] lg:pt-[200px] pb-20 lg:pb-28 overflow-hidden bloom-bg">
       <div className="mx-auto max-w-[1100px] px-6 lg:px-10">
-        <Reveal as="p" className="eyebrow text-[var(--color-gold)] text-center mb-10">
-          The Method
-        </Reveal>
-
         <motion.h1
           initial={{ opacity: 0, y: reduced ? 0 : 36 }}
           animate={{ opacity: 1, y: 0 }}
