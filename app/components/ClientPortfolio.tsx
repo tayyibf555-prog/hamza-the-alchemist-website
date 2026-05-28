@@ -171,8 +171,8 @@ export function ClientPortfolio() {
       }}
     >
       <Reveal>
-        <p className="eyebrow text-[var(--color-ivory-faint)] mb-8 px-6 lg:px-10">
-          Creator clients we work with
+        <p className="eyebrow text-[var(--color-ivory-faint)] mb-8 px-6 lg:px-10 text-center">
+          Operators we&apos;ve worked with
         </p>
       </Reveal>
 
