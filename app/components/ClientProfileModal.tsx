@@ -127,10 +127,13 @@ export function ClientProfileModal({ client, onClose }: Props) {
               </svg>
             </button>
 
-            {/* Two-column magazine spread */}
-            <div className="grid grid-cols-1 md:grid-cols-[40%_60%] max-h-[92vh] overflow-hidden">
-              {/* Left: portrait, full-bleed */}
-              <div className="relative aspect-[3/4] md:aspect-auto md:min-h-[640px] overflow-hidden bg-[var(--color-ink-deep)]">
+            {/* Two-column magazine spread.
+                Mobile: the grid scrolls vertically (image + content stacked) so
+                nothing is clipped. Desktop: grid clips and the content column
+                scrolls independently beside the fixed-height portrait. */}
+            <div className="grid grid-cols-1 md:grid-cols-[40%_60%] max-h-[92vh] overflow-y-auto md:overflow-hidden overscroll-contain">
+              {/* Left: portrait, full-bleed (capped on mobile so it doesn't eat the screen) */}
+              <div className="relative aspect-[3/4] max-h-[52vh] md:max-h-none md:aspect-auto md:min-h-[640px] overflow-hidden bg-[var(--color-ink-deep)]">
                 {client.photo ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -159,8 +162,9 @@ export function ClientProfileModal({ client, onClose }: Props) {
                 />
               </div>
 
-              {/* Right: scrollable content column */}
-              <div className="relative overflow-y-auto px-7 md:px-12 lg:px-14 py-12 md:py-14 lg:py-16">
+              {/* Right: content column — scrolls independently only on desktop;
+                  on mobile it flows into the grid's vertical scroll */}
+              <div className="relative md:overflow-y-auto px-7 md:px-12 lg:px-14 py-12 md:py-14 lg:py-16">
                 {/* Folio mark */}
                 <p className="eyebrow text-[var(--color-ivory-faint)] mb-8">
                   Folio · Client Profile

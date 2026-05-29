@@ -73,7 +73,7 @@ export function Nav() {
 
           <button
             type="button"
-            className="md:hidden eyebrow text-[var(--color-ivory)] flex items-center gap-2"
+            className="md:hidden eyebrow text-[var(--color-ivory)] flex items-center gap-2 h-11 px-2 -mr-2"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-label="Toggle menu"
@@ -94,18 +94,18 @@ export function Nav() {
             className="md:hidden border-t border-[var(--color-hairline)]"
             style={{ background: "var(--color-ink-deep)" }}
           >
-            <div className="mx-auto max-w-[1320px] px-6 py-6 flex flex-col gap-5">
+            <div className="mx-auto max-w-[1320px] px-6 py-4 flex flex-col gap-1">
               {links.map((l) => (
                 <a
                   key={l.href}
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="eyebrow text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors"
+                  className="eyebrow text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors flex items-center min-h-[48px]"
                 >
                   {l.label}
                 </a>
               ))}
-              <CTAButton className="w-fit">Become an Alchemist</CTAButton>
+              <CTAButton className="w-fit mt-3">Become an Alchemist</CTAButton>
             </div>
           </motion.div>
         )}
