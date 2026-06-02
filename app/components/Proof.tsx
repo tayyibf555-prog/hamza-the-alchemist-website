@@ -132,52 +132,6 @@ export function Proof() {
         </div>
       </div>
 
-      {/* ─── Block B — Strip stat (full-width band, 3 columns, no panels) ─── */}
-      <div
-        className="relative bloom-strip"
-        style={{
-          borderTop: "1px solid var(--color-hairline)",
-          borderBottom: "1px solid var(--color-hairline)",
-        }}
-      >
-        <div className="mx-auto max-w-[1320px] px-6 lg:px-10 py-20 lg:py-28">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0">
-            <Reveal className="md:px-10 md:border-r border-[var(--color-hairline)]">
-              <p className="eyebrow text-[var(--color-ivory-faint)] mb-5">Distribution</p>
-              <p className="font-display font-extrabold text-[clamp(48px,5vw,80px)] leading-[1.0] tracking-[-0.02em] text-[var(--color-ivory)]">
-                <CountUp to={8.7} format={(v) => v.toFixed(1)} />
-                <span className="text-[var(--color-gold)]">M+</span>
-              </p>
-              <p className="mt-3 text-[var(--color-ivory-dim)] text-[16px]">
-                Content views, six months
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.1} className="md:px-10 md:border-r border-[var(--color-hairline)]">
-              <p className="eyebrow text-[var(--color-ivory-faint)] mb-5">Engagement</p>
-              <p className="font-display font-extrabold text-[clamp(48px,5vw,80px)] leading-[1.0] tracking-[-0.02em] text-[var(--color-ivory)]">
-                <CountUp to={1} format={(v) => Math.round(v).toString()} />
-                <span className="text-[var(--color-gold)]">M+</span>
-              </p>
-              <p className="mt-3 text-[var(--color-ivory-dim)] text-[16px]">
-                Likes, comments, shares
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.2} className="md:px-10">
-              <p className="eyebrow text-[var(--color-ivory-faint)] mb-5">Market Pull</p>
-              <p className="font-display font-extrabold text-[clamp(48px,5vw,80px)] leading-[1.0] tracking-[-0.02em] text-[var(--color-ivory)]">
-                <CountUp to={100} format={(v) => Math.round(v).toString()} />
-                <span className="text-[var(--color-gold)]">K+</span>
-              </p>
-              <p className="mt-3 text-[var(--color-ivory-dim)] text-[16px]">
-                Followers in six months
-              </p>
-            </Reveal>
-          </div>
-        </div>
-      </div>
-
       {/* Creator clients marquee — full-width, breaks out of the inner container */}
       <ClientPortfolio />
     </section>
