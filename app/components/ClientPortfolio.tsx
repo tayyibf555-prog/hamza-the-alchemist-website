@@ -32,12 +32,13 @@ const profiles: Profile[] = [
     videoAspect: "9 / 16",
   },
   {
-    name: "Operator Two",
+    name: "NATHAN JONES",
     role: "Founder",
+    photo: "/clients/nathan-jones.png",
     videoEmbedUrl:
       "https://www.loom.com/embed/bba3a4897e60430a9914b1c85504893b?autoplay=1&hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true",
     videoAspect: "16 / 9",
-    // Add photo + name/role/bio when ready.
+    // Add a pull quote + bio when ready, and confirm the role.
   },
 ];
 
