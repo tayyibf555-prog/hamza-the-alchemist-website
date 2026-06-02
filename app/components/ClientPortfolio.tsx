@@ -85,10 +85,10 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
 
         {/* Content */}
         <div className={flip ? "lg:order-1" : ""}>
-          <h3 className="font-display font-extrabold uppercase leading-[1.0] tracking-[-0.02em] text-[clamp(30px,3.4vw,52px)] text-[var(--color-ivory)] text-center">
+          <h3 className="font-display font-extrabold uppercase leading-[1.0] tracking-[-0.02em] text-[clamp(30px,3.4vw,52px)] text-[var(--color-ivory)]">
             {profile.name}
           </h3>
-          <p className="eyebrow text-[var(--color-gold)] mt-3 text-center">{profile.role}</p>
+          <p className="eyebrow text-[var(--color-gold)] mt-3">{profile.role}</p>
 
           {profile.pullQuote && (
             <blockquote className="relative accent text-[var(--color-ivory)] text-[clamp(19px,1.7vw,24px)] leading-[1.3] mt-7 max-w-[40ch] pl-6">
