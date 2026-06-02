@@ -33,7 +33,7 @@ const profiles: Profile[] = [
   },
   {
     name: "NATHAN JONES",
-    role: "Founder",
+    role: "Entrepreneur",
     photo: "/clients/nathan-jones.png",
     videoEmbedUrl:
       "https://www.loom.com/embed/bba3a4897e60430a9914b1c85504893b?autoplay=1&hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true",
