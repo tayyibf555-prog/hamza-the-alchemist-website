@@ -36,43 +36,24 @@ const profiles: Profile[] = [
   },
 ];
 
-function isVertical(aspect?: string) {
-  if (!aspect) return false;
-  const [w, h] = aspect.split("/").map((s) => parseFloat(s.trim()));
-  return Number.isFinite(w) && Number.isFinite(h) && h > w;
-}
-
-/**
- * One profile rendered as a self-contained card — identical visual
- * language to the ClientProfileModal: portrait flush on one side, padded
- * content (folio mark, name, role, pull quote, testimonial video, bio)
- * on the other. `flip` alternates the portrait side for the staggered row.
- */
-function ProfileCard({ profile, index }: { profile: Profile; index: number }) {
+function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
+  // Stagger: alternate which side the portrait sits on.
   const flip = index % 2 === 1;
-  const vertical = isVertical(profile.videoAspect);
+  const vertical =
+    !!profile.videoAspect &&
+    (() => {
+      const [w, h] = profile.videoAspect!.split("/").map((s) => parseFloat(s));
+      return h > w;
+    })();
 
   return (
     <Reveal delay={index * 0.12}>
-      <article
-        className="relative w-full rounded-[8px] overflow-hidden"
-        style={{
-          background: "oklch(0.07 0.008 70)",
-          border: "1px solid var(--color-hairline)",
-          boxShadow:
-            "0 40px 80px -24px oklch(0.04 0.005 70 / 0.9), 0 0 0 1px oklch(0.78 0.165 78 / 0.08)",
-        }}
-      >
-        <div
-          className={`grid grid-cols-1 ${
-            flip ? "md:grid-cols-[60%_40%]" : "md:grid-cols-[40%_60%]"
-          }`}
-        >
-          {/* Portrait — full-bleed */}
+      <div className="grid grid-cols-1 lg:grid-cols-[42%_58%] gap-10 lg:gap-16 items-center">
+        {/* Portrait */}
+        <div className={flip ? "lg:order-2" : ""}>
           <div
-            className={`relative aspect-[3/4] max-h-[60vh] md:max-h-none md:aspect-auto md:min-h-[600px] overflow-hidden bg-[var(--color-ink-deep)] ${
-              flip ? "md:order-2" : "md:order-1"
-            }`}
+            className="relative aspect-[3/4] overflow-hidden rounded-[8px] bg-[var(--color-ink-deep)]"
+            style={{ border: "1px solid var(--color-hairline)" }}
           >
             {profile.photo ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -94,111 +75,89 @@ function ProfileCard({ profile, index }: { profile: Profile; index: number }) {
                 </span>
               </div>
             )}
-
-            {/* Vertical fade blending the portrait into the content column (desktop) */}
-            <div
-              aria-hidden
-              className={`hidden md:block absolute inset-y-0 w-[18%] pointer-events-none ${
-                flip ? "left-0" : "right-0"
-              }`}
-              style={{
-                background: flip
-                  ? "linear-gradient(270deg, transparent 0%, oklch(0.07 0.008 70 / 0.7) 100%)"
-                  : "linear-gradient(90deg, transparent 0%, oklch(0.07 0.008 70 / 0.7) 100%)",
-              }}
-            />
-          </div>
-
-          {/* Content */}
-          <div
-            className={`relative px-7 md:px-12 lg:px-14 py-12 md:py-14 lg:py-16 ${
-              flip ? "md:order-1" : "md:order-2"
-            }`}
-          >
-            <p className="eyebrow text-[var(--color-ivory-faint)] mb-8">
-              Folio · Client Profile
-            </p>
-
-            <h3 className="font-display font-extrabold uppercase tracking-[-0.015em] leading-[1.0] text-[clamp(32px,3.6vw,52px)] text-[var(--color-ivory)]">
-              {profile.name}
-            </h3>
-            <p className="eyebrow text-[var(--color-gold)] mt-4">
-              {profile.role}
-            </p>
-
-            {profile.pullQuote && (
-              <blockquote className="relative accent text-[var(--color-ivory)] text-[clamp(20px,1.8vw,26px)] leading-[1.3] mt-10 max-w-[40ch] pl-6">
-                <span
-                  aria-hidden
-                  className="absolute left-0 top-1 bottom-1 w-px"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, var(--color-gold) 0%, transparent 100%)",
-                  }}
-                />
-                {profile.pullQuote}
-              </blockquote>
-            )}
-
-            {/* Testimonial video */}
-            <div className="mt-12">
-              <p className="eyebrow text-[var(--color-ivory-faint)] mb-4">
-                I · Testimonial
-              </p>
-              <div
-                className={
-                  vertical ? "relative w-full max-w-[320px]" : "relative"
-                }
-              >
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-[-10%]"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse 60% 70% at 50% 50%, oklch(0.42 0.16 78 / 0.35) 0%, oklch(0.30 0.10 75 / 0.15) 35%, transparent 70%)",
-                    filter: "blur(40px)",
-                  }}
-                />
-                <div className="relative">
-                  <VideoFrame
-                    videoSrc={profile.videoSrc}
-                    youtubeId={profile.videoYoutubeId}
-                    aspect={profile.videoAspect}
-                    runtime="00:00"
-                    progress={0.02}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Bio */}
-            <div className="mt-12">
-              <p className="eyebrow text-[var(--color-ivory-faint)] mb-4">
-                II · The Work
-              </p>
-              {profile.bio ? (
-                <p className="text-[var(--color-ivory-dim)] text-[16px] leading-[1.7] max-w-[56ch]">
-                  {profile.bio}
-                </p>
-              ) : (
-                <p className="text-[var(--color-ivory-faint)] italic text-[15px] leading-[1.65] max-w-[56ch]">
-                  Paragraph coming soon. Drop in 2 to 4 sentences about the
-                  operator, the work, and the named outcome.
-                </p>
-              )}
-            </div>
           </div>
         </div>
-      </article>
+
+        {/* Content */}
+        <div className={flip ? "lg:order-1" : ""}>
+          <h3 className="font-display font-extrabold uppercase leading-[1.0] tracking-[-0.02em] text-[clamp(30px,3.4vw,52px)] text-[var(--color-ivory)]">
+            {profile.name}
+          </h3>
+          <p className="eyebrow text-[var(--color-gold)] mt-3">{profile.role}</p>
+
+          {profile.pullQuote && (
+            <blockquote className="relative accent text-[var(--color-ivory)] text-[clamp(19px,1.7vw,24px)] leading-[1.3] mt-7 max-w-[40ch] pl-6">
+              <span
+                aria-hidden
+                className="absolute left-0 top-1 bottom-1 w-px"
+                style={{
+                  background:
+                    "linear-gradient(180deg, var(--color-gold) 0%, transparent 100%)",
+                }}
+              />
+              {profile.pullQuote}
+            </blockquote>
+          )}
+
+          {/* Testimonial video */}
+          <div className="mt-8">
+            <p className="eyebrow text-[var(--color-ivory-faint)] mb-4">
+              I · Testimonial
+            </p>
+            <div
+              className={
+                vertical ? "relative w-full max-w-[320px]" : "relative"
+              }
+            >
+              {/* Soft gold bloom behind the frame */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-[-12%]"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 60% 70% at 50% 50%, oklch(0.42 0.16 78 / 0.4) 0%, oklch(0.30 0.10 75 / 0.18) 35%, transparent 70%)",
+                  filter: "blur(40px)",
+                }}
+              />
+              <div className="relative">
+                <VideoFrame
+                  videoSrc={profile.videoSrc}
+                  youtubeId={profile.videoYoutubeId}
+                  aspect={profile.videoAspect}
+                  runtime="00:00"
+                  progress={0.02}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Bio */}
+          <div className="mt-10">
+            <p className="eyebrow text-[var(--color-ivory-faint)] mb-4">
+              II · The Work
+            </p>
+            {profile.bio ? (
+              <p className="text-[var(--color-ivory-dim)] text-[16px] leading-[1.7] max-w-[56ch]">
+                {profile.bio}
+              </p>
+            ) : (
+              <p className="text-[var(--color-ivory-faint)] italic text-[15px] leading-[1.65] max-w-[56ch]">
+                Paragraph coming soon. Drop in 2 to 4 sentences about the
+                operator, the work, and the named outcome.
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
     </Reveal>
   );
 }
 
 /**
- * "The Roster" — identity-driven operators shown as staggered profile
- * cards (each one styled like the client-profile modal: portrait + folio
- * mark, name, role, testimonial video, bio). Portrait side alternates per
- * card. A single "Become an Alchemist" CTA closes the section.
+ * "The Roster" — identity-driven operators shown as two staggered
+ * profile blocks (portrait + name, role, testimonial video, and bio),
+ * alternating which side the portrait sits on. A single "Become an
+ * Alchemist" CTA closes the section.
  */
 export function ClientPortfolio() {
   return (
@@ -217,16 +176,16 @@ export function ClientPortfolio() {
           </Reveal>
         </div>
 
-        {/* Staggered profile cards */}
-        <div className="flex flex-col gap-16 lg:gap-24">
+        {/* Staggered profile blocks */}
+        <div className="flex flex-col gap-24 lg:gap-36">
           {profiles.map((p, i) => (
-            <ProfileCard key={p.name} profile={p} index={i} />
+            <ProfileBlock key={p.name} profile={p} index={i} />
           ))}
         </div>
 
         {/* Closing CTA */}
         <Reveal delay={0.15}>
-          <div className="mt-20 lg:mt-28 flex justify-center">
+          <div className="mt-24 lg:mt-32 flex justify-center">
             <CTAButton size="large">Become an Alchemist</CTAButton>
           </div>
         </Reveal>
