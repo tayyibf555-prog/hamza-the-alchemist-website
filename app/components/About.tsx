@@ -4,24 +4,10 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
 import { SectionMarker } from "./SectionMarker";
-import { CountUp } from "./CountUp";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
-type Stat = {
-  to: number;
-  /** Rendered at 0.45× the integer size, on the same line, with tight tracking. */
-  suffix: string;
-  label: string;
-};
 type Principle = { title: string; body: string };
-
-const stats: Stat[] = [
-  { to: 8, suffix: "figures", label: "Combined client revenue" },
-  { to: 80, suffix: "+", label: "Operators worked with" },
-  { to: 6, suffix: "years", label: "In closed-room practice" },
-  { to: 100, suffix: "%", label: "Application only" },
-];
 
 const principles: Principle[] = [
   {
@@ -78,95 +64,6 @@ export function About() {
             </p>
           </div>
         </Reveal>
-      </div>
-
-      {/* ─── Stat band ──────────────────────────────────────────────── */}
-      <div className="relative mx-auto max-w-[1320px] px-6 lg:px-10 mt-24 lg:mt-32">
-        <div
-          className="relative grid grid-cols-2 lg:grid-cols-4"
-          style={{
-            borderTop: "1px solid var(--color-hairline)",
-            borderBottom: "1px solid var(--color-hairline)",
-          }}
-        >
-          {stats.map((s, i) => {
-            const isNotLast = i < stats.length - 1;
-            return (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, y: reduced ? 0 : 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-                transition={{
-                  duration: 0.95,
-                  delay: i * 0.14,
-                  ease: easeOutExpo,
-                }}
-                className="group relative flex flex-col py-12 lg:py-16 px-6 lg:px-10 min-h-[260px] lg:min-h-[280px]"
-              >
-                {/* Animated vertical hairline divider — scales from top */}
-                {isNotLast && (
-                  <motion.span
-                    aria-hidden
-                    className="absolute top-0 right-0 w-px origin-top"
-                    style={{
-                      height: "100%",
-                      background: "var(--color-hairline)",
-                    }}
-                    initial={{ scaleY: 0 }}
-                    whileInView={{ scaleY: 1 }}
-                    viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-                    transition={{
-                      duration: 1.1,
-                      delay: i * 0.14 + 0.1,
-                      ease: easeOutExpo,
-                    }}
-                  />
-                )}
-
-                {/* Animated gold tick — grows from 0 width on cell entry,
-                    extends further on hover for a small interactive touch */}
-                <motion.span
-                  aria-hidden
-                  className="absolute top-0 left-0 h-px transition-all duration-500 group-hover:!w-16"
-                  style={{
-                    background: "var(--color-gold)",
-                    boxShadow: "0 0 8px oklch(0.78 0.165 78 / 0.45)",
-                    transitionTimingFunction: "var(--ease-out-expo)",
-                  }}
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "32px" }}
-                  viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-                  transition={{
-                    duration: 0.9,
-                    delay: i * 0.14 + 0.4,
-                    ease: easeOutExpo,
-                  }}
-                />
-
-                {/* Value — count-up integer with inline smaller suffix.
-                    Every cell uses the same single-line structure so the
-                    values sit at identical vertical positions across the row. */}
-                <p
-                  className="font-display font-extrabold leading-[1] tracking-[-0.025em] text-[clamp(44px,4.6vw,72px)] text-[var(--color-ivory)] whitespace-nowrap transition-transform duration-500 group-hover:translate-x-1 flex items-baseline gap-[0.18em]"
-                  style={{ transitionTimingFunction: "var(--ease-out-expo)" }}
-                >
-                  <CountUp to={s.to} duration={1800} />
-                  <span className="text-[0.45em] font-extrabold tracking-tight leading-none">
-                    {s.suffix}
-                  </span>
-                </p>
-
-                {/* Label — anchored to bottom of cell so rows stay symmetric.
-                    whitespace-nowrap on desktop guarantees single-line labels;
-                    on mobile we allow wrap because cells are much narrower. */}
-                <p className="mt-auto pt-8 text-[13px] text-[var(--color-ivory-faint)] leading-[1.55] tracking-tight lg:whitespace-nowrap">
-                  {s.label}
-                </p>
-              </motion.div>
-            );
-          })}
-        </div>
       </div>
 
       {/* ─── Two-column: principles (left) + portrait (right) ──────── */}
