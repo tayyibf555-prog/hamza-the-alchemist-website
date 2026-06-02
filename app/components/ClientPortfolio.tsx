@@ -32,6 +32,7 @@ const profiles: Profile[] = [
     photo: "/clients/jordy-michels.png",
     videoSrc: "/clients/jordy-michels-testimonial.mp4",
     videoAspect: "9 / 16",
+    bio: "Michiels Jordy joined the program looking to break through an internal ceiling, but what he discovered went far beyond external success. Through the process, he deepened his connection with God, uncovered a greater truth about himself, and found his true calling. By the end of the program, he had not only transformed his identity but created his own unique approach to identity work, stepping into the world as the Frequency Architect.",
   },
   {
     name: "NATHAN JONES",
