@@ -16,6 +16,8 @@ type Props = {
   videoSrc?: string;
   /** Optional poster image path for the self-hosted video. */
   videoPoster?: string;
+  /** Generic iframe embed URL (Loom, Vimeo, etc.). Include autoplay params in the URL. */
+  embedUrl?: string;
   /** CSS aspect-ratio for the frame, e.g. "16 / 9" (default), "9 / 16" for vertical. */
   aspect?: string;
 };
@@ -36,10 +38,11 @@ export function VideoFrame({
   youtubeId,
   videoSrc,
   videoPoster,
+  embedUrl,
   aspect,
 }: Props) {
   const [playing, setPlaying] = useState(false);
-  const hasMedia = !!youtubeId || !!videoSrc;
+  const hasMedia = !!youtubeId || !!videoSrc || !!embedUrl;
 
   return (
     <div className="relative">
@@ -220,6 +223,17 @@ export function VideoFrame({
             >
               <track kind="captions" />
             </video>
+          )}
+
+          {playing && embedUrl && !youtubeId && !videoSrc && (
+            <iframe
+              src={embedUrl}
+              title="Video"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full z-30"
+              style={{ border: 0 }}
+            />
           )}
 
           {playing && !hasMedia && (

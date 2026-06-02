@@ -13,6 +13,8 @@ type Profile = {
   videoSrc?: string;
   /** OR a YouTube id, if the testimonial lives on YouTube. */
   videoYoutubeId?: string;
+  /** OR a generic embed URL (Loom, Vimeo, etc.) — include autoplay params. */
+  videoEmbedUrl?: string;
   /** CSS aspect-ratio for the testimonial frame, e.g. "9 / 16". */
   videoAspect?: string;
   /** Short display-font pull quote. */
@@ -32,7 +34,10 @@ const profiles: Profile[] = [
   {
     name: "Operator Two",
     role: "Founder",
-    // Drop assets in /public/clients and fill these in when ready.
+    videoEmbedUrl:
+      "https://www.loom.com/embed/bba3a4897e60430a9914b1c85504893b?autoplay=1&hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true",
+    videoAspect: "16 / 9",
+    // Add photo + name/role/bio when ready.
   },
 ];
 
@@ -123,6 +128,7 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
                 <VideoFrame
                   videoSrc={profile.videoSrc}
                   youtubeId={profile.videoYoutubeId}
+                  embedUrl={profile.videoEmbedUrl}
                   aspect={profile.videoAspect}
                   runtime="00:00"
                   progress={0.02}
