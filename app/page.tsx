@@ -2,7 +2,6 @@ import { EntrySequence } from "./components/EntrySequence";
 import { Nav } from "./components/Nav";
 import { VSLHero } from "./components/VSLHero";
 import { ClientPortfolio } from "./components/ClientPortfolio";
-import { Practice } from "./components/Practice";
 import { About } from "./components/About";
 import { Proof } from "./components/Proof";
 import { HoldingBack } from "./components/HoldingBack";
@@ -17,7 +16,6 @@ export default function HomePage() {
       <main>
         <VSLHero />
         <ClientPortfolio />
-        <Practice />
         <About />
         <Proof />
         <HoldingBack />
