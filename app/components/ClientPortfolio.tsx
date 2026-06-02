@@ -41,7 +41,7 @@ const profiles: Profile[] = [
       "https://www.loom.com/embed/bba3a4897e60430a9914b1c85504893b?autoplay=1&hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true",
     videoPoster: "/clients/nathan-jones-poster.gif",
     videoAspect: "16 / 9",
-    // Add a pull quote + bio when ready.
+    bio: "Nathan Jones came to me as a 9–5 worker who wanted to become a full-time trader. Through identity recalibration, we removed the subconscious patterns keeping him tied to his old reality and installed the identity of a consistently profitable trader. As his identity changed, his results followed. Ultimately growing into a trader generating $5,000–$10,000 per month.",
   },
 ];
 
