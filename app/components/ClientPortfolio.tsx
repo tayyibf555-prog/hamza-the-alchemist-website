@@ -15,6 +15,8 @@ type Profile = {
   videoYoutubeId?: string;
   /** OR a generic embed URL (Loom, Vimeo, etc.) — include autoplay params. */
   videoEmbedUrl?: string;
+  /** Poster image shown before play (needed for embeds that block thumbnails). */
+  videoPoster?: string;
   /** CSS aspect-ratio for the testimonial frame, e.g. "9 / 16". */
   videoAspect?: string;
   /** Short display-font pull quote. */
@@ -37,8 +39,9 @@ const profiles: Profile[] = [
     photo: "/clients/nathan-jones.png",
     videoEmbedUrl:
       "https://www.loom.com/embed/bba3a4897e60430a9914b1c85504893b?autoplay=1&hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true",
+    videoPoster: "/clients/nathan-jones-poster.gif",
     videoAspect: "16 / 9",
-    // Add a pull quote + bio when ready, and confirm the role.
+    // Add a pull quote + bio when ready.
   },
 ];
 
@@ -130,6 +133,7 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
                   videoSrc={profile.videoSrc}
                   youtubeId={profile.videoYoutubeId}
                   embedUrl={profile.videoEmbedUrl}
+                  videoPoster={profile.videoPoster}
                   aspect={profile.videoAspect}
                   runtime="00:00"
                   progress={0.02}

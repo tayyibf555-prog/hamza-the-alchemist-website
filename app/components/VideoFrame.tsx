@@ -98,6 +98,24 @@ export function VideoFrame({
             </>
           )}
 
+          {/* Embed (Loom/Vimeo) preview — poster image before play */}
+          {embedUrl && !youtubeId && !videoSrc && !playing && videoPoster && (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={videoPoster}
+                alt=""
+                aria-hidden
+                className="absolute inset-0 w-full h-full object-cover z-0"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none z-0"
+                style={{ background: "oklch(0.05 0.005 70 / 0.18)" }}
+              />
+            </>
+          )}
+
           {/* Self-hosted video preview before play (first frame as thumbnail) */}
           {videoSrc && !playing && (
             <>
