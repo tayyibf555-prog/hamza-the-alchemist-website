@@ -171,15 +171,20 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
           </div>
         </div>
       </div>
+
+      {/* Per-case-study apply CTA */}
+      <div className="mt-10 lg:mt-14 flex justify-center">
+        <CTAButton size="large">Become an Alchemist</CTAButton>
+      </div>
     </Reveal>
   );
 }
 
 /**
- * "The Roster" — identity-driven operators shown as two staggered
- * profile blocks (portrait + name, role, testimonial video, and bio),
- * alternating which side the portrait sits on. A single "Become an
- * Alchemist" CTA closes the section.
+ * "The Roster" — identity-driven operators shown as staggered profile
+ * blocks (portrait + name, role, testimonial video, and bio), alternating
+ * which side the portrait sits on. Each case study closes with its own
+ * apply CTA.
  */
 export function ClientPortfolio() {
   return (
@@ -198,19 +203,12 @@ export function ClientPortfolio() {
           </Reveal>
         </div>
 
-        {/* Staggered profile blocks */}
+        {/* Staggered profile blocks — each closes with its own apply CTA */}
         <div className="flex flex-col gap-24 lg:gap-36">
           {profiles.map((p, i) => (
             <ProfileBlock key={p.name} profile={p} index={i} />
           ))}
         </div>
-
-        {/* Closing CTA */}
-        <Reveal delay={0.15}>
-          <div className="mt-24 lg:mt-32 flex justify-center">
-            <CTAButton size="large">Become an Alchemist</CTAButton>
-          </div>
-        </Reveal>
       </div>
     </section>
   );
