@@ -45,10 +45,12 @@ const profiles: Profile[] = [
     bio: "Nathan Jones came to me as a 9–5 worker who wanted to become a full-time trader. Through identity recalibration, we removed the subconscious patterns keeping him tied to his old reality and installed the identity of a consistently profitable trader. As his identity changed, his results followed. Ultimately growing into a trader generating $5,000–$10,000 per month.",
   },
   {
-    name: "Operator Three",
-    role: "Role",
-    // Placeholder — drop a photo + video into /public/clients and fill in
-    // name / role / videoSrc (or videoEmbedUrl + videoPoster) / bio when ready.
+    name: "FRANK",
+    role: "Business Owner",
+    photo: "/clients/frank.jpg",
+    videoSrc: "/clients/frank.mp4",
+    videoAspect: "9 / 16",
+    bio: "Entered the program as a business owner carrying significant subconscious limitations around money, growth, and receiving success. Through the extraction and removal of those subconscious blocks, Frank was able to shift from operating through scarcity and financial pressure to leading from certainty, clarity, and detachment.\n\nAs a result of the identity recalibration, the business is on track to generate 25% more profit than the previous year while creating a stronger foundation for long-term growth. Frank is now positioning the company for a seven-figure exit, with continued support focused on ensuring the business reaches its desired valuation and outcome.",
   },
 ];
 
@@ -155,9 +157,11 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
               II · The Work
             </p>
             {profile.bio ? (
-              <p className="text-[var(--color-ivory-dim)] text-[16px] leading-[1.7] max-w-[56ch]">
-                {profile.bio}
-              </p>
+              <div className="text-[var(--color-ivory-dim)] text-[16px] leading-[1.7] max-w-[56ch] space-y-4">
+                {profile.bio.split("\n\n").map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
             ) : (
               <p className="text-[var(--color-ivory-faint)] italic text-[15px] leading-[1.65] max-w-[56ch]">
                 Paragraph coming soon. Drop in 2 to 4 sentences about the
