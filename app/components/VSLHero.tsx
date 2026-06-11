@@ -57,7 +57,7 @@ export function VSLHero() {
             transition={{ duration: 1.1, delay: 1.2, ease: easeOutExpo }}
             className="font-display font-extrabold text-balance text-center leading-[1.0] tracking-[-0.025em] text-[clamp(32px,4.4vw,68px)] text-[var(--color-ivory)] mb-12 lg:mb-16"
           >
-            Your ceiling isn&apos;t strategy. It&apos;s{" "}
+            Your business cannot outgrow your{" "}
             <span
               className="accent text-[var(--color-gold)]"
               style={{ textShadow: "0 0 60px oklch(0.78 0.165 78 / 0.4)" }}
