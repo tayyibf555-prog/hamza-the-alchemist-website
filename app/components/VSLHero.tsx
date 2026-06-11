@@ -47,7 +47,7 @@ export function VSLHero() {
             animate="visible"
             className="eyebrow text-[var(--color-gold)] text-center mb-10"
           >
-            Orientation · The 21st Century Alchemist
+            Only for 7–9 figure entrepreneurs
           </motion.p>
 
           {/* Pre-headline (above the video, sets the frame) */}
