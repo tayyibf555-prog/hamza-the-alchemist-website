@@ -44,6 +44,12 @@ const profiles: Profile[] = [
     videoAspect: "16 / 9",
     bio: "Nathan Jones came to me as a 9–5 worker who wanted to become a full-time trader. Through identity recalibration, we removed the subconscious patterns keeping him tied to his old reality and installed the identity of a consistently profitable trader. As his identity changed, his results followed. Ultimately growing into a trader generating $5,000–$10,000 per month.",
   },
+  {
+    name: "Operator Three",
+    role: "Role",
+    // Placeholder — drop a photo + video into /public/clients and fill in
+    // name / role / videoSrc (or videoEmbedUrl + videoPoster) / bio when ready.
+  },
 ];
 
 function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
