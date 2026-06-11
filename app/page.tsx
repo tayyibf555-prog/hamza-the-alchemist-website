@@ -3,7 +3,6 @@ import { Nav } from "./components/Nav";
 import { VSLHero } from "./components/VSLHero";
 import { ClientPortfolio } from "./components/ClientPortfolio";
 import { About } from "./components/About";
-import { Proof } from "./components/Proof";
 import { HoldingBack } from "./components/HoldingBack";
 import { Inquiry } from "./components/Inquiry";
 import { Signup } from "./components/Signup";
@@ -17,7 +16,6 @@ export default function HomePage() {
         <VSLHero />
         <ClientPortfolio />
         <About />
-        <Proof />
         <HoldingBack />
         <Inquiry />
         <Signup />
