@@ -30,3 +30,6 @@ npm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large source video files — commit only the transcoded web mp4s
+*.mov

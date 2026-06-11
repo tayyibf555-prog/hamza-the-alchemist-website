@@ -84,7 +84,11 @@ export function VSLHero() {
               }}
             />
             <div className="relative">
-              <VideoFrame runtime="08:42" showCaption />
+              <VideoFrame
+                videoSrc="/homepageVSL/homepage-vsl.mp4"
+                runtime="02:40"
+                showCaption
+              />
             </div>
           </motion.div>
 
