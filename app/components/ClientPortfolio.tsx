@@ -66,7 +66,11 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
 
   return (
     <Reveal delay={index * 0.12}>
-      <div className="grid grid-cols-1 lg:grid-cols-[34%_66%] gap-8 lg:gap-12 items-center">
+      <div
+        className={`grid grid-cols-1 gap-8 lg:gap-12 items-center ${
+          flip ? "lg:grid-cols-[66%_34%]" : "lg:grid-cols-[34%_66%]"
+        }`}
+      >
         {/* Portrait */}
         <div className={flip ? "lg:order-2" : ""}>
           <div
