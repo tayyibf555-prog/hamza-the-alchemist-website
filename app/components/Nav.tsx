@@ -6,7 +6,7 @@ import { TridentMark } from "./TridentMark";
 import { CTAButton } from "./CTAButton";
 
 const links = [
-  { label: "Method", href: "/method" },
+  { label: "Transmutation", href: "/method" },
   { label: "Blog", href: "/blog" },
 ];
 
