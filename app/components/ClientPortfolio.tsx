@@ -66,11 +66,11 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
 
   return (
     <Reveal delay={index * 0.12}>
-      <div className="grid grid-cols-1 lg:grid-cols-[42%_58%] gap-10 lg:gap-16 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-[34%_66%] gap-8 lg:gap-12 items-center">
         {/* Portrait */}
         <div className={flip ? "lg:order-2" : ""}>
           <div
-            className="relative aspect-[3/4] overflow-hidden rounded-[8px] bg-[var(--color-ink-deep)]"
+            className="relative aspect-[3/4] overflow-hidden rounded-[8px] bg-[var(--color-ink-deep)] max-w-[280px] mx-auto lg:max-w-none lg:mx-0"
             style={{ border: "1px solid var(--color-hairline)" }}
           >
             {profile.photo ? (
@@ -124,7 +124,7 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
             </p>
             <div
               className={
-                vertical ? "relative w-full max-w-[320px]" : "relative"
+                vertical ? "relative w-full max-w-[240px]" : "relative w-full max-w-[440px]"
               }
             >
               {/* Soft gold bloom behind the frame */}
@@ -173,7 +173,7 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
       </div>
 
       {/* Per-case-study apply CTA */}
-      <div className="mt-10 lg:mt-14 flex justify-center">
+      <div className="mt-8 lg:mt-10 flex justify-center">
         <CTAButton size="large">Become an Alchemist</CTAButton>
       </div>
     </Reveal>
@@ -188,8 +188,8 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
  */
 export function ClientPortfolio() {
   return (
-    <section className="relative py-24 lg:py-36">
-      <div className="mx-auto max-w-[1180px] px-6 lg:px-10">
+    <section className="relative py-20 lg:py-28">
+      <div className="mx-auto max-w-[1040px] px-6 lg:px-10">
         {/* Section header */}
         <div className="text-center mb-16 lg:mb-24">
           <Reveal as="p" className="eyebrow text-[var(--color-gold)] mb-6">
@@ -204,7 +204,7 @@ export function ClientPortfolio() {
         </div>
 
         {/* Staggered profile blocks — each closes with its own apply CTA */}
-        <div className="flex flex-col gap-24 lg:gap-36">
+        <div className="flex flex-col gap-16 lg:gap-24">
           {profiles.map((p, i) => (
             <ProfileBlock key={p.name} profile={p} index={i} />
           ))}
