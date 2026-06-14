@@ -67,14 +67,14 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
   return (
     <Reveal delay={index * 0.12}>
       <div
-        className={`grid grid-cols-1 gap-8 lg:gap-12 items-center ${
-          flip ? "lg:grid-cols-[66%_34%]" : "lg:grid-cols-[34%_66%]"
+        className={`grid grid-cols-1 gap-10 lg:gap-16 items-start ${
+          flip ? "lg:grid-cols-[1fr_320px]" : "lg:grid-cols-[320px_1fr]"
         }`}
       >
-        {/* Portrait */}
+        {/* Portrait — fixed 320px column, identical on both sides */}
         <div className={flip ? "lg:order-2" : ""}>
           <div
-            className="relative aspect-[3/4] overflow-hidden rounded-[8px] bg-[var(--color-ink-deep)] max-w-[280px] mx-auto lg:max-w-none lg:mx-0"
+            className="relative aspect-[3/4] overflow-hidden rounded-[8px] bg-[var(--color-ink-deep)] max-w-[260px] mx-auto lg:max-w-none lg:mx-0"
             style={{ border: "1px solid var(--color-hairline)" }}
           >
             {profile.photo ? (
@@ -100,36 +100,46 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
           </div>
         </div>
 
-        {/* Content */}
-        <div className={flip ? "lg:order-1" : ""}>
-          <h3 className="font-display font-extrabold uppercase leading-[1.0] tracking-[-0.02em] text-[clamp(30px,3.4vw,52px)] text-[var(--color-ivory)]">
+        {/* Content — consistent rhythm: name, role, bio, then testimonial */}
+        <div
+          className={`text-center lg:text-left ${flip ? "lg:order-1" : ""}`}
+        >
+          <h3 className="font-display font-extrabold uppercase leading-[1.0] tracking-[-0.02em] text-[clamp(28px,3vw,44px)] text-[var(--color-ivory)]">
             {profile.name}
           </h3>
           <p className="eyebrow text-[var(--color-gold)] mt-3">{profile.role}</p>
 
           {profile.pullQuote && (
-            <blockquote className="relative accent text-[var(--color-ivory)] text-[clamp(19px,1.7vw,24px)] leading-[1.3] mt-7 max-w-[40ch] pl-6">
-              <span
-                aria-hidden
-                className="absolute left-0 top-1 bottom-1 w-px"
-                style={{
-                  background:
-                    "linear-gradient(180deg, var(--color-gold) 0%, transparent 100%)",
-                }}
-              />
+            <blockquote className="accent text-[var(--color-ivory)] text-[clamp(18px,1.6vw,22px)] leading-[1.35] mt-6 max-w-[46ch] mx-auto lg:mx-0">
               {profile.pullQuote}
             </blockquote>
           )}
 
-          {/* Testimonial video */}
+          {/* Bio */}
+          <div className="mt-6">
+            {profile.bio ? (
+              <div className="text-[var(--color-ivory-dim)] text-[16px] leading-[1.7] max-w-[58ch] mx-auto lg:mx-0 space-y-4">
+                {profile.bio.split("\n\n").map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
+            ) : (
+              <p className="text-[var(--color-ivory-faint)] italic text-[15px] leading-[1.65] max-w-[58ch] mx-auto lg:mx-0">
+                Paragraph coming soon. Drop in 2 to 4 sentences about the
+                operator, the work, and the named outcome.
+              </p>
+            )}
+          </div>
+
+          {/* Testimonial video — anchored at the bottom of the content block */}
           <div className="mt-8">
             <p className="eyebrow text-[var(--color-ivory-faint)] mb-4">
-              I · Testimonial
+              Testimonial
             </p>
             <div
-              className={
-                vertical ? "relative w-full max-w-[240px]" : "relative w-full max-w-[440px]"
-              }
+              className={`relative ${
+                vertical ? "max-w-[230px]" : "max-w-[460px]"
+              } mx-auto lg:mx-0`}
             >
               {/* Soft gold bloom behind the frame */}
               <div
@@ -153,25 +163,6 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
                 />
               </div>
             </div>
-          </div>
-
-          {/* Bio */}
-          <div className="mt-10">
-            <p className="eyebrow text-[var(--color-ivory-faint)] mb-4">
-              II · The Work
-            </p>
-            {profile.bio ? (
-              <div className="text-[var(--color-ivory-dim)] text-[16px] leading-[1.7] max-w-[56ch] space-y-4">
-                {profile.bio.split("\n\n").map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
-              </div>
-            ) : (
-              <p className="text-[var(--color-ivory-faint)] italic text-[15px] leading-[1.65] max-w-[56ch]">
-                Paragraph coming soon. Drop in 2 to 4 sentences about the
-                operator, the work, and the named outcome.
-              </p>
-            )}
           </div>
         </div>
       </div>
