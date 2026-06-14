@@ -99,25 +99,6 @@
     background: var(--color-gold);
     color: var(--color-ink);
   }
-
-  /* Hide the native cursor when our custom one is active.
-     Falls back to default cursor on touch / reduced-motion. */
-  html.cursor-on,
-  html.cursor-on * {
-    cursor: none !important;
-  }
-
-  /* Hover state — ring expands, dot scales down so the ring becomes the focal point */
-  .cursor-ring[data-hover="1"] {
-    width: 60px !important;
-    height: 60px !important;
-    background: oklch(0.78 0.165 78 / 0.08);
-    border-color: var(--color-gold-soft);
-  }
-  .cursor-dot[data-hover="1"] {
-    width: 4px !important;
-    height: 4px !important;
-  }
 }
 
 @layer utilities {
