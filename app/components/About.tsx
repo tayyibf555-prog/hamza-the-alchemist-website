@@ -54,8 +54,8 @@ export function About() {
         <Reveal delay={0.2}>
           <div className="mt-14 lg:mt-16 mx-auto max-w-[58ch] flex flex-col gap-6 text-center text-[var(--color-ivory-dim)] text-[17px] leading-[1.7]">
             <p>
-              Six years private. A small number of founders, day traders, and
-              creators each quarter. Every engagement individual.
+              A small number of founders, day traders, and creators each
+              quarter. Every engagement individual.
             </p>
             <p>
               The frequency you operate at is the ceiling you&apos;ll hit.
