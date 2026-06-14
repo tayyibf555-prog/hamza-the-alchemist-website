@@ -100,7 +100,7 @@ export function VSLHero() {
             className="mt-10 lg:mt-14 flex flex-col items-center gap-8"
           >
             <p className="accent text-[var(--color-ivory)] text-[clamp(18px,1.6vw,22px)] text-center max-w-[44ch]">
-              Nine minutes. Identity, frequency, outcome.
+              Three minutes. Identity, frequency, outcome.
             </p>
 
             <a
