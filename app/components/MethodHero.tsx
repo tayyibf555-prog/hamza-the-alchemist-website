@@ -17,7 +17,7 @@ export function MethodHero() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative pt-[160px] lg:pt-[200px] pb-20 lg:pb-28 overflow-hidden bloom-bg">
+    <section className="relative pt-[116px] lg:pt-[140px] pb-20 lg:pb-28 overflow-hidden bloom-bg">
       <div className="mx-auto max-w-[1100px] px-6 lg:px-10">
         <motion.h1
           initial={{ opacity: 0, y: reduced ? 0 : 36 }}
@@ -34,12 +34,12 @@ export function MethodHero() {
           </span>
         </motion.h1>
 
-        {/* VSL placeholder right under the headline */}
+        {/* VSL right under the headline — capped width so the two read as one unit */}
         <motion.div
           initial={{ opacity: 0, y: reduced ? 0 : 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.4, delay: 0.3, ease: easeOutExpo }}
-          className="relative mt-14 lg:mt-20"
+          className="relative mt-8 lg:mt-10 max-w-[760px] mx-auto"
         >
           <VideoFrame runtime="12:08" progress={0.06} youtubeId="X2ObLdwGbZI" />
         </motion.div>
@@ -47,7 +47,7 @@ export function MethodHero() {
         {/* Three Roman-numeral markers — table of contents for the phases below */}
         <Reveal delay={0.45}>
           <div
-            className="mt-20 lg:mt-24 pt-10 grid grid-cols-3 gap-4 md:gap-10"
+            className="mt-14 lg:mt-16 pt-10 grid grid-cols-3 gap-4 md:gap-10"
             style={{ borderTop: "1px solid var(--color-hairline)" }}
           >
             {["I · Dissolution", "II · Reconstruction", "III · Coagulation"].map(
