@@ -54,13 +54,22 @@ export function About() {
         <Reveal delay={0.2}>
           <div className="mt-14 lg:mt-16 mx-auto max-w-[58ch] flex flex-col gap-6 text-center text-[var(--color-ivory-dim)] text-[17px] leading-[1.7]">
             <p>
-              A small number of founders, day traders, and creators each
-              quarter. Every engagement individual.
+              Raised by immigrants who followed every rule and built security,
+              respect, and stability. Everything but freedom. That tension left
+              me a question I couldn&rsquo;t drop: why capable people plateau,
+              and why effort stops compounding.
             </p>
             <p>
-              The frequency you operate at is the ceiling you&apos;ll hit.
-              I&apos;ve never seen anyone break theirs without first dissolving
-              the identity that built it.
+              I left corporate to build my own thing, and it collapsed. I moved
+              back home, slept in my car, and rebuilt quietly. A mentor handed
+              me one sentence instead of a tactic: ponder the word infinity.
+            </p>
+            <p>
+              The breakthrough wasn&rsquo;t external. It was structural. Reality
+              had never resisted me, it reflected me. Now I work privately with
+              founders, executives, and investors, not to motivate them but to
+              restore internal order. When the structure is correct, results
+              reorganize.
             </p>
           </div>
         </Reveal>
