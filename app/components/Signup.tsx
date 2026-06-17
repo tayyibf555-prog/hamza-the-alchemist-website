@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
+import { subscribeEmail } from "../lib/subscribe";
 
 /**
  * "Reality Architecture Training" signup block.
@@ -15,13 +16,18 @@ export function Signup() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "ok" | "err">("idle");
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !email.includes("@")) {
       setStatus("err");
       return;
     }
-    setStatus("ok");
+    try {
+      await subscribeEmail(email);
+      setStatus("ok");
+    } catch {
+      setStatus("err");
+    }
   };
 
   return (
