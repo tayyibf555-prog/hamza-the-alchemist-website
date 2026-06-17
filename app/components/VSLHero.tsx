@@ -39,13 +39,13 @@ export function VSLHero() {
 
       {/* Main column */}
       <div className="relative z-10 flex-1 flex items-center">
-        <div className="mx-auto max-w-[1100px] w-full px-6 lg:px-10 py-16 lg:py-20">
+        <div className="mx-auto max-w-[1100px] w-full px-6 lg:px-10 py-8 lg:py-10">
           {/* Eyebrow */}
           <motion.p
             variants={fadeIn(1.0)}
             initial="hidden"
             animate="visible"
-            className="eyebrow text-[var(--color-gold)] text-center mb-10"
+            className="eyebrow text-[var(--color-gold)] text-center mb-5"
           >
             Only for 7–9 figure entrepreneurs
           </motion.p>
@@ -55,7 +55,7 @@ export function VSLHero() {
             initial={{ opacity: 0, y: reduced ? 0 : 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, delay: 1.2, ease: easeOutExpo }}
-            className="font-display font-extrabold text-balance text-center leading-[1.0] tracking-[-0.025em] text-[clamp(32px,4.4vw,68px)] text-[var(--color-ivory)] mb-12 lg:mb-16"
+            className="font-display font-extrabold text-balance text-center leading-[1.0] tracking-[-0.025em] text-[clamp(30px,4vw,60px)] text-[var(--color-ivory)] mb-7 lg:mb-9"
           >
             Your business cannot outgrow your{" "}
             <span
@@ -71,7 +71,7 @@ export function VSLHero() {
             initial={{ opacity: 0, y: reduced ? 0 : 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.4, delay: 1.6, ease: easeOutExpo }}
-            className="relative"
+            className="relative max-w-[640px] mx-auto"
           >
             {/* Gold radial bloom behind the VSL — only here, not site-wide */}
             <div
@@ -97,7 +97,7 @@ export function VSLHero() {
             variants={fadeIn(2.1)}
             initial="hidden"
             animate="visible"
-            className="mt-10 lg:mt-14 flex flex-col items-center gap-8"
+            className="mt-7 lg:mt-8 flex flex-col items-center gap-5"
           >
             <p className="accent text-[var(--color-ivory)] text-[clamp(18px,1.6vw,22px)] text-center max-w-[44ch]">
               Three minutes. Identity, frequency, outcome.
