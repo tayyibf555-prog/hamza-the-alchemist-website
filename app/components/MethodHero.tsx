@@ -23,14 +23,14 @@ export function MethodHero() {
           initial={{ opacity: 0, y: reduced ? 0 : 36 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, ease: easeOutExpo }}
-          className="font-display font-extrabold text-balance text-center leading-[0.98] tracking-[-0.025em] text-[clamp(48px,8vw,140px)] text-[var(--color-ivory)]"
+          className="font-display font-extrabold text-balance text-center leading-[1.08] tracking-[-0.02em] text-[clamp(28px,4vw,58px)] text-[var(--color-ivory)] max-w-[20ch] mx-auto"
         >
-          The{" "}
+          Remove The Invisible Internal Ceiling That&rsquo;s Been Quietly Costing Your Business{" "}
           <span
             className="accent text-[var(--color-gold)]"
             style={{ textShadow: "0 0 60px oklch(0.78 0.165 78 / 0.4)" }}
           >
-            Transmutation.
+            Millions
           </span>
         </motion.h1>
 
