@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { TridentMark } from "./TridentMark";
 import { CTAButton } from "./CTAButton";
@@ -13,6 +14,9 @@ const links = [
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  // Show a "back home" link whenever we're on a subpage (Transmutation, Blog, etc.)
+  const showHome = pathname !== "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -54,6 +58,15 @@ export function Nav() {
           </a>
 
           <nav className="hidden md:flex items-center gap-9">
+            {showHome && (
+              <a
+                href="/"
+                className="eyebrow text-[var(--color-gold)] hover:text-[var(--color-gold-soft)] transition-colors duration-200 inline-flex items-center gap-2"
+              >
+                <span aria-hidden>←</span>
+                Home
+              </a>
+            )}
             {links.map((l) => (
               <a
                 key={l.href}
@@ -93,6 +106,16 @@ export function Nav() {
             style={{ background: "var(--color-ink-deep)" }}
           >
             <div className="mx-auto max-w-[1320px] px-6 py-4 flex flex-col gap-1">
+              {showHome && (
+                <a
+                  href="/"
+                  onClick={() => setOpen(false)}
+                  className="eyebrow text-[var(--color-gold)] hover:text-[var(--color-gold-soft)] transition-colors flex items-center gap-2 min-h-[48px]"
+                >
+                  <span aria-hidden>←</span>
+                  Home
+                </a>
+              )}
               {links.map((l) => (
                 <a
                   key={l.href}
