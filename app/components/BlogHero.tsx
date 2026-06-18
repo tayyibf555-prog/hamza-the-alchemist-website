@@ -75,9 +75,9 @@ export function BlogHero() {
           initial={{ opacity: 0, y: reduced ? 0 : 36 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.2, ease: easeOutExpo }}
-          className="font-display font-extrabold text-center leading-[1.0] tracking-[-0.025em] text-[clamp(40px,6.5vw,110px)] text-[var(--color-ivory)]"
+          className="font-display font-extrabold text-center leading-[1.05] sm:leading-[1.0] tracking-[-0.025em] text-[clamp(34px,6.5vw,110px)] text-[var(--color-ivory)]"
         >
-          <span className="block whitespace-nowrap">
+          <span className="block whitespace-normal sm:whitespace-nowrap">
             Control your{" "}
             <span
               className="accent text-[var(--color-gold)]"
@@ -86,7 +86,7 @@ export function BlogHero() {
               identity.
             </span>
           </span>
-          <span className="block whitespace-nowrap">
+          <span className="block whitespace-normal sm:whitespace-nowrap">
             Control your{" "}
             <span
               className="accent text-[var(--color-gold)]"

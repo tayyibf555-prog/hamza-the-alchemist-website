@@ -18,9 +18,9 @@ export function About() {
       <SectionMarker index="III" label="The Operator" />
 
       <div className="relative mx-auto max-w-[1320px] px-6 lg:px-10">
-        <div className="grid grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left: heading + story */}
-          <div className="col-span-12 lg:col-span-7 order-2 lg:order-1">
+          <div className="lg:col-span-7 order-2 lg:order-1">
             <Reveal as="p" className="eyebrow text-[var(--color-gold)] mb-8">
               Hamza · The Operator
             </Reveal>
@@ -62,7 +62,7 @@ export function About() {
           </div>
 
           {/* Right: founder portrait */}
-          <div className="col-span-12 lg:col-span-5 order-1 lg:order-2 lg:sticky lg:top-28">
+          <div className="lg:col-span-5 order-1 lg:order-2 lg:sticky lg:top-28">
             <motion.div
               initial={{ opacity: 0, y: reduced ? 0 : 24 }}
               whileInView={{ opacity: 1, y: 0 }}

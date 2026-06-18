@@ -34,9 +34,9 @@ export function Signup() {
     <section
       className="relative py-28 lg:py-36"
     >
-      <div className="mx-auto max-w-[1320px] px-6 lg:px-10 grid grid-cols-12 gap-10 lg:gap-16 items-start">
+      <div className="mx-auto max-w-[1320px] px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
         {/* Left rail — credential */}
-        <div className="col-span-12 lg:col-span-4">
+        <div className="lg:col-span-4">
           <Reveal as="p" className="eyebrow text-[var(--color-gold)] mb-6">
             Reality Architecture Training
           </Reveal>
@@ -77,7 +77,7 @@ export function Signup() {
         </div>
 
         {/* Right — form */}
-        <div className="col-span-12 lg:col-span-7 lg:col-start-6">
+        <div className="lg:col-span-7 lg:col-start-6">
           <Reveal delay={0.1}>
             <form onSubmit={submit} className="flex flex-col gap-7">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-7">

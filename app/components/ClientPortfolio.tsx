@@ -183,7 +183,7 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
  */
 export function ClientPortfolio() {
   return (
-    <section className="relative py-20 lg:py-28">
+    <section className="relative py-20 lg:py-28 overflow-hidden">
       <div className="mx-auto max-w-[1040px] px-6 lg:px-10">
         {/* Section header */}
         <div className="text-center mb-16 lg:mb-24">

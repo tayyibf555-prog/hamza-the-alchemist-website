@@ -38,9 +38,9 @@ export function HoldingBack() {
         &amp;
       </span>
 
-      <div className="relative mx-auto max-w-[1320px] px-6 lg:px-10 grid grid-cols-12 gap-8 lg:gap-16 items-center">
+      <div className="relative mx-auto max-w-[1320px] px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
         {/* Left rail metadata */}
-        <Reveal as="div" className="col-span-12 lg:col-span-3 order-2 lg:order-1">
+        <Reveal as="div" className="lg:col-span-3 order-2 lg:order-1">
           <div
             className="pt-6 border-t flex flex-col gap-1"
             style={{ borderColor: "var(--color-hairline)" }}
@@ -54,7 +54,7 @@ export function HoldingBack() {
         </Reveal>
 
         {/* The line */}
-        <div className="col-span-12 lg:col-span-9 order-1 lg:order-2">
+        <div className="lg:col-span-9 order-1 lg:order-2">
           <Reveal as="p" className="eyebrow text-[var(--color-gold)] mb-10">
             Before You Apply
           </Reveal>
