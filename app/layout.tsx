@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Outfit, Fraunces } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { MotionRoot } from "./components/MotionRoot";
 import { ScrollManager } from "./components/ScrollManager";
 import { AuraBackground } from "./components/AuraBackground";
@@ -53,6 +54,7 @@ export default function RootLayout({
         <GoldDots />
         <ScrollManager />
         <MotionRoot>{children}</MotionRoot>
+        <Analytics />
       </body>
     </html>
   );
