@@ -60,6 +60,10 @@ export async function POST(req: NextRequest) {
     if (path.startsWith("/dashboard-")) return noContent();
 
     const host = (req.headers.get("host") || "").replace(/^www\./, "").toLowerCase();
+    // Don't record local development visits.
+    if (host.startsWith("localhost") || host.startsWith("127.") || host.startsWith("0.0.0.0")) {
+      return noContent();
+    }
     const country = req.headers.get("x-vercel-ip-country") || "";
     const device = deviceFromUA(ua);
     const source = sourceFromReferrer(referrer, host);
