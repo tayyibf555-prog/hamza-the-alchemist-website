@@ -7,6 +7,7 @@ import { ScrollManager } from "./components/ScrollManager";
 import { AuraBackground } from "./components/AuraBackground";
 import { GoldDots } from "./components/GoldDots";
 import { Track } from "./components/Track";
+import { MetaPixel } from "./components/MetaPixel";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -56,6 +57,7 @@ export default function RootLayout({
         <ScrollManager />
         <MotionRoot>{children}</MotionRoot>
         <Track />
+        <MetaPixel />
         <Analytics />
       </body>
     </html>
