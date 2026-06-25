@@ -139,7 +139,7 @@ function VisitorsChart({ daily, days }: { daily: DailyRow[]; days: number }) {
   const peak = series.reduce((a, b) => (b.views > a.views ? b : a), series[0]);
 
   return (
-    <div className="p-6 lg:p-8" style={card}>
+    <div className="p-6 lg:p-8 overflow-hidden" style={card}>
       <div className="flex items-baseline justify-between gap-4 mb-8">
         <p className="eyebrow text-[var(--color-gold)] text-[11px]">
           Page views · last {days} days

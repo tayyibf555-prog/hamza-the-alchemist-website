@@ -24,32 +24,39 @@ export function Footer() {
           </span>
         </div>
 
-        <nav className="flex flex-col gap-3">
-          <p className="eyebrow text-[var(--color-ivory-faint)] mb-2">Site</p>
-          <a href="#home" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px]">
+        <nav className="flex flex-col gap-1">
+          <p className="eyebrow text-[var(--color-ivory-faint)] mb-3">Site</p>
+          <a href="/" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px] py-1.5">
             Home
           </a>
-          <a href="#about" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px]">
+          <a href="/#about" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px] py-1.5">
             About
           </a>
-          <a href="#services" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px]">
-            Work With Me
+          <a href="/transmutation" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px] py-1.5">
+            The Transmutation
           </a>
-          <a href="#" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px]">
+          <a href="/blog" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px] py-1.5">
             Blog
           </a>
         </nav>
 
-        <div className="flex flex-col gap-3">
-          <p className="eyebrow text-[var(--color-ivory-faint)] mb-2">Channels</p>
-          <a href="https://tiktok.com" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors text-[15px]">
-            TikTok ↗
-          </a>
-          <a href="https://youtube.com" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors text-[15px]">
-            YouTube ↗
-          </a>
-          <a href="https://instagram.com" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors text-[15px]">
+        <div className="flex flex-col gap-1">
+          <p className="eyebrow text-[var(--color-ivory-faint)] mb-3">Channels</p>
+          <a
+            href="https://www.instagram.com/hamzathealchemist/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors text-[15px] py-1.5"
+          >
             Instagram ↗
+          </a>
+          <a
+            href="https://www.youtube.com/@hamzathealchemist"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors text-[15px] py-1.5"
+          >
+            YouTube ↗
           </a>
         </div>
       </div>
