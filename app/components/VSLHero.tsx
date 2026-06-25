@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { SectionMarker } from "./SectionMarker";
 import { VideoFrame } from "./VideoFrame";
+import { TYPEFORM_URL } from "../lib/links";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
@@ -104,7 +105,7 @@ export function VSLHero() {
             </p>
 
             <a
-              href="#inquiry"
+              href={TYPEFORM_URL}
               className="group relative inline-flex items-center gap-3 h-[60px] px-9 eyebrow rounded-[3px] text-[var(--color-ink-deep)] overflow-hidden"
               style={{
                 background:

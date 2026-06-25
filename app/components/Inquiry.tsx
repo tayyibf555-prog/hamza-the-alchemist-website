@@ -1,38 +1,21 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { createPopup } from "@typeform/embed";
-import "@typeform/embed/build/css/popup.css";
 import { Reveal } from "./Reveal";
 import { SectionMarker } from "./SectionMarker";
+import { TYPEFORM_URL } from "../lib/links";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
-
-/** Typeform application form id (form.typeform.com/to/<id>). */
-const TYPEFORM_ID = "YkVVRS4U";
 
 /**
  * Folio VIII · Inquiry — the application gateway.
  *
- * Heading + intro set the frame; a single gold CTA opens the Typeform
- * application in a full-screen overlay. The form itself lives on Typeform
- * so questions can be edited without a deploy.
+ * Heading + intro set the frame; a single gold CTA links to the Typeform
+ * application. The form lives on Typeform so questions can be edited without
+ * a deploy, and it redirects on to the booking step on completion.
  */
 export function Inquiry() {
   const reduced = useReducedMotion();
-  const popupRef = useRef<ReturnType<typeof createPopup> | null>(null);
-
-  // Create the popup once on mount; tear it down on unmount.
-  useEffect(() => {
-    popupRef.current = createPopup(TYPEFORM_ID);
-    return () => {
-      popupRef.current?.unmount?.();
-      popupRef.current = null;
-    };
-  }, []);
-
-  const openForm = () => popupRef.current?.open();
 
   return (
     <section id="inquiry" className="relative py-32 lg:py-48 overflow-hidden">
@@ -68,12 +51,11 @@ export function Inquiry() {
           work is a match, the conversation continues privately.
         </Reveal>
 
-        {/* CTA — opens the Typeform application in a full-screen overlay */}
+        {/* CTA — links straight to the Typeform application */}
         <Reveal delay={0.3}>
           <div className="mt-14 flex justify-center">
-            <motion.button
-              type="button"
-              onClick={openForm}
+            <motion.a
+              href={TYPEFORM_URL}
               whileHover={reduced ? undefined : { scale: 1.01 }}
               whileTap={reduced ? undefined : { scale: 0.99 }}
               transition={{ duration: 0.25, ease: easeOutExpo }}
@@ -95,7 +77,7 @@ export function Inquiry() {
               >
                 →
               </span>
-            </motion.button>
+            </motion.a>
           </div>
         </Reveal>
 

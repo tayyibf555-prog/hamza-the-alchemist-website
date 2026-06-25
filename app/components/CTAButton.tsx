@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { TYPEFORM_URL } from "../lib/links";
 
 type Props = {
   children: ReactNode;
@@ -12,7 +13,7 @@ type Props = {
 
 export function CTAButton({
   children,
-  href = "/#inquiry",
+  href = TYPEFORM_URL,
   size = "default",
   variant = "filled",
   className = "",

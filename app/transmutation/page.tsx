@@ -5,12 +5,12 @@ import { Method } from "../components/Method";
 import { Footer } from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "The Transmutation · The Method | Hamza The Alchemist",
+  title: "The Transmutation | Hamza The Alchemist",
   description:
-    "Three phases of private identity work: Dissolution, Reconstruction, Coagulation. The same protocol runs every engagement.",
+    "Private identity recalibration for 7–9 figure operators. Remove the subconscious ceiling quietly capping your business.",
 };
 
-export default function MethodPage() {
+export default function TransmutationPage() {
   return (
     <>
       <Nav />

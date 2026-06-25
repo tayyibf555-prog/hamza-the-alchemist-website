@@ -1,8 +1,7 @@
 "use client";
 
 import { Reveal } from "./Reveal";
-
-const SKOOL_URL = "https://www.skool.com/the-21st-century-alchemist/about";
+import { TYPEFORM_URL, SKOOL_URL } from "../lib/links";
 
 const mayQualify = [
   "Generating minimum $30K–50K+/month",
@@ -346,7 +345,7 @@ export function Method() {
           <Reveal delay={0.2}>
             <div className="mt-10 flex justify-center">
               <a
-                href="/#inquiry"
+                href={TYPEFORM_URL}
                 className="group relative inline-flex items-center gap-3 h-[64px] px-10 eyebrow rounded-[3px] text-[var(--color-ink-deep)] overflow-hidden"
                 style={{
                   background:
