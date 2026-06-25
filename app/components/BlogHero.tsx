@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
 import { SectionMarker } from "./SectionMarker";
 import { subscribeEmail } from "../lib/subscribe";
+import { trackMeta } from "../lib/meta";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
@@ -27,6 +28,7 @@ export function BlogHero() {
     }
     try {
       await subscribeEmail(email);
+      trackMeta("CompleteRegistration");
       setStatus("ok");
     } catch {
       setStatus("err");

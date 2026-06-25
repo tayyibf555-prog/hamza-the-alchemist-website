@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
 import { subscribeEmail } from "../lib/subscribe";
+import { trackMeta } from "../lib/meta";
 
 /**
  * "Reality Architecture Training" signup block.
@@ -24,6 +25,7 @@ export function Signup() {
     }
     try {
       await subscribeEmail(email);
+      trackMeta("CompleteRegistration");
       setStatus("ok");
     } catch {
       setStatus("err");

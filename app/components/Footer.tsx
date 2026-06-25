@@ -71,6 +71,22 @@ export function Footer() {
           </p>
         </div>
       </div>
+
+      {/* Built by Azen */}
+      <div className="border-t border-[var(--color-hairline)]">
+        <div className="mx-auto max-w-[1320px] px-6 lg:px-10 py-6 flex justify-center">
+          <a
+            href="https://www.azen.io/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="eyebrow text-[11px] text-[var(--color-ivory-faint)] hover:text-[var(--color-gold)] transition-colors duration-200 inline-flex items-center gap-2 px-5 py-3 rounded-[3px]"
+            style={{ border: "1px solid var(--color-hairline)" }}
+          >
+            Built by Azen
+            <span aria-hidden>↗</span>
+          </a>
+        </div>
+      </div>
     </footer>
   );
 }

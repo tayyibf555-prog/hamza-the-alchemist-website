@@ -6,6 +6,7 @@ import { ThankYouHero } from "../components/ThankYouHero";
 import { Reveal } from "../components/Reveal";
 import { VideoFrame } from "../components/VideoFrame";
 import { ThankYouSteps, type Step } from "../components/ThankYouSteps";
+import { MetaEvent } from "../components/MetaEvent";
 
 export const metadata: Metadata = {
   title: "Confirmed · The call is yours | Hamza The Alchemist",
@@ -140,6 +141,8 @@ export default async function ThankYouPage({ searchParams }: Props) {
 
   return (
     <>
+      {/* Booked-call conversion — this page is only reached after the Calendly booking. */}
+      <MetaEvent name="Schedule" />
       <Nav />
       <main>
         <ThankYouHero name={name} />
