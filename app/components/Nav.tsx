@@ -7,8 +7,8 @@ import { TridentMark } from "./TridentMark";
 import { CTAButton } from "./CTAButton";
 
 const links = [
-  { label: "Transmutation", href: "/transmutation" },
-  { label: "Blog", href: "/blog" },
+  { label: "Transmutation", href: "/transmutation", shimmer: true },
+  { label: "Blog", href: "/blog", shimmer: false },
 ];
 
 export function Nav() {
@@ -71,7 +71,11 @@ export function Nav() {
               <a
                 key={l.href}
                 href={l.href}
-                className="eyebrow text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors duration-200"
+                className={
+                  l.shimmer
+                    ? "eyebrow nav-shimmer font-semibold transition-opacity duration-200 hover:opacity-80"
+                    : "eyebrow text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors duration-200"
+                }
               >
                 {l.label}
               </a>
@@ -121,7 +125,11 @@ export function Nav() {
                   key={l.href}
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="eyebrow text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors flex items-center min-h-[48px]"
+                  className={
+                    l.shimmer
+                      ? "eyebrow nav-shimmer font-semibold flex items-center min-h-[48px]"
+                      : "eyebrow text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors flex items-center min-h-[48px]"
+                  }
                 >
                   {l.label}
                 </a>

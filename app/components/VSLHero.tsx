@@ -2,8 +2,6 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { SectionMarker } from "./SectionMarker";
-import { VideoFrame } from "./VideoFrame";
-import { TYPEFORM_URL } from "../lib/links";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
@@ -17,15 +15,11 @@ const fadeIn = (delay: number) => ({
 });
 
 /**
- * Folio I · Orientation — VSL-anchored hero.
+ * Folio I · Orientation — the homepage hero.
  *
- * The video is the salesperson. The page is the frame around it.
- * No competing CTA, no competing copy. A short eyebrow above, a single
- * line below the video, one quiet CTA, a Latin band along the bottom.
- *
- * The 16:9 placeholder is hairline-gold-framed with a trident-inside-circle
- * play affordance, runtime label, and chapter markers visible so it reads
- * as "an actual film," not "a video player placeholder."
+ * A single full-height statement: eyebrow qualifier over the headline.
+ * No video, no CTA competing for attention — just the line, then the
+ * roster below.
  */
 export function VSLHero() {
   const reduced = useReducedMotion();
@@ -37,107 +31,44 @@ export function VSLHero() {
     >
       <SectionMarker index="I" label="Orientation" />
 
-
-      {/* Main column */}
+      {/* Centered heading */}
       <div className="relative z-10 flex-1 flex items-center">
-        <div className="mx-auto max-w-[1100px] w-full px-6 lg:px-10 py-8 lg:py-10">
-          {/* Eyebrow */}
+        <div className="mx-auto max-w-[1100px] w-full px-6 lg:px-10 py-16 text-center">
           <motion.p
             variants={fadeIn(1.0)}
             initial="hidden"
             animate="visible"
-            className="eyebrow text-[var(--color-gold)] text-center mb-5"
+            className="eyebrow text-[var(--color-gold)] mb-8"
           >
             Only for 7–9 figure entrepreneurs
           </motion.p>
 
-          {/* Pre-headline (above the video, sets the frame) */}
           <motion.h1
             initial={{ opacity: 0, y: reduced ? 0 : 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, delay: 1.2, ease: easeOutExpo }}
-            className="font-display font-extrabold text-balance text-center leading-[1.0] tracking-[-0.025em] text-[clamp(30px,4vw,60px)] text-[var(--color-ivory)] mb-7 lg:mb-9"
+            className="font-display font-extrabold text-balance leading-[1.02] tracking-[-0.025em] text-[clamp(40px,7vw,104px)] text-[var(--color-ivory)]"
           >
             Your business cannot outgrow your{" "}
             <span
               className="accent text-[var(--color-gold)]"
-              style={{ textShadow: "0 0 60px oklch(0.78 0.165 78 / 0.4)" }}
+              style={{ textShadow: "0 0 70px oklch(0.78 0.165 78 / 0.45)" }}
             >
               identity.
             </span>
           </motion.h1>
-
-          {/* The video frame, on a gold bloom backdrop */}
-          <motion.div
-            initial={{ opacity: 0, y: reduced ? 0 : 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.4, delay: 1.6, ease: easeOutExpo }}
-            className="relative max-w-[640px] mx-auto"
-          >
-            {/* Gold radial bloom behind the VSL — only here, not site-wide */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-[-30%]"
-              style={{
-                background:
-                  "radial-gradient(ellipse 60% 70% at 50% 50%, oklch(0.42 0.16 78 / 0.42) 0%, oklch(0.30 0.10 75 / 0.20) 35%, transparent 70%)",
-                filter: "blur(40px)",
-              }}
-            />
-            <div className="relative">
-              <VideoFrame
-                videoSrc="/homepageVSL/homepage-vsl.mp4"
-                runtime="02:40"
-                showCaption
-              />
-            </div>
-          </motion.div>
-
-          {/* Below-video caption + CTA */}
-          <motion.div
-            variants={fadeIn(2.1)}
-            initial="hidden"
-            animate="visible"
-            className="mt-7 lg:mt-8 flex flex-col items-center gap-5"
-          >
-            <p className="accent text-[var(--color-ivory)] text-[clamp(18px,1.6vw,22px)] text-center max-w-[44ch]">
-              Three minutes. Identity, frequency, outcome.
-            </p>
-
-            <a
-              href={TYPEFORM_URL}
-              className="group relative inline-flex items-center gap-3 h-[60px] px-9 eyebrow rounded-[3px] text-[var(--color-ink-deep)] overflow-hidden"
-              style={{
-                background:
-                  "linear-gradient(180deg, var(--color-gold-soft) 0%, var(--color-gold-deep) 100%)",
-                boxShadow:
-                  "0 0 0 1px oklch(0.62 0.14 70 / 0.4), 0 18px 48px -12px oklch(0.78 0.165 78 / 0.55)",
-              }}
-            >
-              <span className="relative z-10 font-semibold tracking-[0.2em] text-[13px]">
-                Inquire About Admission
-              </span>
-              <span
-                aria-hidden
-                className="relative z-10 inline-block transition-transform duration-300 group-hover:translate-x-1"
-                style={{ transitionTimingFunction: "var(--ease-out-expo)" }}
-              >
-                →
-              </span>
-            </a>
-          </motion.div>
         </div>
       </div>
 
-      {/* Scroll cue at the bottom of the hero — no separating line, just the cue */}
+      {/* Scroll cue at the bottom of the hero */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.0, delay: 2.4, ease: easeOutExpo }}
         className="relative"
       >
-        <div className="mx-auto max-w-[1320px] px-6 lg:px-10 h-[56px] flex items-center justify-end">
-          <div className="hidden md:flex items-center gap-3 text-[var(--color-ivory-faint)]">
+        <div className="mx-auto max-w-[1320px] px-6 lg:px-10 h-[56px] flex items-center justify-center md:justify-end">
+          <div className="flex items-center gap-3 text-[var(--color-ivory-faint)]">
             <span className="eyebrow">Scroll</span>
             <span
               aria-hidden
@@ -150,4 +81,3 @@ export function VSLHero() {
     </section>
   );
 }
-
