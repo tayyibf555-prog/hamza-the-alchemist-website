@@ -129,40 +129,6 @@
     text-wrap: balance;
   }
 
-  /* Shimmering gold text — a slow light band sweeps across a gold gradient.
-     Used deliberately on the Transmutation nav link. */
-  .nav-shimmer {
-    background: linear-gradient(
-      100deg,
-      var(--color-gold-deep) 0%,
-      var(--color-gold) 32%,
-      var(--color-gold-soft) 46%,
-      oklch(0.98 0.05 90) 50%,
-      var(--color-gold-soft) 54%,
-      var(--color-gold) 68%,
-      var(--color-gold-deep) 100%
-    );
-    background-size: 220% auto;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    animation: nav-shimmer 4.5s linear infinite;
-  }
-
-  @keyframes nav-shimmer {
-    0% { background-position: 220% center; }
-    100% { background-position: -20% center; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .nav-shimmer {
-      animation: none;
-      color: var(--color-gold);
-      -webkit-text-fill-color: var(--color-gold);
-    }
-  }
-
   /* Section bloom classes — kept as transparent layers so the
      fixed page-wide gold-black gradient (on <html>) shows through.
      Each utility is a no-op for backwards compatibility; tweak

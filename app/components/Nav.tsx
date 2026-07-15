@@ -73,7 +73,7 @@ export function Nav() {
                 href={l.href}
                 className={
                   l.shimmer
-                    ? "eyebrow nav-shimmer font-semibold transition-opacity duration-200 hover:opacity-80"
+                    ? "eyebrow text-[var(--color-gold)] font-semibold hover:text-[var(--color-gold-soft)] transition-colors duration-200"
                     : "eyebrow text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors duration-200"
                 }
               >
@@ -127,7 +127,7 @@ export function Nav() {
                   onClick={() => setOpen(false)}
                   className={
                     l.shimmer
-                      ? "eyebrow nav-shimmer font-semibold flex items-center min-h-[48px]"
+                      ? "eyebrow text-[var(--color-gold)] font-semibold flex items-center min-h-[48px]"
                       : "eyebrow text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors flex items-center min-h-[48px]"
                   }
                 >

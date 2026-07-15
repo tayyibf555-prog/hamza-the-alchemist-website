@@ -17,8 +17,8 @@ export default function TransmutationPage() {
       <Nav />
       <main>
         <MethodHero />
-        <Method />
         <ClientPortfolio />
+        <Method />
       </main>
       <Footer />
     </>
