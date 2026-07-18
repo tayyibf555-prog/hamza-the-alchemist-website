@@ -3,16 +3,15 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
 import { SectionMarker } from "./SectionMarker";
-import { TYPEFORM_URL } from "../lib/links";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 /**
  * Folio VIII · Inquiry — the application gateway.
  *
- * Heading + intro set the frame; a single gold CTA links to the Typeform
- * application. The form lives on Typeform so questions can be edited without
- * a deploy, and it redirects on to the booking step on completion.
+ * Heading + intro set the frame; the CTA sends visitors to the Transmutation
+ * page (the full sales narrative + the roster) rather than straight to the
+ * Typeform, so the qualification copy runs before anyone applies.
  */
 export function Inquiry() {
   const reduced = useReducedMotion();
@@ -51,11 +50,11 @@ export function Inquiry() {
           work is a match, the conversation continues privately.
         </Reveal>
 
-        {/* CTA — links straight to the Typeform application */}
+        {/* CTA — routes to the Transmutation sales page, not straight to Typeform */}
         <Reveal delay={0.3}>
           <div className="mt-14 flex justify-center">
             <motion.a
-              href={TYPEFORM_URL}
+              href="/transmutation"
               whileHover={reduced ? undefined : { scale: 1.01 }}
               whileTap={reduced ? undefined : { scale: 0.99 }}
               transition={{ duration: 0.25, ease: easeOutExpo }}

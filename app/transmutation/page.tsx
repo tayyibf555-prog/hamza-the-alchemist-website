@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Nav } from "../components/Nav";
 import { MethodHero } from "../components/MethodHero";
-import { Method } from "../components/Method";
 import { ClientPortfolio } from "../components/ClientPortfolio";
 import { Footer } from "../components/Footer";
 
@@ -18,7 +17,6 @@ export default function TransmutationPage() {
       <main>
         <MethodHero />
         <ClientPortfolio />
-        <Method />
       </main>
       <Footer />
     </>

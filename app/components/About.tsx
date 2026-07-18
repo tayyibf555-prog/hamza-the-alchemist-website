@@ -15,7 +15,7 @@ export function About() {
       id="about"
       className="relative py-32 lg:py-48 overflow-hidden bloom-left-mid"
     >
-      <SectionMarker index="III" label="The Operator" />
+      <SectionMarker index="II" label="The Operator" />
 
       <div className="relative mx-auto max-w-[1320px] px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">

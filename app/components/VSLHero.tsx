@@ -15,69 +15,46 @@ const fadeIn = (delay: number) => ({
 });
 
 /**
- * Folio I · Orientation — the homepage hero.
+ * Folio III · The Premise — the standalone identity statement.
  *
- * A single full-height statement: eyebrow qualifier over the headline.
- * No video, no CTA competing for attention — just the line, then the
- * roster below.
+ * Sits under About: eyebrow qualifier over the headline, nothing else
+ * competing for attention.
  */
 export function VSLHero() {
   const reduced = useReducedMotion();
 
   return (
-    <section
-      id="home"
-      className="relative min-h-[100svh] flex flex-col overflow-hidden pt-[76px]"
-    >
-      <SectionMarker index="I" label="Orientation" />
+    <section className="relative py-32 lg:py-48 overflow-hidden">
+      <SectionMarker index="III" label="The Premise" />
 
-      {/* Centered heading */}
-      <div className="relative z-10 flex-1 flex items-center">
-        <div className="mx-auto max-w-[1100px] w-full px-6 lg:px-10 py-16 text-center">
-          <motion.p
-            variants={fadeIn(1.0)}
-            initial="hidden"
-            animate="visible"
-            className="eyebrow text-[var(--color-gold)] mb-8"
-          >
-            Only for 7–9 figure entrepreneurs
-          </motion.p>
+      <div className="mx-auto max-w-[1100px] w-full px-6 lg:px-10 text-center">
+        <motion.p
+          variants={fadeIn(0)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+          className="eyebrow text-[var(--color-gold)] mb-8"
+        >
+          Where 7–9 figure entrepreneurs go to transcend their internal
+          ceilings
+        </motion.p>
 
-          <motion.h1
-            initial={{ opacity: 0, y: reduced ? 0 : 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.1, delay: 1.2, ease: easeOutExpo }}
-            className="font-display font-extrabold text-balance leading-[1.02] tracking-[-0.025em] text-[clamp(40px,7vw,104px)] text-[var(--color-ivory)]"
+        <motion.h2
+          initial={{ opacity: 0, y: reduced ? 0 : 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+          transition={{ duration: 1.1, ease: easeOutExpo }}
+          className="font-display font-extrabold text-balance leading-[1.02] tracking-[-0.025em] text-[clamp(36px,6vw,88px)] text-[var(--color-ivory)]"
+        >
+          Your business cannot outgrow your{" "}
+          <span
+            className="accent text-[var(--color-gold)]"
+            style={{ textShadow: "0 0 70px oklch(0.78 0.165 78 / 0.45)" }}
           >
-            Your business cannot outgrow your{" "}
-            <span
-              className="accent text-[var(--color-gold)]"
-              style={{ textShadow: "0 0 70px oklch(0.78 0.165 78 / 0.45)" }}
-            >
-              identity.
-            </span>
-          </motion.h1>
-        </div>
+            identity.
+          </span>
+        </motion.h2>
       </div>
-
-      {/* Scroll cue at the bottom of the hero */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.0, delay: 2.4, ease: easeOutExpo }}
-        className="relative"
-      >
-        <div className="mx-auto max-w-[1320px] px-6 lg:px-10 h-[56px] flex items-center justify-center md:justify-end">
-          <div className="flex items-center gap-3 text-[var(--color-ivory-faint)]">
-            <span className="eyebrow">Scroll</span>
-            <span
-              aria-hidden
-              className="block w-2 h-2 rounded-full bg-[var(--color-gold)]"
-              style={{ boxShadow: "0 0 10px oklch(0.78 0.165 78 / 0.7)" }}
-            />
-          </div>
-        </div>
-      </motion.div>
     </section>
   );
 }
