@@ -102,7 +102,7 @@ export function AlchemistHero() {
                 }}
               />
               <TridentMark
-                className="relative w-[140px] h-[220px] lg:w-[180px] lg:h-[280px]"
+                className="relative w-[220px] h-[340px] lg:w-[300px] lg:h-[470px]"
                 glow
               />
             </motion.div>
