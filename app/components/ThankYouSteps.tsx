@@ -59,7 +59,7 @@ export function ThankYouSteps({ steps }: { steps: Step[] }) {
   };
 
   return (
-    <section className="relative py-24 lg:py-32">
+    <section className="relative py-24 lg:py-32 overflow-hidden">
       <div className="mx-auto max-w-[1100px] px-6 lg:px-10">
         <Reveal as="p" className="eyebrow text-[var(--color-ivory-faint)] mb-4">
           Two Steps

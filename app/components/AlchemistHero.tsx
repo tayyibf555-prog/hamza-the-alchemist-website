@@ -52,7 +52,7 @@ export function AlchemistHero() {
                 initial={{ opacity: 0, y: reduced ? 0 : 28 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.1, delay: 1.1, ease: easeOutExpo }}
-                className="font-display font-extrabold uppercase leading-[0.98] tracking-[-0.02em] text-[clamp(40px,6.4vw,92px)] text-[var(--color-ivory)]"
+                className="font-display font-extrabold uppercase leading-[0.98] tracking-[-0.02em] text-[clamp(32px,9vw,92px)] text-[var(--color-ivory)]"
               >
                 <span className="block">Twenty-First</span>
                 <span className="block">Century</span>
