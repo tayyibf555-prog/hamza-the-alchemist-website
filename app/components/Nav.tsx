@@ -46,7 +46,7 @@ export function Nav() {
       >
         <div className="mx-auto max-w-[1320px] px-6 lg:px-10 h-[76px] flex items-center justify-between">
           <a href="/" className="flex items-center gap-3 group">
-            <span className="text-[var(--color-ivory)] w-7 h-11">
+            <span className="text-[var(--color-ivory)] w-8 h-12">
               <TridentMark className="w-full h-full" />
             </span>
             <span className="flex flex-col leading-tight">
