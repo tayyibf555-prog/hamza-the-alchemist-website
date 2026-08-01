@@ -129,6 +129,39 @@
     text-wrap: balance;
   }
 
+  /* ─── House Lights (concept /v1) ──────────────────────────────
+     Pressing play on the VSL dims the room around the player. The
+     state lives on <html data-room="dim"> so elements outside the
+     hero (the fixed title bar) dim in sympathy. Subtractive only:
+     no vignette, no grain, no wash — the gold reads brighter
+     because everything around it gets darker. */
+
+  .room-dim {
+    transition: opacity 900ms var(--ease-out-expo);
+  }
+
+  html[data-room="dim"] .room-dim {
+    opacity: 0.28;
+  }
+
+  /* The chrome recedes further than the type. */
+  html[data-room="dim"] .room-dim--deep {
+    opacity: 0.15;
+  }
+
+  /* The player's own frame brightens as the room falls away. */
+  .room-lit {
+    transition: box-shadow 900ms var(--ease-out-expo),
+                border-color 900ms var(--ease-out-expo);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .room-dim,
+    .room-lit {
+      transition: none;
+    }
+  }
+
   /* Section bloom classes — kept as transparent layers so the
      fixed page-wide gold-black gradient (on <html>) shows through.
      Each utility is a no-op for backwards compatibility; tweak
