@@ -31,7 +31,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Hamza The Alchemist | The 21st Century Alchemist",
+  title: "The Lion Alchemist | The 21st Century Alchemist",
   description:
     "Identity work for high-level operators. Shift identity at the subconscious level. Manifestation becomes inevitable.",
 };

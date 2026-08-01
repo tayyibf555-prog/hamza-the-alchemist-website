@@ -7,7 +7,7 @@ type Props = {
 };
 
 /**
- * The Alchemist mark.
+ * The Lion Alchemist mark.
  *
  * Backed by /public/logo-clean.png — a programmatically-cleaned variant of
  * the source artwork where the near-black canvas has been pushed to fully
@@ -25,7 +25,7 @@ export function TridentMark({
   return (
     <span
       role="img"
-      aria-label="The Alchemist mark"
+      aria-label="The Lion Alchemist mark"
       className={`inline-block ${className}`}
       style={{
         backgroundColor: color,

@@ -5,7 +5,7 @@ import { ClientPortfolio } from "../components/ClientPortfolio";
 import { Footer } from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "The Transmutation | Hamza The Alchemist",
+  title: "The Transmutation | The Lion Alchemist",
   description:
     "Private identity recalibration for 7–9 figure operators. Remove the subconscious ceiling quietly capping your business.",
 };

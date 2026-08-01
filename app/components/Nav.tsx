@@ -50,9 +50,11 @@ export function Nav() {
               <TridentMark className="w-full h-full" />
             </span>
             <span className="flex flex-col leading-tight">
-              <span className="eyebrow text-[var(--color-ivory-faint)]">Hamza</span>
+              <span className="eyebrow text-[var(--color-ivory-faint)]">
+                The Lion
+              </span>
               <span className="font-display font-medium text-[14px] text-[var(--color-ivory)] tracking-tight -mt-0.5">
-                The Alchemist
+                Alchemist
               </span>
             </span>
           </a>

@@ -14,6 +14,9 @@ type Props = {
   visible: boolean;
   elapsed: number;
   duration: number;
+  /** Must match the inline CTA label on the page so there is one learned object. */
+  label?: string;
+  shortLabel?: string;
 };
 
 /**
@@ -24,7 +27,13 @@ type Props = {
  * most of the audience. Carries live playback state so it reads as a
  * continuation of the player rather than a bolted-on banner.
  */
-export function StickyRail({ visible, elapsed, duration }: Props) {
+export function StickyRail({
+  visible,
+  elapsed,
+  duration,
+  label = "Apply For A Free Private Consultation",
+  shortLabel = "Apply Now",
+}: Props) {
   const pct = duration > 0 ? Math.min(100, (elapsed / duration) * 100) : 0;
 
   return (
@@ -78,10 +87,8 @@ export function StickyRail({ visible, elapsed, duration }: Props) {
               }}
             >
               <span className="font-semibold tracking-[0.16em] text-[11px] sm:text-[12px]">
-                <span className="hidden sm:inline">
-                  Apply For A Free Private Consultation
-                </span>
-                <span className="sm:hidden">Apply Now</span>
+                <span className="hidden sm:inline">{label}</span>
+                <span className="sm:hidden">{shortLabel}</span>
               </span>
               <span
                 aria-hidden

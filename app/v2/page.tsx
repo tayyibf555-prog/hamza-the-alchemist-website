@@ -25,11 +25,11 @@ import { CloseV2 } from "../components/v2/CloseV2";
  * live site.
  */
 export default function V2Page() {
-  const playerRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
   const [railVisible, setRailVisible] = useState(false);
 
   useEffect(() => {
-    const el = playerRef.current;
+    const el = ctaRef.current;
     if (!el) return;
     const io = new IntersectionObserver(
       ([entry]) => setRailVisible(!entry.isIntersecting),
@@ -43,7 +43,7 @@ export default function V2Page() {
     <>
       <TitleBar />
       <main className="pt-[68px]">
-        <MirrorHero playerRef={playerRef} />
+        <MirrorHero ctaRef={ctaRef} />
         <FourCeilings />
         <RosterV2 />
         <Receipts />
@@ -51,7 +51,13 @@ export default function V2Page() {
         <CloseV2 />
       </main>
       <VslFooter />
-      <StickyRail visible={railVisible} elapsed={0} duration={0} />
+      <StickyRail
+        visible={railVisible}
+        elapsed={0}
+        duration={0}
+        label="Apply For A Private Consultation"
+        shortLabel="Apply Now"
+      />
     </>
   );
 }

@@ -74,7 +74,7 @@ export function About() {
               <div className="relative aspect-[3/4] overflow-hidden">
                 <Image
                   src="/founder.png"
-                  alt="Hamza, The Alchemist"
+                  alt="The Lion Alchemist"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 40vw"

@@ -73,7 +73,7 @@ export function VslFooter() {
           </span>
         </div>
         <p className="eyebrow text-[11px] text-[var(--color-ivory-faint)] tracking-[0.3em]">
-          Hamza The Alchemist
+          The Lion Alchemist
         </p>
         <p className="accent text-[var(--color-gold)] text-[15px] mt-4">
           Everything is energy. Even business.
@@ -82,7 +82,7 @@ export function VslFooter() {
           {META_DISCLAIMER}
         </p>
         <p className="mt-4 text-[11px] text-[var(--color-ivory-faint)] opacity-60">
-          © {new Date().getFullYear()} Hamza The Alchemist. All rights reserved.
+          © {new Date().getFullYear()} The Lion Alchemist. All rights reserved.
         </p>
       </div>
     </footer>

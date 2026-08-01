@@ -23,9 +23,10 @@ const DIAGNOSTIC = [
  * he is looking for a diagnosis he has already agreed with.
  */
 export function MirrorHero({
-  playerRef,
+  ctaRef,
 }: {
-  playerRef?: React.RefObject<HTMLDivElement | null>;
+  /** Sentinel for the sticky rail — the hero's apply block. */
+  ctaRef?: React.RefObject<HTMLDivElement | null>;
 }) {
   const reduced = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -126,7 +127,6 @@ export function MirrorHero({
 
         {/* The video */}
         <motion.div
-          ref={playerRef}
           initial={{ opacity: 0, y: reduced ? 0 : 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 1.5, ease: easeOutExpo }}
@@ -206,8 +206,10 @@ export function MirrorHero({
             </div>
           </div>
 
-          {/* Step Two — the ask, at peak warmth */}
-          <div className="mt-12">
+          {/* Step Two — the ask, at peak warmth.
+              Doubles as the sticky rail's sentinel: the rail only appears
+              once this CTA has scrolled away, so two golds never compete. */}
+          <div className="mt-12" ref={ctaRef}>
             <div className="flex items-center gap-4 mb-8">
               <span className="eyebrow text-[11px] text-[var(--color-gold)] shrink-0">
                 Step Two / Apply

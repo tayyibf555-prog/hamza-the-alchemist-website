@@ -43,11 +43,11 @@ export function TitleBar() {
             <TridentMark className="w-full h-full" />
           </span>
           <span className="font-display font-extrabold text-[12px] tracking-[0.22em] uppercase text-[var(--color-ivory)]">
-            Hamza
+            The Lion
           </span>
         </div>
         <span className="accent text-[var(--color-gold)] text-[11px]">
-          The Alchemist
+          Alchemist
         </span>
       </div>
     </motion.header>

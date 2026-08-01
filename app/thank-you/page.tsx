@@ -9,7 +9,7 @@ import { ThankYouSteps, type Step } from "../components/ThankYouSteps";
 import { MetaEvent } from "../components/MetaEvent";
 
 export const metadata: Metadata = {
-  title: "Confirmed · The call is yours | Hamza The Alchemist",
+  title: "Confirmed · The call is yours | The Lion Alchemist",
   description:
     "Your seat is held. Here's what to do before we speak, and what others have done after.",
   // Don't index a confirmation page

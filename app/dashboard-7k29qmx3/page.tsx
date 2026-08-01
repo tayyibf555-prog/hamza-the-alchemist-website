@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from "../lib/analytics-config";
 
 export const metadata: Metadata = {
-  title: "Traffic · Hamza The Alchemist",
+  title: "Traffic · The Lion Alchemist",
   robots: { index: false, follow: false },
 };
 
@@ -207,7 +207,7 @@ export default async function TrafficDashboard({ searchParams }: Props) {
           <div>
             <p className="eyebrow text-[var(--color-gold)] mb-3">Traffic</p>
             <h1 className="font-display font-extrabold leading-[1.0] tracking-[-0.02em] text-[clamp(32px,4vw,52px)] text-[var(--color-ivory)]">
-              Hamza The Alchemist
+              The Lion Alchemist
             </h1>
             <p className="mt-3 text-[var(--color-ivory-dim)] text-[15px]">
               Live overview of everyone arriving at the site.

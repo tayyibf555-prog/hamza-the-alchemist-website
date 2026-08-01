@@ -17,9 +17,11 @@ export function Footer() {
             <TridentMark className="w-full h-full" />
           </span>
           <span className="flex flex-col leading-tight">
-            <span className="eyebrow text-[var(--color-ivory-faint)]">Hamza</span>
+            <span className="eyebrow text-[var(--color-ivory-faint)]">
+              The Lion
+            </span>
             <span className="font-display font-medium text-[14px] text-[var(--color-ivory)] tracking-tight -mt-0.5">
-              The Alchemist
+              Alchemist
             </span>
           </span>
         </div>
@@ -64,7 +66,7 @@ export function Footer() {
       <div className="border-t border-[var(--color-hairline)]">
         <div className="mx-auto max-w-[1320px] px-6 lg:px-10 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <p className="text-[12px] text-[var(--color-ivory-faint)] tracking-wider">
-            © {new Date().getFullYear()} Hamza The Alchemist. All rights reserved.
+            © {new Date().getFullYear()} The Lion Alchemist. All rights reserved.
           </p>
           <p className="eyebrow text-[var(--color-ivory-faint)]">
             Everything is energy — even business.
