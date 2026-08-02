@@ -67,7 +67,7 @@ export function Inquiry() {
               }}
             >
               <span className="relative z-10 font-semibold tracking-[0.18em] text-[14px]">
-                Submit Application
+                See If You Qualify
               </span>
               <span
                 aria-hidden

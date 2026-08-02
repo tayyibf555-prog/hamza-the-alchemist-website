@@ -177,7 +177,7 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
 
       {/* Per-case-study apply CTA */}
       <div className="mt-8 lg:mt-10 flex justify-center">
-        <CTAButton size="large">Become an Alchemist</CTAButton>
+        <CTAButton size="large">See If You Qualify</CTAButton>
       </div>
     </Reveal>
   );

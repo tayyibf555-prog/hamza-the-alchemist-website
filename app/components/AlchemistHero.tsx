@@ -81,7 +81,7 @@ export function AlchemistHero() {
                 animate="visible"
                 className="mt-10 flex justify-center lg:justify-start"
               >
-                <CTAButton size="large">Become an Alchemist</CTAButton>
+                <CTAButton size="large">See If You Qualify</CTAButton>
               </motion.div>
             </div>
 

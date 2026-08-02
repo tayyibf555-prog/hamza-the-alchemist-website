@@ -61,7 +61,7 @@ export function MethodHero() {
           transition={{ duration: 1.1, delay: 0.6, ease: easeOutExpo }}
           className="mt-10 lg:mt-12 flex flex-col items-center text-center"
         >
-          <CTAButton size="large">Apply To Become An Alchemist</CTAButton>
+          <CTAButton size="large">See If You Qualify</CTAButton>
         </motion.div>
       </div>
     </section>
