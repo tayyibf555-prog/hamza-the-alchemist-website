@@ -85,7 +85,7 @@ export function AlchemistHero() {
               </motion.div>
             </div>
 
-            {/* Right — trident on a gold bloom */}
+            {/* Right — the lion mark on a gold bloom */}
             <motion.div
               initial={{ opacity: 0, scale: reduced ? 1 : 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -102,7 +102,9 @@ export function AlchemistHero() {
                 }}
               />
               <TridentMark
-                className="relative w-[220px] h-[340px] lg:w-[300px] lg:h-[470px]"
+                variant="lion"
+                color="var(--color-gold)"
+                className="relative w-[240px] h-[384px] lg:w-[330px] lg:h-[528px]"
                 glow
               />
             </motion.div>

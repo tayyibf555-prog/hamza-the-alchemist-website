@@ -64,8 +64,8 @@ export const OPERATORS: Operator[] = [
   },
 ];
 
-/** The main VSL. */
-export const VSL_SRC = "/homepageVSL/homepage-vsl.mp4";
+/** The main VSL. 1080p H.264, 10:35, web-optimised for progressive playback. */
+export const VSL_SRC = "/homepageVSL/lion-vsl.mp4";
 
 /**
  * Client message screenshots for the proof wall.

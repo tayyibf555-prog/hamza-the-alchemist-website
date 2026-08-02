@@ -33,3 +33,8 @@ next-env.d.ts
 
 # large source video files — commit only the transcoded web mp4s
 *.mov
+
+# camera masters and transcode intermediates. GitHub hard-rejects any file
+# over 100MB, so the multi-GB originals must never reach a commit — only the
+# encoded result in public/homepageVSL does.
+/new vsl/

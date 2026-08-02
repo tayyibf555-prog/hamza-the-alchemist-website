@@ -1,24 +1,14 @@
-import type { Metadata } from "next";
-import { Nav } from "../components/Nav";
-import { MethodHero } from "../components/MethodHero";
-import { ClientPortfolio } from "../components/ClientPortfolio";
-import { Footer } from "../components/Footer";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "The Transmutation | The Lion Alchemist",
-  description:
-    "Private identity recalibration for 7–9 figure operators. Remove the subconscious ceiling quietly capping your business.",
-};
-
+/**
+ * The Transmutation page is now the homepage.
+ *
+ * This route stays alive purely so links already in circulation — the URL
+ * Hamza has shared, anything in ad copy or bios — land on the page rather
+ * than a 404. Deliberately a temporary (307) redirect rather than a
+ * permanent one, so reverting the structure does not leave the old URL
+ * cached as redirected in visitors' browsers.
+ */
 export default function TransmutationPage() {
-  return (
-    <>
-      <Nav />
-      <main>
-        <MethodHero />
-        <ClientPortfolio />
-      </main>
-      <Footer />
-    </>
-  );
+  redirect("/");
 }

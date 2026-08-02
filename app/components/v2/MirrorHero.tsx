@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { MirrorLine } from "./MirrorLine";
 import { ApplyButton } from "../v1/ApplyButton";
+import { VslPlayer } from "../VslPlayer";
 import { TYPEFORM_URL } from "../../lib/links";
 import { VSL_SRC } from "../../lib/vsl-content";
 
@@ -29,8 +29,6 @@ export function MirrorHero({
   ctaRef?: React.RefObject<HTMLDivElement | null>;
 }) {
   const reduced = useReducedMotion();
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [started, setStarted] = useState(false);
 
   return (
     <section className="relative pt-28 lg:pt-36 pb-20 lg:pb-28 overflow-hidden">
@@ -143,68 +141,7 @@ export function MirrorHero({
             />
           </div>
 
-          <div className="relative">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-[-12%]"
-              style={{
-                background:
-                  "radial-gradient(ellipse 60% 70% at 50% 50%, oklch(0.42 0.16 78 / 0.34) 0%, transparent 70%)",
-                filter: "blur(44px)",
-              }}
-            />
-            <div
-              className="relative aspect-video overflow-hidden rounded-[4px]"
-              style={{
-                border: "1px solid var(--color-hairline)",
-                background: "oklch(0.04 0.005 70)",
-              }}
-            >
-              <video
-                ref={videoRef}
-                src={VSL_SRC}
-                playsInline
-                preload="metadata"
-                controls={started}
-                className="absolute inset-0 w-full h-full object-cover"
-              >
-                <track kind="captions" />
-              </video>
-
-              {!started && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setStarted(true);
-                    videoRef.current?.play().catch(() => {});
-                  }}
-                  aria-label="Play the video"
-                  className="group absolute inset-0 z-10 flex items-center justify-center"
-                  style={{ background: "oklch(0.04 0.005 70 / 0.25)" }}
-                >
-                  <span
-                    className="flex items-center justify-center w-[80px] h-[80px] md:w-[96px] md:h-[96px] rounded-full"
-                    style={{
-                      background: "oklch(0.10 0.010 70 / 0.85)",
-                      border: "1px solid var(--color-gold)",
-                      boxShadow: "0 0 36px -6px oklch(0.78 0.165 78 / 0.55)",
-                    }}
-                  >
-                    <span
-                      aria-hidden
-                      className="block w-0 h-0 ml-1.5 transition-transform duration-500 group-hover:scale-110"
-                      style={{
-                        borderLeft: "20px solid var(--color-gold)",
-                        borderTop: "13px solid transparent",
-                        borderBottom: "13px solid transparent",
-                        transitionTimingFunction: "var(--ease-out-expo)",
-                      }}
-                    />
-                  </span>
-                </button>
-              )}
-            </div>
-          </div>
+          <VslPlayer src={VSL_SRC} />
 
           {/* Step Two — the ask, at peak warmth.
               Doubles as the sticky rail's sentinel: the rail only appears

@@ -4,6 +4,25 @@ type Props = {
   glow?: boolean;
   /** Override the fill color (defaults to ivory) — accepts any CSS color. */
   color?: string;
+  /**
+   * Which mark to draw.
+   *
+   * "lion" is the full identity — half lion, half trident glyph. Its mane is
+   * built from ~40 hairlines, which merge into an unreadable smear below
+   * roughly 100px, so it is only for large placements.
+   *
+   * "lionIcon" is the same mark reduced to a handful of bold strokes so it
+   * survives nav and favicon sizes. Use it anywhere under ~100px.
+   *
+   * "trident" is the original bare glyph, kept for continuity.
+   */
+  variant?: "trident" | "lion" | "lionIcon";
+};
+
+const SRC: Record<NonNullable<Props["variant"]>, string> = {
+  trident: "/logo-clean.png",
+  lion: "/lion-mark.png",
+  lionIcon: "/lion-mark-icon.png",
 };
 
 /**
@@ -21,7 +40,10 @@ export function TridentMark({
   className = "",
   glow = false,
   color = "var(--color-ivory)",
+  variant = "trident",
 }: Props) {
+  const src = SRC[variant];
+
   return (
     <span
       role="img"
@@ -29,8 +51,8 @@ export function TridentMark({
       className={`inline-block ${className}`}
       style={{
         backgroundColor: color,
-        maskImage: "url(/logo-clean.png)",
-        WebkitMaskImage: "url(/logo-clean.png)",
+        maskImage: `url(${src})`,
+        WebkitMaskImage: `url(${src})`,
         // Mask source has alpha baked in (see scripts/clean-logo.mjs).
         // mask-mode: alpha is the default for raster images with alpha,
         // so no explicit mode declaration is needed — also avoids

@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { VideoFrame } from "./VideoFrame";
+import { VslPlayer } from "./VslPlayer";
+import { VSL_SRC } from "../lib/vsl-content";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
@@ -40,7 +41,7 @@ export function MethodHero() {
           transition={{ duration: 1.4, delay: 0.3, ease: easeOutExpo }}
           className="relative mt-8 lg:mt-10 max-w-[760px] mx-auto"
         >
-          <VideoFrame runtime="12:08" progress={0.06} youtubeId="X2ObLdwGbZI" />
+          <VslPlayer src={VSL_SRC} />
         </motion.div>
       </div>
     </section>

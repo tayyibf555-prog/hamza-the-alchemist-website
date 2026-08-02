@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { TYPEFORM_URL } from "../../lib/links";
+import { pacedPct } from "../VslPlayer";
 
 const fmt = (s: number) => {
   if (!Number.isFinite(s) || s < 0) return "00:00";
@@ -34,7 +35,8 @@ export function StickyRail({
   label = "Apply For A Free Private Consultation",
   shortLabel = "Apply Now",
 }: Props) {
-  const pct = duration > 0 ? Math.min(100, (elapsed / duration) * 100) : 0;
+  // Same pacing curve as the player, so the rail never contradicts the frame.
+  const pct = pacedPct(elapsed, duration);
 
   return (
     <AnimatePresence>
@@ -72,7 +74,7 @@ export function StickyRail({
                 />
               </span>
               <span className="eyebrow text-[11px] text-[var(--color-ivory-faint)] tabular-nums">
-                {fmt(elapsed)} / {duration ? fmt(duration) : "02:40"}
+                {fmt(elapsed)}
               </span>
             </div>
 

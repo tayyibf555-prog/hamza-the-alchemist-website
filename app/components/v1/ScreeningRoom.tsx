@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { VSL_SRC } from "../../lib/vsl-content";
 import { TYPEFORM_URL } from "../../lib/links";
 import { ApplyButton } from "./ApplyButton";
+import { pacedPct, startMuted, useGestureUnmute } from "../VslPlayer";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
@@ -33,29 +34,78 @@ export function ScreeningRoom({ onProgress, playerRef }: Props) {
   const reduced = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
+  /** Sound on — the deliberate act that darkens the room. */
   const [started, setStarted] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  // Drive the room state from the video's own events.
+  // Muted autoplay on mount. Browsers only permit autoplay without sound,
+  // so the frame is already alive when the visitor arrives and the single
+  // remaining action is turning the sound on.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    return startMuted(v, () => {});
+  }, []);
+
+  // Preload can satisfy loadedmetadata before React attaches its handlers,
+  // which would pin duration at 0 and freeze the pacing bar.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const sync = () => {
+      if (Number.isFinite(v.duration) && v.duration > 0) setDuration(v.duration);
+      setElapsed(v.currentTime);
+    };
+    sync();
+    v.addEventListener("durationchange", sync);
+    v.addEventListener("loadedmetadata", sync);
+    return () => {
+      v.removeEventListener("durationchange", sync);
+      v.removeEventListener("loadedmetadata", sync);
+    };
+  }, []);
+
+  // The lights go down when the sound comes on, not on the silent autoplay —
+  // dimming the page for a video nobody has opted into would spend the
+  // mechanic before the visitor has made a choice.
   useEffect(() => {
     const root = document.documentElement;
-    if (playing) root.dataset.room = "dim";
+    if (started && playing) root.dataset.room = "dim";
     else delete root.dataset.room;
     return () => {
       delete root.dataset.room;
     };
-  }, [playing]);
+  }, [started, playing]);
 
   useEffect(() => {
     onProgress?.(elapsed, duration);
   }, [elapsed, duration, onProgress]);
 
+  // The first gesture anywhere on the page arms the audio, so nobody has to
+  // be asked to click a prompt before the pitch is audible.
+  const handleUnmuted = useCallback(() => setStarted(true), []);
+  useGestureUnmute(videoRef, !started, handleUnmuted);
+
   const play = () => {
     const v = videoRef.current;
     if (!v) return;
-    setStarted(true);
-    v.play().catch(() => {});
+    v.muted = !v.muted;
+    v.volume = 1;
+    setStarted(!v.muted);
+    if (v.paused) v.play().catch(() => {});
+  };
+
+  /**
+   * Clicking the frame pauses and resumes. While still muted the click is
+   * spent turning the sound on instead, so first contact never reads as the
+   * video breaking.
+   */
+  const togglePlay = () => {
+    const v = videoRef.current;
+    if (!v || !started) return;
+    if (v.paused) v.play().catch(() => {});
+    else v.pause();
   };
 
   return (
@@ -124,9 +174,6 @@ export function ScreeningRoom({ onProgress, playerRef }: Props) {
             className="flex-1 h-px"
             style={{ background: "var(--color-hairline)" }}
           />
-          <span className="eyebrow text-[11px] text-[var(--color-ivory-faint)] tabular-nums shrink-0">
-            Runtime {duration ? fmt(duration) : "02:40"}
-          </span>
         </motion.div>
 
         {/* The player */}
@@ -135,7 +182,8 @@ export function ScreeningRoom({ onProgress, playerRef }: Props) {
           initial={{ opacity: 0, y: reduced ? 0 : 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.8, ease: easeOutExpo }}
-          className="relative mt-6 max-w-[900px] mx-auto"
+          // z-[2] keeps .gold-dots (fixed, z-index 1) from drifting over the frame.
+          className="relative z-[2] mt-6 max-w-[900px] mx-auto"
         >
           {/* Gold bloom behind — intensifies when the lights go down */}
           <div
@@ -166,8 +214,9 @@ export function ScreeningRoom({ onProgress, playerRef }: Props) {
               ref={videoRef}
               src={VSL_SRC}
               playsInline
-              preload="metadata"
-              controls={started}
+              autoPlay
+              muted
+              preload="auto"
               className="absolute inset-0 w-full h-full object-cover"
               onPlay={() => setPlaying(true)}
               onPause={() => setPlaying(false)}
@@ -180,56 +229,111 @@ export function ScreeningRoom({ onProgress, playerRef }: Props) {
               <track kind="captions" />
             </video>
 
-            {/* Play affordance — the only object on the frame before it starts */}
-            {!started && (
-              <button
-                type="button"
-                onClick={play}
-                aria-label="Play the video"
-                className="group absolute inset-0 z-10 flex items-center justify-center"
-                style={{ background: "oklch(0.04 0.005 70 / 0.28)" }}
-              >
+            {/* Click surface — pause and resume. */}
+            <button
+              type="button"
+              onClick={togglePlay}
+              aria-label={playing ? "Pause the video" : "Play the video"}
+              className="absolute inset-0 z-10"
+            >
+              {!playing && (
                 <span
-                  className="relative flex items-center justify-center w-[86px] h-[86px] md:w-[104px] md:h-[104px] rounded-full transition-transform duration-500"
-                  style={{
-                    background:
-                      "radial-gradient(circle, oklch(0.14 0.012 70 / 0.9) 0%, oklch(0.10 0.010 70 / 0.7) 100%)",
-                    border: "1px solid var(--color-gold)",
-                    boxShadow:
-                      "0 0 0 6px oklch(0.78 0.165 78 / 0.08), 0 0 40px -6px oklch(0.78 0.165 78 / 0.6)",
-                    transitionTimingFunction: "var(--ease-out-expo)",
-                  }}
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ background: "oklch(0.04 0.005 70 / 0.4)" }}
                 >
                   <span
-                    aria-hidden
-                    className="block w-0 h-0 ml-1.5 transition-transform duration-500 group-hover:scale-110"
+                    className="flex items-center justify-center w-[76px] h-[76px] md:w-[92px] md:h-[92px] rounded-full"
                     style={{
-                      borderLeft: "22px solid var(--color-gold)",
-                      borderTop: "14px solid transparent",
-                      borderBottom: "14px solid transparent",
-                      filter:
-                        "drop-shadow(0 0 12px oklch(0.78 0.165 78 / 0.6))",
-                      transitionTimingFunction: "var(--ease-out-expo)",
+                      background: "oklch(0.10 0.010 70 / 0.85)",
+                      border: "1px solid var(--color-gold)",
+                      boxShadow: "0 0 36px -6px oklch(0.78 0.165 78 / 0.55)",
                     }}
-                  />
+                  >
+                    <span
+                      aria-hidden
+                      className="block w-0 h-0 ml-1.5"
+                      style={{
+                        borderLeft: "19px solid var(--color-gold)",
+                        borderTop: "13px solid transparent",
+                        borderBottom: "13px solid transparent",
+                      }}
+                    />
+                  </span>
                 </span>
-              </button>
-            )}
+              )}
+            </button>
+
+            {/* Sound state — a quiet corner control. The first gesture
+                anywhere on the page turns the sound on by itself. */}
+            <button
+              type="button"
+              onClick={play}
+              aria-label={started ? "Mute" : "Turn the sound on"}
+              className="absolute bottom-5 right-5 z-20 flex items-center gap-2 h-9 px-3 rounded-full transition-opacity duration-500"
+              style={{
+                background: "oklch(0.10 0.010 70 / 0.72)",
+                border: "1px solid var(--color-gold-deep)",
+                backdropFilter: "blur(6px)",
+                opacity: started ? 0.45 : 1,
+              }}
+            >
+              <svg
+                aria-hidden
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--color-gold)"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M11 5 6 9H2v6h4l5 4V5z" />
+                {started ? (
+                  <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+                ) : (
+                  <>
+                    <line x1="23" y1="9" x2="17" y2="15" />
+                    <line x1="17" y1="9" x2="23" y2="15" />
+                  </>
+                )}
+              </svg>
+              {!started && (
+                <span className="eyebrow text-[10px] tracking-[0.18em] text-[var(--color-gold)]">
+                  Sound
+                </span>
+              )}
+            </button>
+
+            {/* Pacing bar, on the frame's bottom edge */}
+            <div
+              aria-hidden
+              className="absolute bottom-0 inset-x-0 z-30"
+              style={{ background: "oklch(1 0 0 / 0.12)", height: 10 }}
+            >
+              <div
+                className="relative h-full transition-[width] duration-300 ease-linear"
+                style={{
+                  width: `${pacedPct(elapsed, duration)}%`,
+                  background:
+                    "linear-gradient(180deg, var(--color-gold-soft) 0%, var(--color-gold) 45%, var(--color-gold-deep) 100%)",
+                  boxShadow: "0 0 16px -1px oklch(0.78 0.165 78 / 0.85)",
+                }}
+              >
+                <span
+                  className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 block rounded-full"
+                  style={{
+                    width: 16,
+                    height: 16,
+                    background: "var(--color-gold)",
+                    border: "2px solid oklch(0.04 0.005 70)",
+                    boxShadow: "0 0 14px 0 oklch(0.78 0.165 78 / 0.9)",
+                  }}
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Elapsed readout under the frame while the room is dark */}
-          <div
-            className="mt-4 flex items-center justify-between transition-opacity duration-500"
-            style={{ opacity: started ? 1 : 0 }}
-            aria-hidden={!started}
-          >
-            <span className="eyebrow text-[11px] text-[var(--color-ivory-faint)] tabular-nums">
-              {fmt(elapsed)} / {fmt(duration)}
-            </span>
-            <span className="eyebrow text-[11px] text-[var(--color-ivory-faint)]">
-              Sound on
-            </span>
-          </div>
         </motion.div>
 
         {/* Step 02 — the ask, immediately under the player */}

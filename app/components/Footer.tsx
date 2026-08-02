@@ -13,8 +13,12 @@ export function Footer() {
       />
       <div className="mx-auto max-w-[1320px] px-6 lg:px-10 py-16 grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
         <div className="flex items-center gap-3">
-          <span className="text-[var(--color-ivory)] w-6 h-9">
-            <TridentMark className="w-full h-full" />
+          <span className="w-7 h-11">
+            <TridentMark
+              variant="lionIcon"
+              color="var(--color-gold)"
+              className="w-full h-full"
+            />
           </span>
           <span className="flex flex-col leading-tight">
             <span className="eyebrow text-[var(--color-ivory-faint)]">
@@ -31,12 +35,8 @@ export function Footer() {
           <a href="/" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px] py-1.5">
             Home
           </a>
-          <a href="/#about" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px] py-1.5">
-            About
-          </a>
-          <a href="/transmutation" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px] py-1.5">
-            The Transmutation
-          </a>
+          {/* About and The Transmutation are gone: the Transmutation *is*
+              Home now, and the #about anchor lived on the old homepage. */}
           <a href="/blog" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px] py-1.5">
             Blog
           </a>

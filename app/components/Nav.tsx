@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 import { TridentMark } from "./TridentMark";
 import { CTAButton } from "./CTAButton";
 
-const links = [
-  { label: "Transmutation", href: "/transmutation", shimmer: true },
-  { label: "Blog", href: "/blog", shimmer: false },
-];
+// The Transmutation is the homepage now, so it is reached by the logo and by
+// the Home link rather than carrying a nav entry that points at the page the
+// visitor is already on.
+const links = [{ label: "Blog", href: "/blog", shimmer: false }];
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -46,8 +46,12 @@ export function Nav() {
       >
         <div className="mx-auto max-w-[1320px] px-6 lg:px-10 h-[76px] flex items-center justify-between">
           <a href="/" className="flex items-center gap-3 group">
-            <span className="text-[var(--color-ivory)] w-8 h-12">
-              <TridentMark className="w-full h-full" />
+            <span className="w-8 h-12">
+              <TridentMark
+                variant="lionIcon"
+                color="var(--color-gold)"
+                className="w-full h-full"
+              />
             </span>
             <span className="flex flex-col leading-tight">
               <span className="eyebrow text-[var(--color-ivory-faint)]">
