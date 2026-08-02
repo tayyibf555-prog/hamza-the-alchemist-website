@@ -30,10 +30,31 @@ const fraunces = Fraunces({
   axes: ["opsz", "SOFT"],
 });
 
+const SITE_URL = "https://hamza-the-alchemist-website.vercel.app";
+const TITLE = "The Lion Alchemist | The 21st Century Alchemist";
+const DESCRIPTION =
+  "Identity work for high-level operators. Shift identity at the subconscious level. Manifestation becomes inevitable.";
+
 export const metadata: Metadata = {
-  title: "The Lion Alchemist | The 21st Century Alchemist",
-  description:
-    "Identity work for high-level operators. Shift identity at the subconscious level. Manifestation becomes inevitable.",
+  // Required for og:image to resolve to an absolute URL — without it the
+  // preview card silently renders with no image on most platforms.
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  // app/icon.png and app/apple-icon.png are picked up by convention; the
+  // preview card image comes from app/opengraph-image.png.
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: SITE_URL,
+    siteName: "The Lion Alchemist",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export const viewport: Viewport = {

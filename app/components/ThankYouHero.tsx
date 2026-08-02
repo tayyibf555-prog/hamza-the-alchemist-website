@@ -22,7 +22,7 @@ export function ThankYouHero(_props: Props) {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative pt-[160px] lg:pt-[220px] pb-24 lg:pb-32 overflow-hidden bloom-bg">
+    <section className="relative pt-14 lg:pt-20 pb-24 lg:pb-32 overflow-hidden bloom-bg">
       <SectionMarker index="IX" label="Confirmation" />
 
       {/* Top-right folio marker */}

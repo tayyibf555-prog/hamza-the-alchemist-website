@@ -6,6 +6,7 @@ import { Reveal } from "./Reveal";
 import {
   YOUTUBE_CHANNEL,
   YOUTUBE_FEATURES,
+  youTubeId,
   type YouTubeFeature,
 } from "../lib/youtube-wall";
 
@@ -21,7 +22,8 @@ const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 function Feature({ item, index }: { item: YouTubeFeature; index: number }) {
   const reduced = useReducedMotion();
   const [playing, setPlaying] = useState(false);
-  const filled = item.id.trim().length > 0;
+  const id = youTubeId(item.url);
+  const filled = !!id;
 
   return (
     <motion.div
@@ -30,7 +32,9 @@ function Feature({ item, index }: { item: YouTubeFeature; index: number }) {
       viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
       transition={{ duration: 0.9, delay: (index % 2) * 0.1, ease: easeOutExpo }}
     >
-      <p className="mb-5 text-center font-display font-bold tracking-[-0.01em] text-[clamp(16px,1.5vw,21px)] leading-[1.35]">
+      {/* Two lines are always reserved so a caption that wraps does not shove
+          its thumbnail below the one beside it. */}
+      <p className="mb-5 md:min-h-[2.7em] flex items-end justify-center text-center font-display font-bold tracking-[-0.01em] text-[clamp(16px,1.5vw,21px)] leading-[1.35]">
         <span className="text-[var(--color-ivory)]">{item.lead} </span>
         <span
           className="text-[var(--color-gold)]"
@@ -38,6 +42,9 @@ function Feature({ item, index }: { item: YouTubeFeature; index: number }) {
         >
           {item.gold}
         </span>
+        {item.tail && (
+          <span className="text-[var(--color-ivory)]"> {item.tail}</span>
+        )}
       </p>
 
       <div className="relative">
@@ -58,10 +65,10 @@ function Feature({ item, index }: { item: YouTubeFeature; index: number }) {
             background: "oklch(0.06 0.006 70)",
           }}
         >
-          {playing && filled ? (
+          {playing && id ? (
             <iframe
-              src={`https://www.youtube-nocookie.com/embed/${item.id}?autoplay=1&rel=0&modestbranding=1`}
-              title={`${item.lead} ${item.gold}`}
+              src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`}
+              title={`${item.lead} ${item.gold} ${item.tail ?? ""}`.trim()}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               className="absolute inset-0 w-full h-full"
@@ -70,14 +77,14 @@ function Feature({ item, index }: { item: YouTubeFeature; index: number }) {
             <button
               type="button"
               onClick={() => setPlaying(true)}
-              aria-label={`Play: ${item.lead} ${item.gold}`}
+              aria-label={`Play: ${item.lead} ${item.gold} ${item.tail ?? ""}`.trim()}
               className="group absolute inset-0"
             >
               {/* Plain img, not next/image: YouTube's CDN would need a remote
                   pattern in next.config, and these are already optimised. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`https://i.ytimg.com/vi/${item.id}/maxresdefault.jpg`}
+                src={`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`}
                 alt=""
                 loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover"
@@ -86,7 +93,7 @@ function Feature({ item, index }: { item: YouTubeFeature; index: number }) {
                   const img = e.currentTarget;
                   if (!img.dataset.fallback) {
                     img.dataset.fallback = "1";
-                    img.src = `https://i.ytimg.com/vi/${item.id}/hqdefault.jpg`;
+                    img.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
                   }
                 }}
               />
@@ -155,8 +162,8 @@ export function YouTubeWall() {
         <div className="text-center mb-16 lg:mb-20">
           <Reveal>
             <h2 className="font-display font-extrabold leading-[1.0] tracking-[-0.02em] text-[clamp(30px,3.4vw,50px)] text-[var(--color-ivory)]">
-              Straight from the{" "}
-              <span className="accent text-[var(--color-gold)]">room.</span>
+              More from the{" "}
+              <span className="accent text-[var(--color-gold)]">Alchemist.</span>
             </h2>
           </Reveal>
         </div>
@@ -173,7 +180,7 @@ export function YouTubeWall() {
               href={YOUTUBE_CHANNEL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group eyebrow inline-flex items-center gap-3 text-[var(--color-gold)] hover:text-[var(--color-gold-soft)] transition-colors duration-200"
+              className="group eyebrow inline-flex items-center gap-3 min-h-[44px] px-4 text-[var(--color-gold)] hover:text-[var(--color-gold-soft)] transition-colors duration-200"
             >
               <span>Watch more on YouTube</span>
               <span

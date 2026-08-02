@@ -1,38 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { TridentMark } from "./TridentMark";
 
+/**
+ * The masthead.
+ *
+ * Sits in the normal document flow rather than fixed to the viewport: this
+ * is a single-purpose sales page with no nav links to return to, so pinning
+ * a bar to the top would only eat vertical space on every scroll — most
+ * costly on mobile, where the video is competing for the same pixels.
+ */
 export function Nav() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <motion.header
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 2.4, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 inset-x-0 z-50"
+      transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+      className="relative z-30"
     >
-      <div
-        className="transition-all duration-300"
-        style={{
-          background: scrolled
-            ? "color-mix(in oklch, var(--color-ink-deep) 80%, transparent)"
-            : "transparent",
-          backdropFilter: scrolled ? "blur(14px)" : "none",
-          borderBottom: scrolled
-            ? "1px solid var(--color-hairline)"
-            : "1px solid transparent",
-        }}
-      >
+      <div>
         {/* The wordmark is absolutely centred rather than sitting in the flex
             flow, so it stays on the page's true centre line no matter how
             wide the mark and the CTA either side of it are. */}

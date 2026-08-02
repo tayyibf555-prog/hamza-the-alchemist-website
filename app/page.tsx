@@ -3,6 +3,7 @@ import { Nav } from "./components/Nav";
 import { MethodHero } from "./components/MethodHero";
 import { ClientPortfolio } from "./components/ClientPortfolio";
 import { YouTubeWall } from "./components/YouTubeWall";
+import { Signup } from "./components/Signup";
 import { Footer } from "./components/Footer";
 
 export const metadata: Metadata = {
@@ -28,6 +29,7 @@ export default function HomePage() {
         <MethodHero />
         <ClientPortfolio />
         <YouTubeWall />
+        <Signup />
       </main>
       <Footer />
     </>

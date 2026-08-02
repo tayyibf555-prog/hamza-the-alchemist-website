@@ -37,7 +37,7 @@ export function BlogHero() {
 
   return (
     <section
-      className="relative pt-[200px] lg:pt-[260px] pb-24 lg:pb-32 overflow-hidden bloom-bg"
+      className="relative pt-16 lg:pt-24 pb-24 lg:pb-32 overflow-hidden bloom-bg"
     >
       <SectionMarker index="I" label="Reality Architecture Training" />
 

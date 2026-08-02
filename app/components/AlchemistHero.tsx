@@ -30,7 +30,7 @@ export function AlchemistHero() {
   return (
     <section
       id="home"
-      className="relative min-h-[100svh] flex flex-col overflow-hidden pt-[132px]"
+      className="relative min-h-[100svh] flex flex-col overflow-hidden pt-4"
     >
       <SectionMarker index="I" label="Orientation" />
 

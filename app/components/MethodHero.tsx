@@ -18,12 +18,21 @@ export function MethodHero() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative pt-[168px] lg:pt-[196px] pb-20 lg:pb-28 overflow-hidden bloom-bg">
+    <section className="relative pt-6 lg:pt-10 pb-20 lg:pb-28 overflow-hidden bloom-bg">
       <div className="mx-auto max-w-[1100px] px-6 lg:px-10">
+        <motion.p
+          initial={{ opacity: 0, y: reduced ? 0 : 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: easeOutExpo }}
+          className="eyebrow text-center text-[var(--color-gold)] text-[11px] lg:text-[12px] mb-5 lg:mb-6"
+        >
+          For 6&ndash;7 Figure Entrepreneurs Only
+        </motion.p>
+
         <motion.h1
           initial={{ opacity: 0, y: reduced ? 0 : 36 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, ease: easeOutExpo }}
+          transition={{ duration: 1.1, delay: 0.12, ease: easeOutExpo }}
           className="font-display font-extrabold text-balance text-center leading-[1.08] tracking-[-0.02em] text-[clamp(28px,4vw,58px)] text-[var(--color-ivory)] max-w-[20ch] mx-auto"
         >
           Remove The Invisible Internal Ceiling That&rsquo;s Been Quietly Costing Your Business{" "}
