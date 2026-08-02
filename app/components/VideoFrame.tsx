@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { TridentMark } from "./TridentMark";
+import { claimAudioFocus } from "../lib/audio-focus";
 
 type Props = {
   /** Visible runtime label, e.g. "08:42". Purely cosmetic until a real video is embedded. */
@@ -184,7 +185,12 @@ export function VideoFrame({
           {!playing && (
             <button
               type="button"
-              onClick={() => setPlaying(true)}
+              onClick={() => {
+                // Self-hosted videos announce themselves via their own play
+                // event; embeds (Loom, YouTube) cannot, so claim here.
+                claimAudioFocus();
+                setPlaying(true);
+              }}
               aria-label="Play video"
               className="group relative z-20 flex items-center justify-center w-[88px] h-[88px] md:w-[120px] md:h-[120px] rounded-full transition-transform duration-300"
               style={{

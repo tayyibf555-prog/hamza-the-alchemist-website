@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
+import { claimAudioFocus } from "../lib/audio-focus";
 import {
   YOUTUBE_CHANNEL,
   YOUTUBE_FEATURES,
@@ -32,20 +33,25 @@ function Feature({ item, index }: { item: YouTubeFeature; index: number }) {
       viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
       transition={{ duration: 0.9, delay: (index % 2) * 0.1, ease: easeOutExpo }}
     >
-      {/* Two lines are always reserved so a caption that wraps does not shove
-          its thumbnail below the one beside it. */}
-      <p className="mb-5 md:min-h-[2.7em] flex items-end justify-center text-center font-display font-bold tracking-[-0.01em] text-[clamp(16px,1.5vw,21px)] leading-[1.35]">
-        <span className="text-[var(--color-ivory)]">{item.lead} </span>
-        <span
-          className="text-[var(--color-gold)]"
-          style={{ textShadow: "0 0 30px oklch(0.78 0.165 78 / 0.35)" }}
-        >
-          {item.gold}
-        </span>
-        {item.tail && (
-          <span className="text-[var(--color-ivory)]"> {item.tail}</span>
-        )}
-      </p>
+      {/* The wrapper reserves two lines and bottom-aligns, so a caption that
+          wraps cannot shove its thumbnail below the tile beside it. The
+          alignment must live here rather than on the <p>: making the
+          paragraph itself a flex container would turn each span into a flex
+          item and break the sentence into stacked blocks. */}
+      <div className="mb-5 md:min-h-[2.9em] flex items-end">
+        <p className="w-full text-center font-display font-bold tracking-[-0.01em] text-[clamp(15px,1.4vw,20px)] leading-[1.4] text-balance">
+          <span className="text-[var(--color-ivory)]">{item.lead} </span>
+          <span
+            className="text-[var(--color-gold)]"
+            style={{ textShadow: "0 0 30px oklch(0.78 0.165 78 / 0.35)" }}
+          >
+            {item.gold}
+          </span>
+          {item.tail && (
+            <span className="text-[var(--color-ivory)]"> {item.tail}</span>
+          )}
+        </p>
+      </div>
 
       <div className="relative">
         <div
@@ -76,7 +82,12 @@ function Feature({ item, index }: { item: YouTubeFeature; index: number }) {
           ) : filled ? (
             <button
               type="button"
-              onClick={() => setPlaying(true)}
+              onClick={() => {
+                // Cross-origin iframes give no play event, so the click that
+                // mounts the player is what tells the VSL to duck.
+                claimAudioFocus();
+                setPlaying(true);
+              }}
               aria-label={`Play: ${item.lead} ${item.gold} ${item.tail ?? ""}`.trim()}
               className="group absolute inset-0"
             >

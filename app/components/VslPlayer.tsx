@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { AUDIO_FOCUS_EVENT } from "../lib/audio-focus";
+
 /**
  * Overall lead — the bar sits ahead of true playback position.
  * Set to 1 for a bar that tracks real position honestly.
@@ -102,13 +104,20 @@ export function useGestureUnmute(
   enabled: boolean,
   onUnmuted: () => void
 ) {
+  // Fires at most once per mount. Without this the listener would re-arm
+  // every time `enabled` flipped back on — so ducking for a testimonial would
+  // put the VSL back to muted, and the visitor's next click anywhere would
+  // un-duck it and start both soundtracks again.
+  const spent = useRef(false);
+
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled || spent.current) return;
     const events = ["pointerdown", "touchstart", "keydown", "click"] as const;
 
     const arm = () => {
       const v = videoRef.current;
       if (!v) return;
+      spent.current = true;
       v.muted = false;
       v.volume = 1;
       if (v.paused) v.play().catch(() => {});
@@ -166,6 +175,30 @@ export function VslPlayer({ src, poster, onProgress, className = "" }: Props) {
 
   const handleUnmuted = useCallback(() => setMuted(false), []);
   useGestureUnmute(videoRef, muted, handleUnmuted);
+
+  // Duck when anything else on the page starts making sound, so a testimonial
+  // never plays over the top of the VSL.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+
+    const duck = () => {
+      if (v.muted) return;
+      v.muted = true;
+      setMuted(true);
+    };
+    // `play` does not bubble, but it is observable in the capture phase.
+    const onOtherPlay = (e: Event) => {
+      if (e.target !== v) duck();
+    };
+
+    document.addEventListener("play", onOtherPlay, true);
+    window.addEventListener(AUDIO_FOCUS_EVENT, duck);
+    return () => {
+      document.removeEventListener("play", onOtherPlay, true);
+      window.removeEventListener(AUDIO_FOCUS_EVENT, duck);
+    };
+  }, []);
 
   const toggleMute = useCallback(() => {
     const v = videoRef.current;
