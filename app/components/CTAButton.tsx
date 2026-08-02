@@ -44,7 +44,7 @@ export function CTAButton({
   return (
     <a
       href={href}
-      className={`group relative inline-flex items-center gap-3 ${sizing} eyebrow rounded-[3px] text-[var(--color-ink-deep)] overflow-hidden transition-all duration-300 ${className}`}
+      className={`group relative inline-flex items-center gap-3 ${sizing} eyebrow rounded-[12px] text-[var(--color-ink-deep)] overflow-hidden transition-all duration-300 ${className}`}
       style={{
         background:
           "linear-gradient(180deg, var(--color-gold-soft) 0%, var(--color-gold-deep) 100%)",

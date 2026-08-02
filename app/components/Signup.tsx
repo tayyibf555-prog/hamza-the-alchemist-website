@@ -146,7 +146,7 @@ export function Signup() {
                   whileHover={reduced ? undefined : { scale: 1.02 }}
                   whileTap={reduced ? undefined : { scale: 0.98 }}
                   transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                  className="group relative inline-flex items-center gap-3 h-[60px] px-9 eyebrow rounded-[3px] text-[var(--color-ink-deep)] overflow-hidden"
+                  className="group relative inline-flex items-center gap-3 h-[60px] px-9 eyebrow rounded-[12px] text-[var(--color-ink-deep)] overflow-hidden"
                   style={{
                     background:
                       "linear-gradient(180deg, var(--color-gold-soft) 0%, var(--color-gold-deep) 100%)",

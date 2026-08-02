@@ -33,7 +33,7 @@ export function ApplyButton({
       rel="noopener noreferrer"
       className={`group relative inline-flex items-center justify-center gap-3 ${sizing} ${
         block ? "w-full sm:w-auto" : ""
-      } eyebrow rounded-[3px] text-[var(--color-ink-deep)] overflow-hidden transition-all duration-300 ${className}`}
+      } eyebrow rounded-[12px] text-[var(--color-ink-deep)] overflow-hidden transition-all duration-300 ${className}`}
       style={{
         background:
           "linear-gradient(180deg, var(--color-gold-soft) 0%, var(--color-gold-deep) 100%)",

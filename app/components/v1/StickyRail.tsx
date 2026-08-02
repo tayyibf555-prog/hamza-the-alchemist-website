@@ -82,7 +82,7 @@ export function StickyRail({
               href={TYPEFORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex-1 sm:flex-none inline-flex items-center justify-center gap-3 h-[42px] px-6 eyebrow rounded-[3px] text-[var(--color-ink-deep)]"
+              className="group flex-1 sm:flex-none inline-flex items-center justify-center gap-3 h-[42px] px-6 eyebrow rounded-[12px] text-[var(--color-ink-deep)]"
               style={{
                 background:
                   "linear-gradient(180deg, var(--color-gold-soft) 0%, var(--color-gold-deep) 100%)",

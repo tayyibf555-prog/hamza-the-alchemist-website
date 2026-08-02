@@ -58,7 +58,7 @@ export function Inquiry() {
               whileHover={reduced ? undefined : { scale: 1.01 }}
               whileTap={reduced ? undefined : { scale: 0.99 }}
               transition={{ duration: 0.25, ease: easeOutExpo }}
-              className="group relative inline-flex items-center gap-3 h-[64px] px-10 eyebrow rounded-[3px] text-[var(--color-ink-deep)] overflow-hidden"
+              className="group relative inline-flex items-center gap-3 h-[64px] px-10 eyebrow rounded-[12px] text-[var(--color-ink-deep)] overflow-hidden"
               style={{
                 background:
                   "linear-gradient(180deg, var(--color-gold-soft) 0%, var(--color-gold-deep) 100%)",

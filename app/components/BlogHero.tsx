@@ -169,7 +169,7 @@ export function BlogHero() {
               whileHover={reduced ? undefined : { scale: 1.01 }}
               whileTap={reduced ? undefined : { scale: 0.99 }}
               transition={{ duration: 0.25, ease: easeOutExpo }}
-              className="group relative inline-flex items-center justify-center gap-3 h-[64px] eyebrow rounded-[3px] text-[var(--color-ink-deep)] overflow-hidden mt-4"
+              className="group relative inline-flex items-center justify-center gap-3 h-[64px] eyebrow rounded-[12px] text-[var(--color-ink-deep)] overflow-hidden mt-4"
               style={{
                 background:
                   "linear-gradient(180deg, var(--color-gold-soft) 0%, var(--color-gold-deep) 100%)",

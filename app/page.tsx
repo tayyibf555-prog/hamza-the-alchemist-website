@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Nav } from "./components/Nav";
 import { MethodHero } from "./components/MethodHero";
 import { ClientPortfolio } from "./components/ClientPortfolio";
+import { YouTubeWall } from "./components/YouTubeWall";
 import { Footer } from "./components/Footer";
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function HomePage() {
       <main>
         <MethodHero />
         <ClientPortfolio />
+        <YouTubeWall />
       </main>
       <Footer />
     </>

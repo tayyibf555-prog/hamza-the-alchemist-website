@@ -32,12 +32,12 @@ export function Footer() {
 
         <nav className="flex flex-col gap-1">
           <p className="eyebrow text-[var(--color-ivory-faint)] mb-3">Site</p>
-          <a href="/" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px] py-1.5">
+          <a href="/" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px] py-3">
             Home
           </a>
           {/* About and The Transmutation are gone: the Transmutation *is*
               Home now, and the #about anchor lived on the old homepage. */}
-          <a href="/blog" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px] py-1.5">
+          <a href="/blog" className="text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors text-[15px] py-3">
             Blog
           </a>
         </nav>
@@ -48,7 +48,7 @@ export function Footer() {
             href="https://www.instagram.com/hamzathealchemist/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors text-[15px] py-1.5"
+            className="text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors text-[15px] py-3"
           >
             Instagram ↗
           </a>
@@ -56,7 +56,7 @@ export function Footer() {
             href="https://www.youtube.com/@hamzathealchemist"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors text-[15px] py-1.5"
+            className="text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors text-[15px] py-3"
           >
             YouTube ↗
           </a>
@@ -81,7 +81,7 @@ export function Footer() {
             href="https://www.azen.io/"
             target="_blank"
             rel="noopener noreferrer"
-            className="eyebrow text-[11px] text-[var(--color-ivory-faint)] hover:text-[var(--color-gold)] transition-colors duration-200 inline-flex items-center gap-2 px-5 py-3 rounded-[3px]"
+            className="eyebrow text-[11px] text-[var(--color-ivory-faint)] hover:text-[var(--color-gold)] transition-colors duration-200 inline-flex items-center gap-2 px-5 py-3 rounded-[12px]"
             style={{ border: "1px solid var(--color-hairline)" }}
           >
             Built by Azen

@@ -1,22 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { TridentMark } from "./TridentMark";
-import { CTAButton } from "./CTAButton";
-
-// The Transmutation is the homepage now, so it is reached by the logo and by
-// the Home link rather than carrying a nav entry that points at the page the
-// visitor is already on.
-const links = [{ label: "Blog", href: "/blog", shimmer: false }];
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  const pathname = usePathname();
-  // Show a "back home" link whenever we're on a subpage (Transmutation, Blog, etc.)
-  const showHome = pathname !== "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -44,106 +33,36 @@ export function Nav() {
             : "1px solid transparent",
         }}
       >
-        <div className="mx-auto max-w-[1320px] px-6 lg:px-10 h-[76px] flex items-center justify-between">
-          <a href="/" className="flex items-center gap-3 group">
-            <span className="w-8 h-12">
+        {/* The wordmark is absolutely centred rather than sitting in the flex
+            flow, so it stays on the page's true centre line no matter how
+            wide the mark and the CTA either side of it are. */}
+        <div className="relative mx-auto max-w-[1320px] px-6 lg:px-10 h-[132px] flex items-center justify-center">
+          <a
+            href="/"
+            aria-label="The Lion Alchemist — home"
+            className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          >
+            <span className="flex items-baseline gap-2.5 whitespace-nowrap">
+              <span className="font-display font-semibold tracking-tight text-[clamp(23px,2.8vw,34px)] text-[var(--color-ivory)]">
+                The Lion
+              </span>
+              <span
+                className="accent text-[var(--color-gold)] text-[clamp(26px,3.2vw,39px)]"
+                style={{ textShadow: "0 0 40px oklch(0.78 0.165 78 / 0.5)" }}
+              >
+                Alchemist
+              </span>
+            </span>
+            <span className="w-[38px] h-[58px]">
               <TridentMark
                 variant="lionIcon"
                 color="var(--color-gold)"
                 className="w-full h-full"
               />
             </span>
-            <span className="flex flex-col leading-tight">
-              <span className="eyebrow text-[var(--color-ivory-faint)]">
-                The Lion
-              </span>
-              <span className="font-display font-medium text-[14px] text-[var(--color-ivory)] tracking-tight -mt-0.5">
-                Alchemist
-              </span>
-            </span>
           </a>
 
-          <nav className="hidden md:flex items-center gap-9">
-            {showHome && (
-              <a
-                href="/"
-                className="eyebrow text-[var(--color-gold)] hover:text-[var(--color-gold-soft)] transition-colors duration-200 inline-flex items-center gap-2"
-              >
-                <span aria-hidden>←</span>
-                Home
-              </a>
-            )}
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className={
-                  l.shimmer
-                    ? "eyebrow text-[var(--color-gold)] font-semibold hover:text-[var(--color-gold-soft)] transition-colors duration-200"
-                    : "eyebrow text-[var(--color-ivory-dim)] hover:text-[var(--color-ivory)] transition-colors duration-200"
-                }
-              >
-                {l.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="hidden md:block">
-            <CTAButton>Become an Alchemist</CTAButton>
-          </div>
-
-          <button
-            type="button"
-            className="md:hidden eyebrow text-[var(--color-ivory)] flex items-center gap-2 h-11 px-2 -mr-2"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-label="Toggle menu"
-          >
-            <span>{open ? "Close" : "Menu"}</span>
-            <span aria-hidden className="text-[var(--color-gold)]">
-              {open ? "×" : "≡"}
-            </span>
-          </button>
         </div>
-
-        {/* Mobile drawer */}
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden border-t border-[var(--color-hairline)]"
-            style={{ background: "var(--color-ink-deep)" }}
-          >
-            <div className="mx-auto max-w-[1320px] px-6 py-4 flex flex-col gap-1">
-              {showHome && (
-                <a
-                  href="/"
-                  onClick={() => setOpen(false)}
-                  className="eyebrow text-[var(--color-gold)] hover:text-[var(--color-gold-soft)] transition-colors flex items-center gap-2 min-h-[48px]"
-                >
-                  <span aria-hidden>←</span>
-                  Home
-                </a>
-              )}
-              {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className={
-                    l.shimmer
-                      ? "eyebrow text-[var(--color-gold)] font-semibold flex items-center min-h-[48px]"
-                      : "eyebrow text-[var(--color-ivory-dim)] hover:text-[var(--color-gold)] transition-colors flex items-center min-h-[48px]"
-                  }
-                >
-                  {l.label}
-                </a>
-              ))}
-              <CTAButton className="w-fit mt-3">Become an Alchemist</CTAButton>
-            </div>
-          </motion.div>
-        )}
       </div>
     </motion.header>
   );

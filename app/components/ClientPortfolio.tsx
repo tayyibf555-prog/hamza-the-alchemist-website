@@ -52,6 +52,14 @@ const profiles: Profile[] = [
     videoAspect: "9 / 16",
     bio: "Entered the program as a business owner carrying significant subconscious limitations around money, growth, and receiving success. Through the extraction and removal of those subconscious blocks, Frank was able to shift from operating through scarcity and financial pressure to leading from certainty, clarity, and detachment.\n\nAs a result of the identity recalibration, the business is on track to generate 25% more profit than the previous year while creating a stronger foundation for long-term growth. Frank is now positioning the company for a seven-figure exit, with continued support focused on ensuring the business reaches its desired valuation and outcome.",
   },
+  {
+    name: "JENNY",
+    role: "Influencer & Music Artist",
+    photo: "/clients/jenny.jpg",
+    videoSrc: "/clients/jenny.mp4",
+    videoAspect: "9 / 16",
+    bio: "Jenny came to me as an established influencer ready to become a music artist, but her current identity could not hold both worlds at once.\n\nWe built a new identity capable of leading her business, sustaining her influence, and fully stepping into music. She no longer feels divided between who she was and who she is becoming. She now has the internal structure to carry all of it.",
+  },
 ];
 
 function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
@@ -187,9 +195,6 @@ export function ClientPortfolio() {
       <div className="mx-auto max-w-[1040px] px-6 lg:px-10">
         {/* Section header */}
         <div className="text-center mb-16 lg:mb-24">
-          <Reveal as="p" className="eyebrow text-[var(--color-gold)] mb-6">
-            The Roster
-          </Reveal>
           <Reveal delay={0.1}>
             <h2 className="font-display font-extrabold leading-[1.0] tracking-[-0.02em] text-[clamp(32px,3.6vw,52px)] text-[var(--color-ivory)]">
               Identity-driven{" "}

@@ -38,3 +38,8 @@ next-env.d.ts
 # over 100MB, so the multi-GB originals must never reach a commit — only the
 # encoded result in public/homepageVSL does.
 /new vsl/
+
+# Raw client drops. The usable copies are renamed into public/clients, so the
+# originals would only ship a second, unreferenced copy of every file.
+/public/jenny case study/
+/public/case study 3/

@@ -41,18 +41,29 @@ export const pacedPct = (elapsed: number, duration: number) => {
 };
 
 /**
- * Start muted playback, retrying once the element has data.
+ * Start playback, trying with sound before settling for silence.
  *
- * Only NotAllowedError means the browser actually refused. A bare play() on a
- * freshly mounted element also rejects with AbortError whenever a reload
- * supersedes it — which React's development double-invoke triggers every time.
+ * Autoplay with audio is refused by default, but not always: Chrome keeps a
+ * per-domain Media Engagement score and lifts the block once a visitor has
+ * watched enough here, and a visitor who already interacted with the page
+ * this session is allowed outright. Asking for sound first means everyone the
+ * browser will permit gets audio the instant the page opens, with no tap. The
+ * rest fall back to muted playback, and the page-wide gesture listener turns
+ * the sound on the moment they touch anything.
+ *
+ * Only NotAllowedError means a genuine refusal. A bare play() on a freshly
+ * mounted element also rejects with AbortError whenever a reload supersedes
+ * it — which React's development double-invoke triggers every time.
  */
-export function startMuted(
+export function startPlayback(
   video: HTMLVideoElement,
-  onBlocked: () => void
+  onFellBackToMuted: () => void
 ): () => void {
   let cancelled = false;
-  video.muted = true;
+  let triedMuted = false;
+
+  video.muted = false;
+  video.volume = 1;
 
   const attempt = () => {
     if (cancelled) return;
@@ -60,7 +71,12 @@ export function startMuted(
     if (!p) return;
     p.catch((err: unknown) => {
       if (cancelled) return;
-      if ((err as { name?: string })?.name === "NotAllowedError") onBlocked();
+      if ((err as { name?: string })?.name !== "NotAllowedError") return;
+      if (triedMuted) return;
+      triedMuted = true;
+      video.muted = true;
+      onFellBackToMuted();
+      video.play().catch(() => {});
     });
   };
 
@@ -117,7 +133,9 @@ type Props = {
 
 export function VslPlayer({ src, poster, onProgress, className = "" }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [muted, setMuted] = useState(true);
+  // Optimistic: assume sound until the browser actually refuses it, so the
+  // control never flashes "Sound" at visitors who get audio immediately.
+  const [muted, setMuted] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [elapsed, setElapsed] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -125,7 +143,7 @@ export function VslPlayer({ src, poster, onProgress, className = "" }: Props) {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    return startMuted(v, () => {});
+    return startPlayback(v, () => setMuted(true));
   }, []);
 
   // Preload can satisfy loadedmetadata before React attaches its handlers,
@@ -200,12 +218,13 @@ export function VslPlayer({ src, poster, onProgress, className = "" }: Props) {
           src={src}
           poster={poster}
           playsInline
-          autoPlay
-          muted
           preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
+          // Mute state is driven imperatively (we ask for sound first), so
+          // mirror the element rather than letting React force the attribute.
+          onVolumeChange={(e) => setMuted(e.currentTarget.muted)}
           onLoadedMetadata={(e) => setDuration(e.currentTarget.duration || 0)}
           onTimeUpdate={(e) => {
             const t = e.currentTarget.currentTime;
@@ -259,7 +278,7 @@ export function VslPlayer({ src, poster, onProgress, className = "" }: Props) {
           type="button"
           onClick={toggleMute}
           aria-label={muted ? "Turn the sound on" : "Mute"}
-          className="absolute bottom-4 right-4 z-20 flex items-center gap-2 h-9 px-3 rounded-full transition-opacity duration-500"
+          className="absolute bottom-4 right-4 z-20 flex items-center gap-2 h-11 px-4 rounded-full transition-opacity duration-500"
           style={{
             background: "oklch(0.10 0.010 70 / 0.72)",
             border: "1px solid var(--color-gold-deep)",

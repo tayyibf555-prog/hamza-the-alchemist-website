@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { VSL_SRC } from "../../lib/vsl-content";
 import { TYPEFORM_URL } from "../../lib/links";
 import { ApplyButton } from "./ApplyButton";
-import { pacedPct, startMuted, useGestureUnmute } from "../VslPlayer";
+import { pacedPct, startPlayback, useGestureUnmute } from "../VslPlayer";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
@@ -34,18 +34,17 @@ export function ScreeningRoom({ onProgress, playerRef }: Props) {
   const reduced = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
-  /** Sound on — the deliberate act that darkens the room. */
-  const [started, setStarted] = useState(false);
+  /** Sound on — what darkens the room. */
+  const [started, setStarted] = useState(true);
   const [elapsed, setElapsed] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  // Muted autoplay on mount. Browsers only permit autoplay without sound,
-  // so the frame is already alive when the visitor arrives and the single
-  // remaining action is turning the sound on.
+  // Ask for sound on mount and only settle for silence if the browser
+  // refuses, so anyone it will permit hears the video straight away.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    return startMuted(v, () => {});
+    return startPlayback(v, () => setStarted(false));
   }, []);
 
   // Preload can satisfy loadedmetadata before React attaches its handlers,
@@ -214,11 +213,12 @@ export function ScreeningRoom({ onProgress, playerRef }: Props) {
               ref={videoRef}
               src={VSL_SRC}
               playsInline
-              autoPlay
-              muted
               preload="auto"
               className="absolute inset-0 w-full h-full object-cover"
               onPlay={() => setPlaying(true)}
+              // Mute state is driven imperatively (we ask for sound first),
+              // so mirror the element rather than forcing the attribute.
+              onVolumeChange={(e) => setStarted(!e.currentTarget.muted)}
               onPause={() => setPlaying(false)}
               onEnded={() => setPlaying(false)}
               onLoadedMetadata={(e) =>

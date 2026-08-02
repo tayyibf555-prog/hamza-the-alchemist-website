@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { VslPlayer } from "./VslPlayer";
+import { CTAButton } from "./CTAButton";
 import { VSL_SRC } from "../lib/vsl-content";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
@@ -17,7 +18,7 @@ export function MethodHero() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative pt-[116px] lg:pt-[140px] pb-20 lg:pb-28 overflow-hidden bloom-bg">
+    <section className="relative pt-[168px] lg:pt-[196px] pb-20 lg:pb-28 overflow-hidden bloom-bg">
       <div className="mx-auto max-w-[1100px] px-6 lg:px-10">
         <motion.h1
           initial={{ opacity: 0, y: reduced ? 0 : 36 }}
@@ -39,9 +40,19 @@ export function MethodHero() {
           initial={{ opacity: 0, y: reduced ? 0 : 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.4, delay: 0.3, ease: easeOutExpo }}
-          className="relative mt-8 lg:mt-10 max-w-[760px] mx-auto"
+          className="relative mt-8 lg:mt-10 max-w-[920px] mx-auto"
         >
           <VslPlayer src={VSL_SRC} />
+        </motion.div>
+
+        {/* The ask, directly under the video — the page's primary action. */}
+        <motion.div
+          initial={{ opacity: 0, y: reduced ? 0 : 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.6, ease: easeOutExpo }}
+          className="mt-10 lg:mt-12 flex flex-col items-center text-center"
+        >
+          <CTAButton size="large">Apply To Become An Alchemist</CTAButton>
         </motion.div>
       </div>
     </section>
