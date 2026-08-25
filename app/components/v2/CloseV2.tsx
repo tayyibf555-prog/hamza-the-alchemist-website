@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { TridentMark } from "../TridentMark";
 import { MirrorLine } from "./MirrorLine";
 import { ApplyButton } from "../v1/ApplyButton";
-import { TYPEFORM_URL } from "../../lib/links";
+import { APPLY_URL } from "../../lib/links";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
@@ -54,7 +54,7 @@ export function CloseV2() {
           transition={{ duration: 0.9, delay: 0.15, ease: easeOutExpo }}
           className="mt-16 flex flex-col items-center text-center"
         >
-          <ApplyButton href={TYPEFORM_URL} size="large">
+          <ApplyButton href={APPLY_URL} size="large">
             Apply For A Private Consultation
           </ApplyButton>
 

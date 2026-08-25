@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { MirrorLine } from "./MirrorLine";
 import { ApplyButton } from "../v1/ApplyButton";
-import { TYPEFORM_URL } from "../../lib/links";
+import { APPLY_URL } from "../../lib/links";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
@@ -102,7 +102,7 @@ export function FourCeilings() {
         </div>
 
         <div className="mt-24 flex flex-col items-center text-center">
-          <ApplyButton href={TYPEFORM_URL}>
+          <ApplyButton href={APPLY_URL}>
             Apply For A Private Consultation
           </ApplyButton>
           <p className="mt-4 text-[13px] text-[var(--color-ivory-faint)]">

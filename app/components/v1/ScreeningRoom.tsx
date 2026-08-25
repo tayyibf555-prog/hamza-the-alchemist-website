@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { VSL_SRC } from "../../lib/vsl-content";
-import { TYPEFORM_URL } from "../../lib/links";
+import { APPLY_URL } from "../../lib/links";
 import { ApplyButton } from "./ApplyButton";
 import { pacedPct, startPlayback, useGestureUnmute } from "../VslPlayer";
 
@@ -355,7 +355,7 @@ export function ScreeningRoom({ onProgress, playerRef }: Props) {
           </div>
 
           <div className="flex flex-col items-center text-center">
-            <ApplyButton href={TYPEFORM_URL} size="large" />
+            <ApplyButton href={APPLY_URL} size="large" />
             <p className="mt-4 text-[13px] text-[var(--color-ivory-faint)]">
               Opens the private application form. No cost, no pitch.
             </p>

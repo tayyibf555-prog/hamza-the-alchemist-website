@@ -37,7 +37,10 @@ function sourceFromReferrer(ref: string, host: string): string {
   if (h.includes("bing")) return "bing";
   if (h.includes("reddit")) return "reddit";
   if (h.includes("skool")) return "skool";
+  // Kept so historical rows stay grouped; the funnel moved off Typeform.
   if (h.includes("typeform")) return "typeform";
+  // The Alchemy Identity Audit — visitors bouncing back from the apply step.
+  if (h.includes("hamzathealchemist.netlify")) return "identity audit";
   return h;
 }
 

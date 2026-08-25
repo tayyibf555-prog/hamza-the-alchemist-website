@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { OPERATORS, type Operator } from "../../lib/vsl-content";
-import { TYPEFORM_URL } from "../../lib/links";
+import { APPLY_URL } from "../../lib/links";
 import { ApplyButton } from "./ApplyButton";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
@@ -160,7 +160,7 @@ export function Reel() {
           className="pt-14 flex flex-col items-center text-center"
           style={{ borderTop: "1px solid var(--color-hairline)" }}
         >
-          <ApplyButton href={TYPEFORM_URL} />
+          <ApplyButton href={APPLY_URL} />
           <p className="mt-4 text-[13px] text-[var(--color-ivory-faint)]">
             The same application they filled out.
           </p>

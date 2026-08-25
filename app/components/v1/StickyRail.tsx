@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { TYPEFORM_URL } from "../../lib/links";
+import { APPLY_URL } from "../../lib/links";
 import { pacedPct } from "../VslPlayer";
 
 const fmt = (s: number) => {
@@ -79,7 +79,7 @@ export function StickyRail({
             </div>
 
             <a
-              href={TYPEFORM_URL}
+              href={APPLY_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex-1 sm:flex-none inline-flex items-center justify-center gap-3 h-[42px] px-6 eyebrow rounded-[12px] text-[var(--color-ink-deep)]"

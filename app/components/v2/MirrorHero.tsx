@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { MirrorLine } from "./MirrorLine";
 import { ApplyButton } from "../v1/ApplyButton";
 import { VslPlayer } from "../VslPlayer";
-import { TYPEFORM_URL } from "../../lib/links";
+import { APPLY_URL } from "../../lib/links";
 import { VSL_SRC } from "../../lib/vsl-content";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
@@ -158,7 +158,7 @@ export function MirrorHero({
               />
             </div>
             <div className="flex flex-col items-center text-center">
-              <ApplyButton href={TYPEFORM_URL} size="large">
+              <ApplyButton href={APPLY_URL} size="large">
                 Apply For A Private Consultation
               </ApplyButton>
               <p className="mt-4 text-[13px] text-[var(--color-ivory-faint)]">

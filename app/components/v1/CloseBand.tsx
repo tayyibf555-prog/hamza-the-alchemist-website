@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { TridentMark } from "../TridentMark";
-import { TYPEFORM_URL } from "../../lib/links";
+import { APPLY_URL } from "../../lib/links";
 import { META_DISCLAIMER } from "../../lib/vsl-content";
 import { ApplyButton } from "./ApplyButton";
 
@@ -51,7 +51,7 @@ export function CloseBand() {
           </p>
 
           <div className="mt-12 flex flex-col items-center">
-            <ApplyButton href={TYPEFORM_URL} size="large" />
+            <ApplyButton href={APPLY_URL} size="large" />
             <p className="mt-4 text-[13px] text-[var(--color-ivory-faint)]">
               Opens the private application form.
             </p>

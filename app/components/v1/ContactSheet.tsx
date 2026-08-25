@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { RECEIPTS, RECEIPT_SLOTS } from "../../lib/vsl-content";
-import { TYPEFORM_URL } from "../../lib/links";
+import { APPLY_URL } from "../../lib/links";
 import { ApplyButton } from "./ApplyButton";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
@@ -87,7 +87,7 @@ export function ContactSheet() {
         )}
 
         <div className="mt-16 flex flex-col items-center text-center">
-          <ApplyButton href={TYPEFORM_URL} />
+          <ApplyButton href={APPLY_URL} />
           <p className="mt-4 text-[13px] text-[var(--color-ivory-faint)]">
             Two minutes to apply. No payment, no calendar spam.
           </p>
