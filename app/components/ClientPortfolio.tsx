@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Reveal } from "./Reveal";
 import { VideoFrame } from "./VideoFrame";
 import { CTAButton } from "./CTAButton";
@@ -23,12 +24,21 @@ type Profile = {
   pullQuote?: string;
   /** 2–4 sentences about the operator and the work. */
   bio?: string;
+  /** Headline outcome, e.g. "$50K → $100K / month". Rendered as a stat chip. */
+  result?: string;
+  /**
+   * A written testimonial in the client's own words, paragraphs separated by
+   * blank lines. Shown as a preview that expands on click — these run long,
+   * and dropping 400 words into the roster would bury the next case study.
+   */
+  written?: string;
 };
 
 const profiles: Profile[] = [
   {
     name: "JORDY MICHELS",
     role: "Day Trader",
+    result: "$50K \u2192 $100K / month",
     photo: "/clients/jordy-michels.png",
     videoSrc: "/clients/jordy-michels-testimonial.mp4",
     videoAspect: "9 / 16",
@@ -37,6 +47,7 @@ const profiles: Profile[] = [
   {
     name: "NATHAN JONES",
     role: "Entrepreneur",
+    result: "$0 \u2192 $10K / month",
     photo: "/clients/nathan-jones.jpg",
     videoEmbedUrl:
       "https://www.loom.com/embed/bba3a4897e60430a9914b1c85504893b?autoplay=1&hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true",
@@ -47,6 +58,7 @@ const profiles: Profile[] = [
   {
     name: "FRANK",
     role: "Business Owner",
+    result: "+25% revenue year on year",
     photo: "/clients/frank.jpg",
     videoSrc: "/clients/frank.mp4",
     videoAspect: "9 / 16",
@@ -55,16 +67,26 @@ const profiles: Profile[] = [
   {
     name: "JENNY",
     role: "Influencer & Music Artist",
+    result: "Stabilised $100K+ / month",
     photo: "/clients/jenny.jpg",
     videoSrc: "/clients/jenny.mp4",
     videoAspect: "9 / 16",
     bio: "Jenny came to me as an established influencer ready to become a music artist, but her current identity could not hold both worlds at once.\n\nWe built a new identity capable of leading her business, sustaining her influence, and fully stepping into music. She no longer feels divided between who she was and who she is becoming. She now has the internal structure to carry all of it.",
   },
+  {
+    name: "MARCO",
+    role: "Entrepreneur",
+    result: "$10K \u2192 $30K / month",
+    written:
+      "When I first came to Hamza I was still showing up as an entrepreneur who was fearful and unaware of his own potential, not fully breaking free of myself, and honestly I didn't realize how much that was holding me back until we got into it.\n\nUnderneath that were money ceilings and self sabotage I'd never really addressed before. It wasn't instant. There was a real delay on my end, deals sitting stuck, me doing the internal work but not seeing anything move for a while. The hardest part was staying with the program when nothing in my external world had caught up yet\u2026 Then recently, things started to align and big deals were coming into my orbit. The deals that had been stuck started closing, and it happened right alongside me stepping into my own identity, out from behind that partner role on my business venture. It started to feel like perfect synchronicity, like the money and the shift were simultaneously working in tandem to unblock my past inner ceilings that impeded my growth.\n\nHamza really helped me unlock parts of myself I was scared to address. From money ceilings to self sabotage, I've been able to learn, grow, and accept myself through this. I'm very grateful for how it's allowed me to unlock new parts of myself that have set me free and welcomed abundance, opportunity, and wealth. I'm looking forward to what more the future brings from everything I've learned working with Hamza. I have the greatest respect for him and am looking forward to friends and colleagues I know will work with Hamza in the future.",
+  },
 ];
 
 function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
+  const [expanded, setExpanded] = useState(false);
   // Stagger: alternate which side the portrait sits on.
   const flip = index % 2 === 1;
+  const paras = profile.written?.split("\n\n") ?? [];
   const vertical =
     !!profile.videoAspect &&
     (() => {
@@ -93,15 +115,24 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
                 className="absolute inset-0 w-full h-full object-cover"
               />
             ) : (
+              // No photo on file — a monogram reads as a deliberate choice
+              // where a "portrait slot" placeholder reads as unfinished.
               <div
-                className="absolute inset-0 flex items-end p-6"
+                className="absolute inset-0 flex flex-col items-center justify-center gap-2"
                 style={{
                   background:
-                    "linear-gradient(180deg, oklch(0.20 0.04 70) 0%, oklch(0.08 0.010 70) 100%)",
+                    "linear-gradient(180deg, oklch(0.14 0.02 70) 0%, oklch(0.07 0.010 70) 100%)",
                 }}
               >
-                <span className="eyebrow text-[var(--color-ivory-faint)] text-[11px]">
-                  Portrait slot
+                <span
+                  aria-hidden
+                  className="accent text-[var(--color-gold)] leading-none text-[86px]"
+                  style={{ textShadow: "0 0 40px oklch(0.78 0.165 78 / 0.45)" }}
+                >
+                  &ldquo;
+                </span>
+                <span className="font-display font-extrabold text-[var(--color-ivory)] text-[34px] leading-none">
+                  {profile.name.charAt(0)}
                 </span>
               </div>
             )}
@@ -117,6 +148,19 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
           </h3>
           <p className="eyebrow text-[var(--color-gold)] mt-3">{profile.role}</p>
 
+          {profile.result && (
+            <p
+              className="mt-5 inline-flex items-center gap-2 rounded-[10px] px-4 py-2 font-display font-bold text-[clamp(15px,1.4vw,19px)] text-[var(--color-gold)]"
+              style={{
+                border: "1px solid var(--color-gold-deep)",
+                background: "oklch(0.42 0.16 78 / 0.08)",
+                textShadow: "0 0 26px oklch(0.78 0.165 78 / 0.35)",
+              }}
+            >
+              {profile.result}
+            </p>
+          )}
+
           {profile.pullQuote && (
             <blockquote className="accent text-[var(--color-ivory)] text-[clamp(18px,1.6vw,22px)] leading-[1.35] mt-6 max-w-[46ch] mx-auto lg:mx-0">
               {profile.pullQuote}
@@ -131,7 +175,7 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
                   <p key={i}>{para}</p>
                 ))}
               </div>
-            ) : (
+            ) : profile.written ? null : (
               <p className="text-[var(--color-ivory-faint)] italic text-[15px] leading-[1.65] max-w-[58ch] mx-auto lg:mx-0">
                 Paragraph coming soon. Drop in 2 to 4 sentences about the
                 operator, the work, and the named outcome.
@@ -139,11 +183,64 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
             )}
           </div>
 
-          {/* Testimonial video — anchored at the bottom of the content block */}
+          {/* Testimonial — written or filmed, anchored at the bottom */}
           <div className="mt-8">
             <p className="eyebrow text-[var(--color-ivory-faint)] mb-4">
               Testimonial
             </p>
+
+            {profile.written ? (
+              <div className="max-w-[58ch] mx-auto lg:mx-0 text-left">
+                <div
+                  className="relative rounded-[10px] p-6 lg:p-7"
+                  style={{
+                    border: "1px solid var(--color-hairline)",
+                    background: "oklch(0.08 0.008 70 / 0.6)",
+                  }}
+                >
+                  <span
+                    aria-hidden
+                    className="accent text-[var(--color-gold)] leading-none text-[44px] block mb-1"
+                  >
+                    &ldquo;
+                  </span>
+
+                  <div className="text-[var(--color-ivory-dim)] text-[15px] lg:text-[16px] leading-[1.75] space-y-4">
+                    {(expanded ? paras : paras.slice(0, 1)).map((para, i) => (
+                      <p key={i}>{para}</p>
+                    ))}
+                  </div>
+
+                  {/* No fade overlay: the preview ends on a whole
+                      paragraph, so there is nothing to feather. */}
+
+                  {paras.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => setExpanded((v) => !v)}
+                      aria-expanded={expanded}
+                      className="group relative mt-5 inline-flex items-center gap-2 min-h-[44px] eyebrow text-[11px] text-[var(--color-gold)] hover:text-[var(--color-gold-soft)] transition-colors duration-200"
+                    >
+                      <span>{expanded ? "Show less" : "Read full testimonial"}</span>
+                      <span
+                        aria-hidden
+                        className="inline-block transition-transform duration-300"
+                        style={{
+                          transform: expanded ? "rotate(180deg)" : "none",
+                          transitionTimingFunction: "var(--ease-out-expo)",
+                        }}
+                      >
+                        &darr;
+                      </span>
+                    </button>
+                  )}
+
+                  <p className="mt-4 eyebrow text-[11px] text-[var(--color-ivory-faint)]">
+                    &mdash; {profile.name}
+                  </p>
+                </div>
+              </div>
+            ) : (
             <div
               className={`relative ${
                 vertical ? "max-w-[230px]" : "max-w-[460px]"
@@ -171,6 +268,7 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
                 />
               </div>
             </div>
+            )}
           </div>
         </div>
       </div>
