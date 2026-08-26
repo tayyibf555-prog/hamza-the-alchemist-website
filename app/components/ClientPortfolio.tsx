@@ -32,6 +32,13 @@ type Profile = {
    * and dropping 400 words into the roster would bury the next case study.
    */
   written?: string;
+  /**
+   * Screenshots of the testimonial as it was actually sent. Preferred over
+   * `written` when present: the raw message is harder to doubt than the same
+   * words retyped. Tap opens the full-size image, since message text is
+   * unreadable at thumbnail width.
+   */
+  screenshots?: string[];
 };
 
 const profiles: Profile[] = [
@@ -77,6 +84,12 @@ const profiles: Profile[] = [
     name: "MARCO",
     role: "Entrepreneur",
     result: "$10K \u2192 $30K / month",
+    // Shown instead of the retyped paragraph below, which now only acts as a
+    // fallback if these files are ever missing.
+    screenshots: [
+      "/clients/marco/marco-1.png",
+      "/clients/marco/marco-2.png",
+    ],
     written:
       "When I first came to Hamza I was still showing up as an entrepreneur who was fearful and unaware of his own potential, not fully breaking free of myself, and honestly I didn't realize how much that was holding me back until we got into it.\n\nUnderneath that were money ceilings and self sabotage I'd never really addressed before. It wasn't instant. There was a real delay on my end, deals sitting stuck, me doing the internal work but not seeing anything move for a while. The hardest part was staying with the program when nothing in my external world had caught up yet\u2026 Then recently, things started to align and big deals were coming into my orbit. The deals that had been stuck started closing, and it happened right alongside me stepping into my own identity, out from behind that partner role on my business venture. It started to feel like perfect synchronicity, like the money and the shift were simultaneously working in tandem to unblock my past inner ceilings that impeded my growth.\n\nHamza really helped me unlock parts of myself I was scared to address. From money ceilings to self sabotage, I've been able to learn, grow, and accept myself through this. I'm very grateful for how it's allowed me to unlock new parts of myself that have set me free and welcomed abundance, opportunity, and wealth. I'm looking forward to what more the future brings from everything I've learned working with Hamza. I have the greatest respect for him and am looking forward to friends and colleagues I know will work with Hamza in the future.",
   },
@@ -84,6 +97,9 @@ const profiles: Profile[] = [
 
 function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
   const [expanded, setExpanded] = useState(false);
+  const [lightbox, setLightbox] = useState<string | null>(null);
+  // A screenshot that 404s should read as "not in yet", never as a broken img.
+  const [missing, setMissing] = useState<string[]>([]);
   // Stagger: alternate which side the portrait sits on.
   const flip = index % 2 === 1;
   const paras = profile.written?.split("\n\n") ?? [];
@@ -189,7 +205,50 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
               Testimonial
             </p>
 
-            {profile.written ? (
+            {profile.screenshots?.length &&
+            missing.length < profile.screenshots.length ? (
+              <div className="max-w-[560px] mx-auto lg:mx-0">
+                <div className="grid grid-cols-2 gap-4">
+                  {profile.screenshots.map((src, i) => (
+                    <button
+                      key={src}
+                      type="button"
+                      onClick={() => !missing.includes(src) && setLightbox(src)}
+                      aria-label={`Open ${profile.name}'s testimonial, image ${i + 1}`}
+                      className="group relative block overflow-hidden rounded-[10px]"
+                      style={{ border: "1px solid var(--color-hairline)" }}
+                    >
+                      {missing.includes(src) ? null : (
+                        <>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={src}
+                            alt={`${profile.name}'s testimonial, image ${i + 1}`}
+                            loading="lazy"
+                            onError={() =>
+                              setMissing((m) => (m.includes(src) ? m : [...m, src]))
+                            }
+                            className="block w-full h-auto transition-transform duration-500 group-hover:scale-[1.02]"
+                            style={{ transitionTimingFunction: "var(--ease-out-expo)" }}
+                          />
+                        </>
+                      )}
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, transparent 40%, oklch(0.04 0.005 70 / 0.55) 100%)",
+                        }}
+                      />
+                    </button>
+                  ))}
+                </div>
+                <p className="mt-3 eyebrow text-[10px] tracking-[0.2em] text-[var(--color-ivory-faint)]">
+                  Tap to enlarge
+                </p>
+              </div>
+            ) : profile.written ? (
               <div className="max-w-[58ch] mx-auto lg:mx-0 text-left">
                 <div
                   className="relative rounded-[10px] p-6 lg:p-7"
@@ -272,6 +331,45 @@ function ProfileBlock({ profile, index }: { profile: Profile; index: number }) {
           </div>
         </div>
       </div>
+
+      {/* Full-size overlay — message text is unreadable at thumbnail width,
+          so the screenshots are only really usable once enlarged. */}
+      {lightbox && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${profile.name}'s testimonial`}
+          onClick={() => setLightbox(null)}
+          onKeyDown={(e) => e.key === "Escape" && setLightbox(null)}
+          tabIndex={-1}
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
+          style={{
+            background: "oklch(0.02 0.004 70 / 0.94)",
+            backdropFilter: "blur(6px)",
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => setLightbox(null)}
+            aria-label="Close"
+            className="absolute top-4 right-4 flex items-center justify-center w-11 h-11 rounded-full text-[var(--color-gold)] text-[22px] leading-none"
+            style={{
+              background: "oklch(0.10 0.010 70 / 0.85)",
+              border: "1px solid var(--color-gold-deep)",
+            }}
+          >
+            &times;
+          </button>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={lightbox}
+            alt={`${profile.name}'s testimonial`}
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-full max-w-full w-auto h-auto object-contain rounded-[8px]"
+            style={{ border: "1px solid var(--color-hairline)" }}
+          />
+        </div>
+      )}
 
       {/* Per-case-study apply CTA */}
       <div className="mt-8 lg:mt-10 flex justify-center">
