@@ -43,3 +43,6 @@ next-env.d.ts
 # originals would only ship a second, unreferenced copy of every file.
 /public/jenny case study/
 /public/case study 3/
+
+# Loose source drops; the used copies live in public/clients/marco/
+/alchemist sms review *.jpeg

@@ -87,9 +87,11 @@ const profiles: Profile[] = [
     result: "$10K \u2192 $30K / month",
     // Shown instead of the retyped paragraph below, which now only acts as a
     // fallback if these files are ever missing.
+    // Ordered by reading order, which is the reverse of how the source files
+    // were named: the "2" capture holds the opening of the message.
     screenshots: [
-      "/clients/marco/marco-1.png",
-      "/clients/marco/marco-2.png",
+      "/clients/marco/marco-1.jpg",
+      "/clients/marco/marco-2.jpg",
     ],
     written:
       "When I first came to Hamza I was still showing up as an entrepreneur who was fearful and unaware of his own potential, not fully breaking free of myself, and honestly I didn't realize how much that was holding me back until we got into it.\n\nUnderneath that were money ceilings and self sabotage I'd never really addressed before. It wasn't instant. There was a real delay on my end, deals sitting stuck, me doing the internal work but not seeing anything move for a while. The hardest part was staying with the program when nothing in my external world had caught up yet\u2026 Then recently, things started to align and big deals were coming into my orbit. The deals that had been stuck started closing, and it happened right alongside me stepping into my own identity, out from behind that partner role on my business venture. It started to feel like perfect synchronicity, like the money and the shift were simultaneously working in tandem to unblock my past inner ceilings that impeded my growth.\n\nHamza really helped me unlock parts of myself I was scared to address. From money ceilings to self sabotage, I've been able to learn, grow, and accept myself through this. I'm very grateful for how it's allowed me to unlock new parts of myself that have set me free and welcomed abundance, opportunity, and wealth. I'm looking forward to what more the future brings from everything I've learned working with Hamza. I have the greatest respect for him and am looking forward to friends and colleagues I know will work with Hamza in the future.",
