@@ -83,6 +83,7 @@ const profiles: Profile[] = [
   {
     name: "MARCO",
     role: "Entrepreneur",
+    photo: "/clients/marco.jpg",
     result: "$10K \u2192 $30K / month",
     // Shown instead of the retyped paragraph below, which now only acts as a
     // fallback if these files are ever missing.
