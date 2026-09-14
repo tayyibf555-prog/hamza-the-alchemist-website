@@ -27,7 +27,7 @@ export function CTAButton({
     return (
       <a
         href={href}
-        className={`group eyebrow inline-flex items-center gap-3 text-[var(--color-gold)] hover:text-[var(--color-gold-soft)] transition-colors duration-200 ${className}`}
+        className={`group eyebrow inline-flex items-center gap-3 min-h-[44px] text-[var(--color-gold)] hover:text-[var(--color-gold-soft)] transition-colors duration-200 ${className}`}
       >
         <span>{children}</span>
         <span
