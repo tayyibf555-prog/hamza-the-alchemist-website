@@ -2,9 +2,12 @@
 
 import { Reveal } from "../Reveal";
 import { CTAButton } from "../CTAButton";
+import { APPLY_URL } from "../../lib/links";
 import {
   COHORT_NUMBER,
   PRICE,
+  PRIVATE_CHECKOUT_URL,
+  PRIVATE_PRICE,
   PRICE_WAS,
   SEATS,
   SEATS_TAKEN,
@@ -140,14 +143,17 @@ export function CohortPricing() {
               </p>
 
               <div className="mt-5">
-                <span className="font-display font-extrabold leading-none text-[clamp(30px,3.2vw,42px)] text-[var(--color-ivory)]">
-                  By application
+                <span className="font-display font-extrabold leading-none text-[clamp(38px,4.4vw,58px)] text-[var(--color-ivory)]">
+                  {PRIVATE_PRICE !== null
+                    ? formatPrice(PRIVATE_PRICE)
+                    : "By application"}
                 </span>
               </div>
 
               <p className="mt-5 text-[var(--color-ivory-dim)] text-[15px] leading-[1.7]">
                 One-to-one identity recalibration, paced to you. The work the
                 roster on the homepage came out of.
+                {PRIVATE_PRICE !== null && " No application — pay and book in."}
               </p>
 
               <div className="mt-8 pt-6 flex-1" style={{ borderTop: "1px solid var(--color-hairline)" }}>
@@ -157,6 +163,7 @@ export function CohortPricing() {
                     "Private sessions, not group calls",
                     "Paced to your situation",
                     "Direct line to Hamza",
+                    "No audit, no application — start straight away",
                   ].map((l) => (
                     <li key={l} className="flex gap-3">
                       <span aria-hidden className="text-[var(--color-ivory-faint)] text-[14px] leading-[1.6]">
@@ -171,9 +178,18 @@ export function CohortPricing() {
               </div>
 
               <div className="mt-9">
-                <CTAButton size="large" variant="ghost">
-                  See If You Qualify
-                </CTAButton>
+                {PRIVATE_PRICE !== null ? (
+                  <CTAButton
+                    size="large"
+                    href={PRIVATE_CHECKOUT_URL ?? APPLY_URL}
+                  >
+                    Start 1-on-1
+                  </CTAButton>
+                ) : (
+                  <CTAButton size="large" variant="ghost">
+                    See If You Qualify
+                  </CTAButton>
+                )}
               </div>
             </div>
           </Reveal>

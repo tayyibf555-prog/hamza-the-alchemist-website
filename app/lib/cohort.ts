@@ -10,11 +10,29 @@
 /** Cohort number, shown in the banner and hero. */
 export const COHORT_NUMBER = 1;
 
+/** Currency symbol used by every price on the page. */
+export const CURRENCY = "$";
+
 /**
- * Price in GBP. Set to a number to show it, e.g. 1997.
- * While null the pricing card reads "By application".
+ * Cohort price. Set to a number to show it, e.g. 1997.
+ * While null the cohort card reads "By application".
  */
 export const PRICE: number | null = null;
+
+/**
+ * Private 1-on-1 price. Unlike the cohort this is a straight purchase —
+ * no audit, no application. Paid up front and booked after.
+ */
+export const PRIVATE_PRICE: number | null = 997;
+
+/**
+ * Direct checkout link for the private option.
+ *
+ * While null the button falls back to the normal apply flow, so it always
+ * goes somewhere real rather than to a dead href — swap in the payment link
+ * and the card becomes a straight buy.
+ */
+export const PRIVATE_CHECKOUT_URL: string | null = null;
 
 /** Optional strike-through price for a launch offer. */
 export const PRICE_WAS: number | null = null;
@@ -38,7 +56,7 @@ export const CALL_SLOT: string | null = null;
 export const WEEKS = 6;
 
 export const formatPrice = (v: number) =>
-  `£${v.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`;
+  `${CURRENCY}${v.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
 
 export const formatStart = (iso: string) =>
   new Date(iso + "T00:00:00").toLocaleDateString("en-GB", {
@@ -157,7 +175,11 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "How is this different from the private work?",
-    a: "The private work is one-to-one and paced to you. The cohort covers the same material in a group at a lower price, with less individual time.",
+    a: "The private work is one-to-one and paced entirely to you, and you can start it the moment you pay. The cohort covers the same material in a group, on a fixed six-week schedule, with less individual time.",
+  },
+  {
+    q: "Do I have to apply?",
+    a: "For the private work, no — you pay and we book you in. The cohort has limited seats, so that one goes through the form.",
   },
   {
     q: "What if it does not work for me?",
