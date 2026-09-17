@@ -4,11 +4,10 @@
  * The application destination. Every "apply / see if you qualify" CTA points
  * here, so swapping funnels is a one-line change.
  *
- * Currently the Alchemy Identity Audit. It replaced a Typeform in Aug 2026 —
- * hence the deliberately generic name, so the constant does not have to be
- * renamed the next time the funnel moves.
+ * Back on the Typeform as of Sept 2026, after a spell on the Alchemy Identity
+ * Audit. The name stays generic precisely because this keeps moving.
  */
-export const APPLY_URL = "https://hamzathealchemist.netlify.app/";
+export const APPLY_URL = "https://form.typeform.com/to/YkVVRS4U";
 
 /** The community (lower-ticket) destination. */
 export const SKOOL_URL = "https://www.skool.com/the-21st-century-alchemist/about";
