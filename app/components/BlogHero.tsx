@@ -27,7 +27,7 @@ export function BlogHero() {
       return;
     }
     try {
-      await subscribeEmail(email);
+      await subscribeEmail(email, "blog");
       trackMeta("CompleteRegistration");
       setStatus("ok");
     } catch {

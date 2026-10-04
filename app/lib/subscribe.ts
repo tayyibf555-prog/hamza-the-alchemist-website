@@ -1,19 +1,24 @@
 /**
- * Posts an email to the Google Apps Script web app, which appends it as a
- * single-column row in the connected Google Sheet.
+ * Sends an email to our own /api/subscribe route, which writes it to
+ * Mailchimp and to the Google Sheet.
  *
- * The Apps Script web app does not return CORS headers, so we fire the
- * request with `mode: "no-cors"` (the row still gets written; we just can't
- * read the response). Treated as success unless the network call throws.
+ * Previously this posted straight to the Apps Script with `mode: "no-cors"`,
+ * which made the response unreadable — so the form showed its success state
+ * even when the endpoint was dead. Going through a same-origin route means
+ * CORS is not in play and a genuine failure can be surfaced.
  */
-const SHEET_ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbxCjP93bP3gS8lY8gK5XOoX5PUObKJ2b0uMR_AavueGu9PqhjX7GK3vYuqm_fu-UNUJhw/exec";
-
-export async function subscribeEmail(email: string): Promise<void> {
-  await fetch(SHEET_ENDPOINT, {
+export async function subscribeEmail(
+  email: string,
+  /** Where the signup came from; becomes a Mailchimp tag, e.g. "homepage". */
+  source?: string
+): Promise<void> {
+  const res = await fetch("/api/subscribe", {
     method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({ email }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, source }),
   });
+
+  if (!res.ok) {
+    throw new Error(`subscribe failed: ${res.status}`);
+  }
 }

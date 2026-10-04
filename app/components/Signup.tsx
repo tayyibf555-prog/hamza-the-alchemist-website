@@ -24,7 +24,7 @@ export function Signup() {
       return;
     }
     try {
-      await subscribeEmail(email);
+      await subscribeEmail(email, "homepage");
       trackMeta("CompleteRegistration");
       setStatus("ok");
     } catch {
