@@ -64,6 +64,10 @@ export const TESTIMONIAL_SHOTS: { src: string; alt: string }[] = [
   { src: "/testimonials/cohort/anxiety.jpg", alt: "Client message: my anxiety is practically gone, and it is only my first week" },
   { src: "/testimonials/cohort/new-generation.jpg", alt: "Client message: I wake up feeling alive, and I am seeing it financially too" },
   { src: "/testimonials/cohort/marlene.jpg", alt: "Client message from Marlene: waking up with more clarity and conviction" },
+  // Marco's, from the earlier batch. He also has a full case study further
+  // down the page; the wall is the at-a-glance version of the same proof.
+  { src: "/clients/marco/marco-1.jpg", alt: "Client message from Marco: I didn't realise how much that was holding me back" },
+  { src: "/clients/marco/marco-2.jpg", alt: "Client message from Marco: the deals that had been stuck started closing" },
 ];
 
 /** How many weeks the cohort runs. */
