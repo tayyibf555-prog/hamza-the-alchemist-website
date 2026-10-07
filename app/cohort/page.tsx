@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { CohortHero } from "../components/cohort/CohortHero";
+import { CohortVsl } from "../components/cohort/CohortVsl";
+import { CohortTestimonials } from "../components/cohort/CohortTestimonials";
 import { CohortCurriculum } from "../components/cohort/CohortCurriculum";
 import { CohortIncludes } from "../components/cohort/CohortIncludes";
 import { CohortFit } from "../components/cohort/CohortFit";
@@ -29,6 +31,8 @@ export default function CohortPage() {
       <Nav />
       <main>
         <CohortHero />
+        <CohortVsl />
+        <CohortTestimonials />
         <CohortCurriculum />
         <CohortIncludes />
         <ClientPortfolio />

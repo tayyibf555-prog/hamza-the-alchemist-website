@@ -52,6 +52,20 @@ export const SEATS_TAKEN: number | null = null;
 /** Weekly live call — day and time, e.g. "Tuesdays · 7pm UK". */
 export const CALL_SLOT: string | null = null;
 
+/**
+ * The cohort VSL. Null until the video exists — the player then renders a
+ * labelled placeholder frame rather than a broken <video>.
+ */
+export const COHORT_VSL_SRC: string | null = null;
+
+/** Screenshots of client messages, shown as the proof wall. */
+export const TESTIMONIAL_SHOTS: { src: string; alt: string }[] = [
+  { src: "/testimonials/cohort/identity.jpg", alt: "Client message: the old identity came back and I observed it instead of reacting" },
+  { src: "/testimonials/cohort/anxiety.jpg", alt: "Client message: my anxiety is practically gone, and it is only my first week" },
+  { src: "/testimonials/cohort/new-generation.jpg", alt: "Client message: I wake up feeling alive, and I am seeing it financially too" },
+  { src: "/testimonials/cohort/marlene.jpg", alt: "Client message from Marlene: waking up with more clarity and conviction" },
+];
+
 /** How many weeks the cohort runs. */
 export const WEEKS = 6;
 
