@@ -3,12 +3,11 @@
 import { useState } from "react";
 import { Reveal } from "../Reveal";
 import { CTAButton } from "../CTAButton";
-import { FAQS, SEATS, SEATS_TAKEN, START_DATE, formatStart } from "../../lib/cohort";
+import { CHECKOUT_URL, FAQS } from "../../lib/course";
+import { APPLY_URL } from "../../lib/links";
 
-export function CohortFaq() {
+export function CourseFaq() {
   const [open, setOpen] = useState<number | null>(0);
-  const remaining =
-    SEATS !== null && SEATS_TAKEN !== null ? SEATS - SEATS_TAKEN : null;
 
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden">
@@ -16,8 +15,8 @@ export function CohortFaq() {
         <div className="text-center mb-14">
           <Reveal delay={0.1}>
             <h2 className="font-display font-extrabold leading-[1.0] tracking-[-0.02em] text-[clamp(30px,3.4vw,50px)] text-[var(--color-ivory)]">
-              Asked and{" "}
-              <span className="accent text-[var(--color-gold)]">answered.</span>
+              Frequently asked{" "}
+              <span className="accent text-[var(--color-gold)]">questions.</span>
             </h2>
           </Reveal>
         </div>
@@ -26,7 +25,13 @@ export function CohortFaq() {
           {FAQS.map((f, i) => {
             const isOpen = open === i;
             return (
-              <div key={f.q} style={{ borderBottom: "1px solid var(--color-hairline)" }}>
+              <div
+                key={f.q}
+                style={{
+                  borderBottom: "1px solid var(--color-hairline)",
+                  opacity: f.pending ? 0.6 : 1,
+                }}
+              >
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
@@ -66,14 +71,9 @@ export function CohortFaq() {
           </Reveal>
           <Reveal delay={0.12}>
             <div className="mt-9 flex flex-col items-center gap-4">
-              <CTAButton size="large">Claim Your Seat</CTAButton>
-              {(START_DATE || (remaining !== null && remaining > 0)) && (
-                <p className="text-[13px] text-[var(--color-ivory-faint)]">
-                  {START_DATE && `Starts ${formatStart(START_DATE)}`}
-                  {START_DATE && remaining !== null && remaining > 0 && " · "}
-                  {remaining !== null && remaining > 0 && `${remaining} seats left`}
-                </p>
-              )}
+              <CTAButton size="large" href={CHECKOUT_URL ?? APPLY_URL}>
+                Get Access Now
+              </CTAButton>
             </div>
           </Reveal>
         </div>

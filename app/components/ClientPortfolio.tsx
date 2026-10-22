@@ -5,7 +5,7 @@ import { Reveal } from "./Reveal";
 import { VideoFrame } from "./VideoFrame";
 import { CTAButton } from "./CTAButton";
 
-type Profile = {
+export type Profile = {
   name: string;
   role: string;
   /** Portrait photo path under /public. */
@@ -41,7 +41,7 @@ type Profile = {
   screenshots?: string[];
 };
 
-const profiles: Profile[] = [
+export const profiles: Profile[] = [
   {
     name: "JORDY MICHELS",
     role: "Day Trader",

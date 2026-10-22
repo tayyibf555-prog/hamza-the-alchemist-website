@@ -1,22 +1,21 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { COHORT_NUMBER, START_DATE, formatStart } from "../lib/cohort";
 
 /**
  * Announcement bar above the masthead.
  *
- * Sits in the document flow rather than fixed, matching the nav — this page
- * has no sticky chrome, and pinning a bar would eat the same mobile pixels
- * the VSL is competing for. The whole bar is the link, so the tap target is
- * the full width rather than the few words inside it.
+ * In the document flow rather than fixed, matching the nav — this page has no
+ * sticky chrome, and pinning a bar would eat the mobile pixels the VSL is
+ * competing for. The whole bar is the link, so the tap target is the full
+ * width rather than the few words inside it.
  */
-export function CohortBanner() {
+export function CourseBanner() {
   const reduced = useReducedMotion();
 
   return (
     <motion.a
-      href="/cohort"
+      href="/course"
       initial={{ opacity: 0, y: reduced ? 0 : -8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -37,17 +36,10 @@ export function CohortBanner() {
           }}
         />
         <span className="eyebrow font-semibold tracking-[0.16em] text-[10.5px] sm:text-[12px] text-[var(--color-ink-deep)]">
-          Cohort {COHORT_NUMBER} Open Now
+          The Course Is Open
         </span>
-        {START_DATE && (
-          <span className="eyebrow tracking-[0.14em] text-[10.5px] sm:text-[12px] text-[oklch(0.10_0.010_70_/_0.72)]">
-            &middot; Starts {formatStart(START_DATE)}
-          </span>
-        )}
-        <span
-          className="eyebrow tracking-[0.14em] text-[10.5px] sm:text-[12px] text-[var(--color-ink-deep)] underline underline-offset-4 decoration-[oklch(0.10_0.010_70_/_0.4)] inline-flex items-center gap-1.5"
-        >
-          Claim your seat
+        <span className="eyebrow tracking-[0.14em] text-[10.5px] sm:text-[12px] text-[var(--color-ink-deep)] underline underline-offset-4 decoration-[oklch(0.10_0.010_70_/_0.4)] inline-flex items-center gap-1.5">
+          Get instant access
           <span
             aria-hidden
             className="inline-block transition-transform duration-300 group-hover:translate-x-1"

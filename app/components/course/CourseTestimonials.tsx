@@ -4,40 +4,41 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "../Reveal";
 import { CTAButton } from "../CTAButton";
-import { TESTIMONIAL_SHOTS } from "../../lib/cohort";
+import { CHECKOUT_URL, TESTIMONIAL_SHOTS } from "../../lib/course";
+import { APPLY_URL } from "../../lib/links";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 /**
  * The proof wall — unedited client messages.
  *
- * A masonry column layout rather than a grid: the screenshots are wildly
- * different heights (tall phone captures next to a wide crop) and a grid
- * would letterbox or crop them. Columns let each keep its own proportions.
+ * Two columns, matching the reference: at this width the message text is
+ * actually legible in place rather than being a thumbnail you have to open.
+ * Masonry rather than a grid because the captures run from tall phone
+ * screenshots to a wide crop, and a grid would letterbox or crop them.
  *
- * Message text is unreadable at column width, so tapping opens the full
- * image — the same pattern as Marco's testimonial on the homepage.
+ * Tapping still opens the full image for anyone who wants to read closely.
  */
-export function CohortTestimonials() {
+export function CourseTestimonials() {
   const reduced = useReducedMotion();
   const [lightbox, setLightbox] = useState<string | null>(null);
 
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden">
-      <div className="mx-auto max-w-[1100px] px-6 lg:px-10">
+      <div className="mx-auto max-w-[820px] px-6 lg:px-10">
         <div className="text-center mb-14 lg:mb-16">
-          <Reveal as="p" className="eyebrow text-[var(--color-gold)] mb-6">
-            Unedited
+          <Reveal as="p" className="eyebrow text-[var(--color-gold)] mb-6 text-[11px] leading-[1.7]">
+            This isn&rsquo;t another &lsquo;manifestation&rsquo; course selling you false hope.
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="font-display font-extrabold leading-[1.0] tracking-[-0.02em] text-[clamp(30px,3.4vw,50px)] text-[var(--color-ivory)]">
-              What they send{" "}
-              <span className="accent text-[var(--color-gold)]">after.</span>
+            <h2 className="font-display font-extrabold text-balance leading-[1.1] tracking-[-0.02em] text-[clamp(28px,3.2vw,46px)] text-[var(--color-ivory)]">
+              This Is Identity Transmutation. And The Results{" "}
+              <span className="accent text-[var(--color-gold)]">Speak For Themselves.</span>
             </h2>
           </Reveal>
         </div>
 
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 [column-fill:_balance]">
+        <div className="columns-1 sm:columns-2 gap-5 [column-fill:_balance]">
           {TESTIMONIAL_SHOTS.map((shot, i) => (
             <motion.button
               key={shot.src}
@@ -76,7 +77,7 @@ export function CohortTestimonials() {
         </p>
 
         <div className="mt-12 flex justify-center">
-          <CTAButton size="large">I Want Similar Results</CTAButton>
+          <CTAButton size="large" href={CHECKOUT_URL ?? APPLY_URL}>Get Access Now</CTAButton>
         </div>
       </div>
 

@@ -1,44 +1,10 @@
-import type { Metadata } from "next";
-import { Nav } from "../components/Nav";
-import { Footer } from "../components/Footer";
-import { CohortHero } from "../components/cohort/CohortHero";
-import { CohortTestimonials } from "../components/cohort/CohortTestimonials";
-import { CohortCurriculum } from "../components/cohort/CohortCurriculum";
-import { CohortIncludes } from "../components/cohort/CohortIncludes";
-import { CohortFit } from "../components/cohort/CohortFit";
-import { CohortPricing } from "../components/cohort/CohortPricing";
-import { CohortFaq } from "../components/cohort/CohortFaq";
-import { ClientPortfolio } from "../components/ClientPortfolio";
-
-export const metadata: Metadata = {
-  title: "The Cohort | The Lion Alchemist",
-  description:
-    "Six weeks of identity recalibration for 6–7 figure operators. One live call a week, with the course content between them.",
-};
+import { redirect } from "next/navigation";
 
 /**
- * The cohort page.
- *
- * Order follows the sales logic: the offer, then exactly what happens each
- * week, then what you get, then proof, then fit, then price, then objections.
- * Proof sits before the price deliberately — the roster is the reason the
- * number is believable.
+ * The cohort became a standalone course. This route stays alive so any link
+ * already shared lands on the course rather than a 404. Temporary (307), not
+ * permanent, so reverting would not leave it cached as redirected.
  */
 export default function CohortPage() {
-  return (
-    <>
-      <Nav />
-      <main>
-        <CohortHero />
-        <CohortTestimonials />
-        <CohortCurriculum />
-        <CohortIncludes />
-        <ClientPortfolio />
-        <CohortFit />
-        <CohortPricing />
-        <CohortFaq />
-      </main>
-      <Footer />
-    </>
-  );
+  redirect("/course");
 }

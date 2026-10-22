@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CohortBanner } from "./components/CohortBanner";
+import { CourseBanner } from "./components/CourseBanner";
 import { Nav } from "./components/Nav";
 import { MethodHero } from "./components/MethodHero";
 import { ClientPortfolio } from "./components/ClientPortfolio";
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <CohortBanner />
+      <CourseBanner />
       <Nav />
       <main>
         <MethodHero />
