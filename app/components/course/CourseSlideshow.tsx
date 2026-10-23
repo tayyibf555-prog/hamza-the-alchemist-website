@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { VideoFrame } from "../VideoFrame";
 import { profiles } from "../ClientPortfolio";
@@ -14,56 +14,31 @@ type Slide = {
   embedUrl?: string;
   videoPoster?: string;
   aspect?: string;
-  /** Eyebrow above the name, e.g. "Actor // Business Owner". */
+  /** Eyebrow under the figure, e.g. "Actor // Business Owner". */
   role?: string;
-  /** Short write-up shown under the figure. `**text**` is set in gold. */
   bio?: string[];
 };
 
-/** Renders `**...**` spans in gold; everything else as plain text. */
-const withGold = (text: string) =>
-  text.split(/\*\*(.+?)\*\*/g).map((part, n) =>
-    n % 2 ? (
-      <strong key={n} className="font-semibold text-[var(--color-gold)]">
-        {part}
-      </strong>
-    ) : (
-      part
-    ),
-  );
-
 /**
- * K.C. Wolf leads — Hamza wants his video at the top of the sales page.
- * This is his full testimonial; the source is only 360x640, so it is
- * shown as-is rather than upscaled.
+ * Every client with a video, in roster order — K.C. Wolf leads, as Hamza
+ * asked. Unlike the homepage roster this includes clients hidden there
+ * (`onHomepage: false`), since the course keeps its full set of proof.
  */
-const KC_WOLF: Slide = {
-  name: "K.C. Wolf",
-  result: "$10K → $30K / month",
-  videoSrc: "/testimonials/course/kc-wolf.mp4",
-  // The video opens on a shot of trees; this is a frame from 0:45.
-  videoPoster: "/testimonials/course/kc-wolf-poster.jpg",
-  aspect: "9 / 16",
-  role: "Actor // Business Owner",
-  bio: [
-    "K.C. Wolf entered the program fighting battles behind the scenes that were holding him back from his true potential.",
-    "He emerged with a renewed sense of purpose, opening doors to new acting roles and auditions while scaling his social media marketing business to **over $30,000 per month.**",
-  ],
-};
+const SLIDES: Slide[] = profiles
+  .filter((p) => p.videoSrc || p.videoEmbedUrl)
+  .map((p) => ({
+    name: p.name,
+    result: p.result,
+    videoSrc: p.videoSrc,
+    embedUrl: p.videoEmbedUrl,
+    videoPoster: p.videoPoster,
+    aspect: p.videoAspect,
+    role: p.role,
+    bio: p.bio?.split("\n\n"),
+  }));
 
-const SLIDES: Slide[] = [
-  KC_WOLF,
-  ...profiles
-    .filter((p) => p.videoSrc || p.videoEmbedUrl)
-    .map((p) => ({
-      name: p.name,
-      result: p.result,
-      videoSrc: p.videoSrc,
-      embedUrl: p.videoEmbedUrl,
-      videoPoster: p.videoPoster,
-      aspect: p.videoAspect,
-    })),
-];
+/** Horizontal drag distance, in px, that counts as a swipe. */
+const SWIPE = 60;
 
 const titleCase = (s: string) =>
   s.toLowerCase().replace(/(^|[\s.])\S/g, (c) => c.toUpperCase());
@@ -79,6 +54,7 @@ export function CourseSlideshow() {
   const reduced = useReducedMotion();
   const [i, setI] = useState(0);
   const [dir, setDir] = useState(1);
+  const startX = useRef<number | null>(null);
   const slide = SLIDES[i];
   const hasMedia = !!(slide.videoSrc || slide.embedUrl);
   const vertical = slide.aspect
@@ -96,6 +72,21 @@ export function CourseSlideshow() {
   return (
     <section className="relative pb-24 lg:pb-32 overflow-hidden" aria-roledescription="carousel" aria-label="Client results">
       <div className="mx-auto max-w-[760px] px-6 lg:px-10">
+        {/* The arrows sit below a tall video, so on a phone the visitor can
+            reach the end of slide one without knowing there are more. */}
+        <div className="mb-5 flex items-center justify-center gap-3 eyebrow text-[11px] tracking-[0.22em] text-[var(--color-gold)]">
+          <span>Swipe to see more</span>
+          <motion.span
+            aria-hidden
+            animate={reduced ? undefined : { x: [0, 6, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          >
+            &rarr;
+          </motion.span>
+          <span className="text-[var(--color-ivory-faint)] tabular-nums">
+            {i + 1} / {SLIDES.length}
+          </span>
+        </div>
         <div
           className="relative rounded-[14px] p-5 sm:p-7"
           style={{
@@ -112,7 +103,16 @@ export function CourseSlideshow() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: reduced ? 0 : dir * -40 }}
                 transition={{ duration: 0.45, ease: easeOutExpo }}
-                className="w-full"
+                onPointerDown={(e) => (startX.current = e.clientX)}
+                onPointerUp={(e) => {
+                  if (startX.current === null) return;
+                  const dx = e.clientX - startX.current;
+                  startX.current = null;
+                  if (dx < -SWIPE) go(1);
+                  else if (dx > SWIPE) go(-1);
+                }}
+                onPointerCancel={() => (startX.current = null)}
+                className="w-full touch-pan-y select-none"
               >
                 <div className={`mx-auto ${vertical ? "max-w-[320px]" : "max-w-[640px]"}`}>
                   {hasMedia ? (
@@ -160,7 +160,7 @@ export function CourseSlideshow() {
                       key={n}
                       className="mt-3 max-w-[52ch] mx-auto text-[var(--color-ivory-dim)] text-[15px] lg:text-[16px] leading-[1.7]"
                     >
-                      {withGold(para)}
+                      {para}
                     </p>
                   ))}
                 </div>

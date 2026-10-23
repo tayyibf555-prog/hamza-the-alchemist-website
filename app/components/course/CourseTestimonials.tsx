@@ -12,12 +12,10 @@ const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 /**
  * The proof wall — unedited client messages.
  *
- * Two columns, matching the reference: at this width the message text is
- * actually legible in place rather than being a thumbnail you have to open.
- * Masonry rather than a grid because the captures run from tall phone
- * screenshots to a wide crop, and a grid would letterbox or crop them.
- *
- * Tapping still opens the full image for anyone who wants to read closely.
+ * An even grid of same-size cards. The captures run from tall phone
+ * screenshots to a short crop, and stacked at their natural heights they
+ * read as a jumble. Each card holds the whole capture scaled to fit —
+ * cropping cut messages off mid-word — and a tap opens it full size.
  */
 export function CourseTestimonials() {
   const reduced = useReducedMotion();
@@ -38,7 +36,7 @@ export function CourseTestimonials() {
           </Reveal>
         </div>
 
-        <div className="columns-1 sm:columns-2 gap-5 [column-fill:_balance]">
+        <div className="grid grid-cols-2 gap-3 sm:gap-5">
           {TESTIMONIAL_SHOTS.map((shot, i) => (
             <motion.button
               key={shot.src}
@@ -49,7 +47,7 @@ export function CourseTestimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-8% 0px" }}
               transition={{ duration: 0.8, delay: (i % 3) * 0.08, ease: easeOutExpo }}
-              className="group relative block w-full mb-5 break-inside-avoid overflow-hidden rounded-[10px]"
+              className="group relative block w-full aspect-[4/5] overflow-hidden rounded-[10px] bg-[var(--color-ink-deep)]"
               style={{ border: "1px solid var(--color-hairline)" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -57,24 +55,15 @@ export function CourseTestimonials() {
                 src={shot.src}
                 alt={shot.alt}
                 loading="lazy"
-                className="block w-full h-auto transition-transform duration-500 group-hover:scale-[1.02]"
+                className="absolute inset-0 w-full h-full object-contain p-2 pb-9 transition-transform duration-500 group-hover:scale-[1.02]"
                 style={{ transitionTimingFunction: "var(--ease-out-expo)" }}
               />
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{
-                  background:
-                    "linear-gradient(180deg, transparent 50%, oklch(0.04 0.005 70 / 0.5) 100%)",
-                }}
-              />
+              <span className="pointer-events-none absolute inset-x-0 bottom-3 text-center eyebrow text-[9px] sm:text-[10px] tracking-[0.2em] text-[var(--color-gold)]">
+                Tap to read
+              </span>
             </motion.button>
           ))}
         </div>
-
-        <p className="mt-2 text-center eyebrow text-[10px] tracking-[0.2em] text-[var(--color-ivory-faint)]">
-          Tap to enlarge
-        </p>
 
         <div className="mt-12 flex justify-center">
           <CTAButton size="large" href={CHECKOUT_URL ?? APPLY_URL}>Get Access Now</CTAButton>

@@ -39,9 +39,22 @@ export type Profile = {
    * unreadable at thumbnail width.
    */
   screenshots?: string[];
+  /** False keeps the client off the homepage roster; the course slideshow still shows them. */
+  onHomepage?: boolean;
 };
 
 export const profiles: Profile[] = [
+  {
+    name: "K.C. WOLF",
+    role: "Actor // Business Owner",
+    result: "$10K → $30K / month",
+    photo: "/clients/kc-wolf.jpg",
+    videoSrc: "/testimonials/course/kc-wolf.mp4",
+    // The video opens on a shot of trees; this is a frame from 0:45.
+    videoPoster: "/testimonials/course/kc-wolf-poster.jpg",
+    videoAspect: "9 / 16",
+    bio: "K.C. Wolf entered the program fighting battles behind the scenes that were holding him back from his true potential.\n\nHe emerged with a renewed sense of purpose, opening doors to new acting roles and auditions while scaling his social media marketing business to over $30,000 per month.",
+  },
   {
     name: "JORDY MICHELS",
     role: "Day Trader",
@@ -60,6 +73,7 @@ export const profiles: Profile[] = [
       "https://www.loom.com/embed/bba3a4897e60430a9914b1c85504893b?autoplay=1&hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true",
     videoPoster: "/clients/nathan-jones-poster.gif",
     videoAspect: "16 / 9",
+    onHomepage: false,
     bio: "Nathan Jones came to me as a 9–5 worker who wanted to become a full-time trader. Through identity recalibration, we removed the subconscious patterns keeping him tied to his old reality and installed the identity of a consistently profitable trader. As his identity changed, his results followed. Ultimately growing into a trader generating $5,000–$10,000 per month.",
   },
   {
@@ -404,7 +418,7 @@ export function ClientPortfolio() {
 
         {/* Staggered profile blocks — each closes with its own apply CTA */}
         <div className="flex flex-col gap-16 lg:gap-24">
-          {profiles.map((p, i) => (
+          {profiles.filter((p) => p.onHomepage !== false).map((p, i) => (
             <ProfileBlock key={p.name} profile={p} index={i} />
           ))}
         </div>
