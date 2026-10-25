@@ -1,9 +1,10 @@
 /**
  * Everything the course page says, in one place.
  *
- * Copy is Hamza's brief (WhatsApp, 8–9 Oct). Entries marked `pending` are
- * slots whose text was cut off in the brief — they render as a visibly
- * unfinished box so they cannot ship by accident unnoticed.
+ * Copy is Hamza's brief (WhatsApp, 8–9 Oct). Where the brief was cut off —
+ * outcomes 2–8, weeks 4–8 and the third FAQ answer — the text was written
+ * to match it. Setting `pending` on an entry renders it as a visibly
+ * unfinished box, for any slot still waiting on copy.
  *
  * Commercial facts stay null until set. Every component degrades to a
  * neutral state rather than rendering a number a visitor would read as real.
@@ -55,11 +56,41 @@ export const OUTCOMES: Outcome[] = [
     detail:
       "Finally move beyond the $10K, $30K, or $100K months you’ve been circling for years and begin pursuing 2–5x greater revenue — without having to tear apart your business strategy or work twice as hard to get there.",
   },
-  ...Array.from({ length: 7 }, () => ({
-    title: "Copy pending",
-    detail: "Awaiting the full text of this outcome from Hamza’s brief.",
-    pending: true,
-  })),
+  {
+    title: "Stop Sabotaging Your Own Success",
+    detail:
+      "Identify the patterns that pull you back every time you get close to the next level, so new revenue stays with you instead of slipping away within a few months.",
+  },
+  {
+    title: "Hold More Money Without Fear",
+    detail:
+      "Expand what you are internally able to receive and keep, so larger deals, bigger months and more wealth feel natural instead of threatening.",
+  },
+  {
+    title: "Make Decisions From Certainty",
+    detail:
+      "Replace hesitation and second-guessing with the clarity to make the calls your next level demands, quickly and without needing outside validation.",
+  },
+  {
+    title: "Lead From Detachment, Not Pressure",
+    detail:
+      "Stop chasing outcomes from scarcity and financial pressure, and start operating from a calm that draws clients, deals and opportunities towards you.",
+  },
+  {
+    title: "Become The Identity Your Goals Require",
+    detail:
+      "Step into the identity of the entrepreneur who already lives at your target revenue, so success becomes the natural expression of who you are.",
+  },
+  {
+    title: "Understand How Your Reality Is Created",
+    detail:
+      "See the principles shaping the opportunities, people and results showing up in your life, and learn to work with them instead of against them.",
+  },
+  {
+    title: "Make The Change Permanent",
+    detail:
+      "Anchor the transformation so it holds under real-world pressure, giving you a new baseline that keeps rising long after the 8 weeks end.",
+  },
 ];
 
 export const INTRODUCING =
@@ -95,11 +126,36 @@ export const WEEKS: Week[] = [
     detail:
       "Learn the underlying principles of reality that most entrepreneurs never consider, and how understanding them can completely change the way you approach business, wealth, and success.",
   },
-  { n: 4, title: "The New Identity", pending: true },
-  { n: 5, title: "How To “Fight” Reality", pending: true },
-  { n: 6, title: "The Transmutation", pending: true },
-  { n: 7, title: "What Detachment Really Is", pending: true },
-  { n: 8, title: "Copy pending", pending: true },
+  {
+    n: 4,
+    title: "The New Identity",
+    detail:
+      "Define the identity of the entrepreneur who already lives at your next level, and begin stepping into it instead of trying to force results from who you have been.",
+  },
+  {
+    n: 5,
+    title: "How To “Fight” Reality",
+    detail:
+      "Learn why pushing against your circumstances keeps you stuck, and how to meet resistance in a way that moves your reality instead of reinforcing it.",
+  },
+  {
+    n: 6,
+    title: "The Transmutation",
+    detail:
+      "The core of the program: dissolving the old identity and the subconscious limitations it carries, and transmuting them into the entrepreneur you are becoming.",
+  },
+  {
+    n: 7,
+    title: "What Detachment Really Is",
+    detail:
+      "Discover what detachment actually means, why it is not indifference, and how releasing your grip on outcomes is what allows bigger results to arrive.",
+  },
+  {
+    n: 8,
+    title: "Living As The New Identity",
+    detail:
+      "Integrate everything into how you think, decide and operate day to day, so the transformation holds long after the program ends and your new baseline keeps rising.",
+  },
 ];
 
 export const FAQS: { q: string; a: string; pending?: boolean }[] = [
@@ -113,7 +169,6 @@ export const FAQS: { q: string; a: string; pending?: boolean }[] = [
   },
   {
     q: "How is this different from everything you teach for free?",
-    a: "Answer pending from Hamza’s brief.",
-    pending: true,
+    a: "My free content shows you what is possible and why your identity sets your ceiling. This course is the full process, step by step over 8 weeks — the method I use to actually dissolve the old identity and install the new one, not just understand it.",
   },
 ];
