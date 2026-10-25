@@ -18,14 +18,18 @@ export function BlogHero() {
   const reduced = useReducedMotion();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "ok" | "err">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "err">("idle");
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // The request waits on the Google Sheet and can take a few seconds;
+    // without this, repeat clicks each wrote another row.
+    if (status === "sending" || status === "ok") return;
     if (!email || !email.includes("@")) {
       setStatus("err");
       return;
     }
+    setStatus("sending");
     try {
       await subscribeEmail(email, "blog");
       trackMeta("CompleteRegistration");
@@ -166,6 +170,7 @@ export function BlogHero() {
 
             <motion.button
               type="submit"
+              disabled={status === "sending" || status === "ok"}
               whileHover={reduced ? undefined : { scale: 1.01 }}
               whileTap={reduced ? undefined : { scale: 0.99 }}
               transition={{ duration: 0.25, ease: easeOutExpo }}
@@ -178,7 +183,11 @@ export function BlogHero() {
               }}
             >
               <span className="relative z-10 font-semibold tracking-[0.2em] text-[14px]">
-                {status === "ok" ? "Welcome, Operator" : "Enter The Inner Circle"}
+                {status === "ok"
+                  ? "Welcome, Operator"
+                  : status === "sending"
+                    ? "Sending\u2026"
+                    : "Enter The Inner Circle"}
               </span>
               <span
                 aria-hidden
