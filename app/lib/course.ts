@@ -24,7 +24,8 @@ export const PRICE_WAS: number | null = null;
  * Direct checkout link (Hamza's portal purchase URL). While null the button
  * falls back to the normal apply flow, so it never points at a dead href.
  */
-export const CHECKOUT_URL: string | null = null;
+export const CHECKOUT_URL: string | null =
+  "https://portal.hamzathealchemist.com/onboarding";
 
 /** The course VSL. Null renders a labelled placeholder frame. */
 export const COURSE_VSL_SRC: string | null = "/courseVSL/course-vsl.mp4";
