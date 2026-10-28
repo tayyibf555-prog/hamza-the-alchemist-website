@@ -8,6 +8,7 @@ import { AuraBackground } from "./components/AuraBackground";
 import { GoldDots } from "./components/GoldDots";
 import { Track } from "./components/Track";
 import { MetaPixel } from "./components/MetaPixel";
+import { BoxBot } from "./components/BoxBot";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -79,6 +80,7 @@ export default function RootLayout({
         <MotionRoot>{children}</MotionRoot>
         <Track />
         <MetaPixel />
+        <BoxBot />
         <Analytics />
       </body>
     </html>
