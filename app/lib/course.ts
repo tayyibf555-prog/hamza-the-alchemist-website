@@ -37,9 +37,9 @@ export const formatPrice = (v: number) =>
 /* ------------------------------------------------------------------ */
 
 export const HERO = {
-  lead: "Discover Why The Wealth You’ve Been Chasing Has Always Been On The Other Side Of",
-  accent: "An Identity You Haven’t Become Yet.",
-  sub: "Unlock the hidden principles of alchemy to dissolve the subconscious barriers between you and your next financial breakthrough, embody the entrepreneur capable of 2–5x greater revenue, and begin creating a new reality in 8 weeks. Without another business strategy.",
+  lead: "You’ve Spent Years Chasing The Wealth You Know You’re Capable Of. Yet You Keep Finding Yourself",
+  accent: "Trapped In The Same Financial Reality.",
+  sub: "Discover the 8-week alchemical framework for uncovering the subconscious patterns behind your financial limitations, transmuting your old identity, and learning to create wealth from an entirely new way of being.",
 };
 
 export const ABOUT = [

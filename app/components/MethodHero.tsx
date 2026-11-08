@@ -20,29 +20,32 @@ export function MethodHero() {
   return (
     <section className="relative pt-6 lg:pt-10 pb-20 lg:pb-28 overflow-hidden bloom-bg">
       <div className="mx-auto max-w-[1100px] px-6 lg:px-10">
-        <motion.p
-          initial={{ opacity: 0, y: reduced ? 0 : 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: easeOutExpo }}
-          className="eyebrow text-center text-[var(--color-gold)] text-[11px] lg:text-[12px] mb-5 lg:mb-6"
-        >
-          For 6&ndash;7 Figure Entrepreneurs Only
-        </motion.p>
-
         <motion.h1
           initial={{ opacity: 0, y: reduced ? 0 : 36 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.12, ease: easeOutExpo }}
-          className="font-display font-extrabold text-balance text-center leading-[1.08] tracking-[-0.02em] text-[clamp(28px,4vw,58px)] text-[var(--color-ivory)] max-w-[20ch] mx-auto"
+          className="font-display font-extrabold text-balance text-center leading-[1.1] tracking-[-0.02em] text-[clamp(24px,3.1vw,44px)] text-[var(--color-ivory)] max-w-[30ch] mx-auto"
         >
-          Remove The Invisible Internal Ceiling That&rsquo;s Been Quietly Costing Your Business{" "}
+          You&rsquo;ve Built a Business Generating Millions. You Have the Skills, the Strategy,
+          and the Experience. Yet You Keep Hitting the Same Revenue Ceiling. The Problem
+          Isn&rsquo;t Your Business.{" "}
           <span
             className="accent text-[var(--color-gold)]"
             style={{ textShadow: "0 0 60px oklch(0.78 0.165 78 / 0.4)" }}
           >
-            Millions
+            It&rsquo;s the Identity Running It.
           </span>
         </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: reduced ? 0 : 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.2, ease: easeOutExpo }}
+          className="mt-5 lg:mt-6 text-center text-[var(--color-ivory-dim)] text-[16px] lg:text-[18px] leading-[1.6] max-w-[60ch] mx-auto"
+        >
+          I help successful entrepreneurs uncover and transform the subconscious patterns
+          limiting their growth through personalized hypnosis and identity transmutation.
+        </motion.p>
 
         {/* VSL right under the headline — capped width so the two read as one unit */}
         <motion.div
