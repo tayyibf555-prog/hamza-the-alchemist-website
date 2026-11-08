@@ -9,6 +9,7 @@ import { GoldDots } from "./components/GoldDots";
 import { Track } from "./components/Track";
 import { MetaPixel } from "./components/MetaPixel";
 import { BoxBot } from "./components/BoxBot";
+import { GoogleTagManager } from "./components/GoogleTagManager";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -79,6 +80,7 @@ export default function RootLayout({
         <ScrollManager />
         <MotionRoot>{children}</MotionRoot>
         <Track />
+        <GoogleTagManager />
         <MetaPixel />
         <BoxBot />
         <Analytics />
